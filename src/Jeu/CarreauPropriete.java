@@ -38,15 +38,12 @@ public abstract class CarreauPropriete extends Carreau {
         int prix = this.getPrixAchat();
         int cash = j.getCash();
         if (prix <= cash) {
-        String nomC = this.getNomCarreau();
-        CouleurPropriete nomG = this.getNomGroupe();
-        Boolean rep == super.getMonopoly().interface_9.achatProprieteInter(nomC,nomG,prix);
-        if (rep == true) {
-                j.setCash(j.getCash()-prix);
-                j.addPropriete(this);
-                System.out.println("confirmation de l'achat de " + this.getNomCarreau()+ " par "+ j.getNomJoueur());
-        } else if (rep == false) {
-                System.out.println("Le joueur n'a pas voulu acheter la propriété.");
+            String nomC = this.getNomCarreau();
+            CouleurPropriete nomG = this.getNomGroupe();
+            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC,nomG,prix,j);
+            if (rep == true) {
+                    j.setCash(j.getCash()-prix);
+                    j.addPropriete(this);
             }
         } else {
             System.out.println("Ce joueur n'a pas assez d'argent pour acheter cette propriété !");
