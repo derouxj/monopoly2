@@ -18,7 +18,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
     public void action(Joueur j) {
         Joueur jProprio=this.getProprietaire();
         if (jProprio==null) {
-            super.achatPropriete();
+            super.achatPropriete(j);
         } else {
             if (jProprio!=j) {
                 int l = this.calculLoyer();

@@ -52,4 +52,13 @@ public class Joueur {
 	public void setCash(int solde) {
 		throw new UnsupportedOperationException();
 	}
+
+
+    public ArrayList<Compagnie> getCompagnies() {
+        return compagnies;
+    }
+  
+    public ArrayList<ProprieteAConstruire> getProprietesAConstruire() {
+        return proprietesAConstruire;
+    }
 }
