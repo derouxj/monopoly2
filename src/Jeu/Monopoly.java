@@ -87,6 +87,25 @@ public void lancerDesAvancer(Joueur j) {
 		int d1 = genDes();
                 int d2 = genDes();
                 Carreau pos = j.getPositionCourante();
+                int num = pos.getNumero();
+                HashMap<Integer,Carreau> collectCarreau = getCarreaux();
+                int numFuture = d1+d2+num;
+                Carreau posFuture = collectCarreau.get(numFuture);
+                    
+                    j.deplacer(posFuture);
+                
+                String nom = j.getNomJoueur();
+                int total = d1+d2;
+                String nomCarreau = posFuture.getNomCarreau();
+                
+                    System.out.println("le joueur "+nom+" a lancé les dés faisant un score de "+total+" sa nouvelle position est la case "+nomCarreau);
+                
+                ArrayList<Joueur> collectJoueurs = getJoueurs();
+                
+                    for (Joueur lejoueur : collectJoueurs){
+                      interface_9.messageEtatJoueur(lejoueur);
+                    }
+                
 	}
 
 	public int genDes() {
