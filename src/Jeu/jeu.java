@@ -47,6 +47,9 @@ public class jeu {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
                 }
+                case 3: {
+                    fini = true;
+                }
             }
         }
 

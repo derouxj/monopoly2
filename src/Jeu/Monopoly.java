@@ -154,4 +154,8 @@ public void lancerDesAvancer(Joueur j) {
         System.out.println(lesLances.size());
         System.out.println(js.size());
     }
+    
+    public boolean estFini() {
+        return this.getJoueurs().size() == 1;
+    }
 }
