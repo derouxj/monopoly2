@@ -73,12 +73,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
         }
     }
 
-    public void achatPropriete() {
-        throw new UnsupportedOperationException();
-    }
-
     public CouleurPropriete getCouleur() {
-        throw new UnsupportedOperationException();
+        return super.getNomGroupe();
     }
     
     public int getNbMaisons() {

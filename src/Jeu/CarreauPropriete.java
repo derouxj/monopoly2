@@ -45,6 +45,7 @@ public abstract class CarreauPropriete extends Carreau {
             if (rep == "y") {
                 j.setCash(j.getCash()-prix);
                 j.addPropriete(this);
+                System.out.println("confirmation de l'achat de " + this.getNomCarreau()+ " par "+ j.getNomJoueur());
             } else if (rep == "n") {
                 System.out.println("Le joueur n'a pas voulu acheter la propriété.");
             }

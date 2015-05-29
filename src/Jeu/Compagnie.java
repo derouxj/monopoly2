@@ -1,5 +1,7 @@
 package Jeu;
 
+import Jeu.Monopoly;
+
 public class Compagnie extends CarreauPropriete {
 
     public Compagnie(int numero, String nomCarreau, int prixAchat) {
@@ -14,14 +16,17 @@ public class Compagnie extends CarreauPropriete {
         } else {
             if (jProprio!=j) {
                 int l = this.calculLoyer();
-                jProprio.recevoirLoyer(l);
                 j.payerLoyer(l);
-                
+                jProprio.recevoirLoyer(l);
             }
         }
     }
     
     public int calculLoyer() {
-        return 0;
+        if (super.getProprietaire().getCompagnies().size() == 2) {
+            return 10*(super.getMonopoly().getD1()+super.getMonopoly().getD2());
+        } else {
+            return 4*(super.getMonopoly().getD1()+super.getMonopoly().getD2());
+        }
     }
 }
