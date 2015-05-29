@@ -11,9 +11,9 @@ public class Gare extends CarreauPropriete {
 
     @Override
     public void action(Joueur j) {
-        Joueur jProprio = this.getProprietaire();
-        if (jProprio == null) {
-            super.achatPropriete();
+        Joueur jProprio=this.getProprietaire();
+        if (jProprio==null) {
+            super.achatPropriete(j);
         } else {
             if (jProprio != j) {
                 int l = this.calculLoyer();
