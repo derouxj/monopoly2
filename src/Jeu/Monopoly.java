@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Monopoly {
 
@@ -82,13 +83,21 @@ public class Monopoly {
         return data;
     }
 
-    public void lancerDesAvancer() {
-        throw new UnsupportedOperationException();
-    }
+public void lancerDesAvancer(Joueur j) {
+		int d1 = genDes();
+                int d2 = genDes();
+                Carreau pos = j.getPositionCourante();
+	}
 
-    public int genDes() {
-        throw new UnsupportedOperationException();
-    }
+	public int genDes() {
+            Random desMono = new Random();
+            int rouler = 0;
+            for (int i = 0; i < 10; i++) {
+                rouler = desMono.nextInt(6) + 1;
+                
+            }
+          return rouler ;  
+	}
 
     public HashMap<Integer, Carreau> getCarreaux() {
         return carreaux;
@@ -99,7 +108,7 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-        lancerDesAvancer();
+        lancerDesAvancer(j);
         j.getPositionCourante().action(j);
     }
 }
