@@ -84,9 +84,30 @@ public class Monopoly {
         return data;
     }
 
-    public void lancerDesAvancer() {
-        throw new UnsupportedOperationException();
-    }
+public void lancerDesAvancer(Joueur j) {
+		int d1 = genDes();
+                int d2 = genDes();
+                Carreau pos = j.getPositionCourante();
+                int num = pos.getNumero();
+                HashMap<Integer,Carreau> collectCarreau = getCarreaux();
+                int numFuture = d1+d2+num;
+                Carreau posFuture = collectCarreau.get(numFuture);
+                    
+                    j.deplacer(posFuture);
+                
+                String nom = j.getNomJoueur();
+                int total = d1+d2;
+                String nomCarreau = posFuture.getNomCarreau();
+                
+                    System.out.println("le joueur "+nom+" a lancé les dés faisant un score de "+total+" sa nouvelle position est la case "+nomCarreau);
+                
+                LinkedList<Joueur> collectJoueurs = getJoueurs();
+                
+                    for (Joueur lejoueur : collectJoueurs){
+                      interface_9.messageEtatJoueur(lejoueur);
+                    }
+                
+	}
 
     public int genDes() {
         Random rand = new Random();
@@ -102,7 +123,7 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-        lancerDesAvancer();
+        lancerDesAvancer(j);
         j.getPositionCourante().action(j);
     }
     
