@@ -78,7 +78,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
     }
 
     public CouleurPropriete getCouleur() {
-        throw new UnsupportedOperationException();
+        return super.getNomGroupe();
     }
     
     public int getNbMaisons() {
