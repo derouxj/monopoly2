@@ -38,7 +38,7 @@ public class Joueur {
 	}
 
 	public ArrayList<Gare> getGares() {
-		throw new UnsupportedOperationException();
+		return this.gares;
 	}
 
 	public int getCash() {

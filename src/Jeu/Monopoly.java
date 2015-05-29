@@ -7,13 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Monopoly {
 
     private int nbMaisons = 32;
     private int nbHotels = 12;
     private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
-    private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
+    private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
     public Interface interface_9;
 
     public Monopoly(String dataFilename) {
@@ -23,7 +24,7 @@ public class Monopoly {
     private void buildGamePlateau(String dataFilename) {
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
-
+ 
             //TODO: create cases instead of displaying
             for (int i = 0; i < data.size(); ++i) {
                 String caseType = data.get(i)[0];
@@ -94,7 +95,7 @@ public class Monopoly {
         return carreaux;
     }
 
-    public ArrayList<Joueur> getJoueurs() {
+    public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
 

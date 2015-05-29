@@ -34,4 +34,8 @@ public abstract class CarreauPropriete extends Carreau {
     public void achatPropriete() {
         throw new UnsupportedOperationException();
     }
+    
+    public Monopoly getMonopoly() {
+        return super.getMonopoly();
+    }
 }

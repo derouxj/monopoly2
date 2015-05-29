@@ -28,4 +28,8 @@ public abstract class Carreau {
     public String getNomCarreau() {
         return this.nomCarreau;
     }
+    
+    public Monopoly getMonopoly() {
+        return this.monopoly;
+    }
 }
