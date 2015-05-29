@@ -2,12 +2,16 @@ package UI;
 
 import Jeu.Monopoly;
 import Jeu.*;
+import java.util.Scanner;
 import java.util.*;
-
 
 public class Interface {
 	public Monopoly monopoly;
 
+        public Interface() {
+            
+        }
+        
 	public void messageEtatJoueur(Joueur leJoueur) {
 
                 System.out.println("Nom du joueur : " + leJoueur.getNomJoueur());
@@ -65,5 +69,12 @@ public class Interface {
         
         public String messagePerteCash(Joueur j,int somme) {
             return (j.getNomJoueur()+" a perdu "+somme+" $");
+        }
+        
+        public String nouveauJoueur() {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("\nNom du joueur : ");
+            String nom = sc.nextLine();
+            return nom;
         }
 }
