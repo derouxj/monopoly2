@@ -39,6 +39,14 @@ public class jeu {
                         }
                     }
                 }
+                case 2: {
+                    if(!mon.getJoueurs().isEmpty()) {
+                        
+                    }
+                    else {
+                        System.out.println("Vous n'avez pas inscrit de joueurs !");
+                    }
+                }
             }
         }
 

@@ -130,6 +130,7 @@ public void lancerDesAvancer(Joueur j) {
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
+        joueurs.clear();
         for (int i = 0; i < nbj; i++) {
             String nom = interface_9.nouveauJoueur();
             js.add(new Joueur(nom, this));
