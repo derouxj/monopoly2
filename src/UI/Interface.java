@@ -40,7 +40,7 @@ public class Interface {
                     for (ProprieteAConstruire p : proprietes) {
                         System.out.print("- " + p.getNomCarreau() + " du groupe " + p.getNomGroupe());
                         int nbhotels = p.getNbHotels();
-                        int nbmaisons = p.getNbMaisons()
+                        int nbmaisons = p.getNbMaisons();
                         if (nbmaisons == 0 && nbhotels == 0) {
                             System.out.println("(cette propriété n'a pas d'hotel ni de maisons)");
                         } else if (nbhotels == 1 ) {
