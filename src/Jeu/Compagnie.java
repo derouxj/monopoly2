@@ -24,4 +24,7 @@ public class Compagnie extends CarreauPropriete {
     public int calculLoyer() {
         return 0;
     }
+    
+    
+    
 }

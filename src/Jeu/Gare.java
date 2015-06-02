@@ -24,6 +24,7 @@ public class Gare extends CarreauPropriete {
         }
     }
 
+    @Override
     public int calculLoyer() { // renommé de calculLoyerGare (pour factoriser)
         int nbGares = 0;
         int loyer = 0;

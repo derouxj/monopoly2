@@ -57,4 +57,6 @@ public abstract class CarreauPropriete extends Carreau {
     public Monopoly getMonopoly() {
         return super.getMonopoly();
     }
+    
+       public abstract int calculLoyer();
 }

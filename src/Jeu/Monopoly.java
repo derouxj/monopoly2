@@ -126,6 +126,7 @@ public void lancerDesAvancer(Joueur j) {
     public void jouerUnCoup(Joueur j) {
         lancerDesAvancer(j);
         j.getPositionCourante().action(j);
+        
     }
     
     public void inscrireJoueurs(int nbj) {

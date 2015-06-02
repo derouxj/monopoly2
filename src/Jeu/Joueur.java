@@ -124,4 +124,11 @@ public class Joueur {
     public void setProprietesAConstruire(ArrayList<ProprieteAConstruire> proprietesAConstruire) {
         this.proprietesAConstruire = proprietesAConstruire;
     }
+    
+    public void envoyerPrison (){
+            this.setPositionCourante(monopoly.getCarreaux().get(11));
+    }
+
+
+    
 }

@@ -15,7 +15,7 @@ public class jeu {
 
     public static void main(String[] args) {
         boolean fini = false;
-        Monopoly mon = new Monopoly("/users/info/etu-s2/baiyantm/java/monopoly2/src/data/data.txt");
+        Monopoly mon = new Monopoly("/users/info/etu-s2/derouxj/m2105/monopoly2/Monopoly/src/data/data.txt");
 
         Scanner sc = new Scanner(System.in);
         while (!fini) {
@@ -41,11 +41,11 @@ public class jeu {
                 }
                 case 2: {
                     if(!mon.getJoueurs().isEmpty()) {
-                        
                     }
                     else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
+                    
                 }
             }
         }
