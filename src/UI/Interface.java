@@ -17,7 +17,7 @@ public class Interface {
 	public void messageEtatJoueur(Joueur leJoueur) {
 
                 System.out.println("Nom du joueur : " + leJoueur.getNomJoueur());
-                System.out.println("  - position : " + leJoueur.getPositionCourante());
+                System.out.println("  - position : " + leJoueur.getPositionCourante().getNomCarreau());
                 System.out.println("  - solde : " + leJoueur.getCash());
                 System.out.print("  - propriétés : ");
                 ArrayList<Gare> gares = leJoueur.getGares();
