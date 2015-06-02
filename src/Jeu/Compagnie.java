@@ -22,6 +22,7 @@ public class Compagnie extends CarreauPropriete {
         }
     }
     
+    @Override
     public int calculLoyer() {
         if (super.getProprietaire().getCompagnies().size() == 2) {
             return 10*(super.getMonopoly().getD1()+super.getMonopoly().getD2());
@@ -29,7 +30,4 @@ public class Compagnie extends CarreauPropriete {
             return 4*(super.getMonopoly().getD1()+super.getMonopoly().getD2());
         }
     }
-    
-    
-    
 }
