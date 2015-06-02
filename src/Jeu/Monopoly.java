@@ -161,4 +161,9 @@ public void lancerDesAvancer(Joueur j) {
     public boolean estFini() {
         return this.getJoueurs().size() == 1;
     }
+    
+    public void joueurSuivant(){
+        Joueur j = joueurs.removeFirst();
+        joueurs.add(j);
+    }
 }

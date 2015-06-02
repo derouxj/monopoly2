@@ -41,7 +41,21 @@ public class jeu {
                 }
                 case 2: {
                     if(!mon.getJoueurs().isEmpty()) {
-                        
+                        while(!mon.estFini()){
+                            int compteDouble = 0;
+                            mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                            while(mon.getD1()==mon.getD2() && compteDouble < 3) {
+                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                                compteDouble++;
+                            }
+                            if(compteDouble == 3) {
+                                mon.getJoueurs().getFirst().envoyerPrison();
+                            }
+                            if(!mon.estFini()) {
+                                mon.joueurSuivant();
+                            }
+                        }
+                        System.out.println("Le joueur "+mon.getJoueurs().getFirst().getNomJoueur()+" a gagné, gg");
                     }
                     else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
