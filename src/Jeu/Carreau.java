@@ -29,7 +29,7 @@ public abstract class Carreau {
         return this.nomCarreau;
     }
     
-    public Monopoly getMonopoly() {
-        return this.monopoly;
+    public Monopoly getMonopoly(){
+        return monopoly;
     }
 }

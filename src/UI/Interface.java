@@ -7,6 +7,8 @@ import java.util.*;
 
 public class Interface {
 	public Monopoly monopoly;
+        Scanner sc = new Scanner(System.in);
+
 
         public Interface() {
             
@@ -72,9 +74,23 @@ public class Interface {
         }
         
         public String nouveauJoueur() {
-            Scanner sc = new Scanner(System.in);
             System.out.println("\nNom du joueur : ");
             String nom = sc.nextLine();
             return nom;
+        }
+        
+        public Boolean messageAchatPropriete(String nomC,CouleurPropriete nomG,int prix, Joueur j){
+            String rep ="v";
+            while (rep != "y" || rep !="n") {
+                System.out.println("Acheter "+nomC+" de "+nomG+" pour "+prix+" ? (y/n)");
+                rep = sc.nextLine();
+            }
+            if (rep == "y") {
+                System.out.println("confirmation de l'achat de " + nomC+ " par "+ j.getNomJoueur());
+                return true;
+            } else {
+                System.out.println("Le joueur n'a pas voulu acheter la propriété.");
+                return false;
+            }
         }
 }

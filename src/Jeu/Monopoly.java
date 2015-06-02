@@ -1,14 +1,8 @@
 package Jeu;
 //https://github.com/derouxj/monopoly2
 import UI.Interface;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class Monopoly {
 
@@ -18,6 +12,7 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
 
     public Interface interface_9 = new Interface();
+    private int d1,d2;
 
     public Monopoly(String dataFilename) {
         buildGamePlateau(dataFilename);
@@ -86,8 +81,8 @@ public class Monopoly {
     }
 
 public void lancerDesAvancer(Joueur j) {
-		int d1 = genDes();
-                int d2 = genDes();
+		d1 = genDes();
+                d2 = genDes();
                 Carreau pos = j.getPositionCourante();
                 int num = pos.getNumero();
                 HashMap<Integer,Carreau> collectCarreau = getCarreaux();
@@ -117,6 +112,14 @@ public void lancerDesAvancer(Joueur j) {
 
     public HashMap<Integer, Carreau> getCarreaux() {
         return carreaux;
+    }
+    
+    public int getD1(){
+        return d1;
+    }
+    
+    public int getD2(){
+        return d2;
     }
 
     public LinkedList<Joueur> getJoueurs() {
