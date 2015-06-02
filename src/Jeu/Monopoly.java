@@ -157,4 +157,11 @@ public void lancerDesAvancer(Joueur j) {
         System.out.println(lesLances.size());
         System.out.println(js.size());
     }
+    
+    public int getNbMaisons() {
+        return nbMaisons;
+    }
+    public int getNbHotels() {
+        return nbHotels;
+    }
 }

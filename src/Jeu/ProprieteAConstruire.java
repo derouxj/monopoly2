@@ -1,5 +1,9 @@
 package Jeu;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class ProprieteAConstruire extends CarreauPropriete {
 
     private int nbMaisons = 0;
@@ -26,7 +30,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 j.payerLoyer(l);
                 
             } else {
-                //construire();
+                construire();
             }
         }
     }
@@ -83,5 +87,44 @@ public class ProprieteAConstruire extends CarreauPropriete {
     
     public int getNbHotels() {
         return nbHotels;
+    }
+    
+    public int getConstruction() {
+        return getNbMaisons()+getNbHotels();
+    }
+
+    private void construire() {
+        int i=0;
+        boolean estProprio = true;
+        Joueur proprio=super.getProprietaire();
+        ArrayList<ProprieteAConstruire> lesProp = getGroupePropriete().getProprietes();
+        LinkedList<ProprieteAConstruire> proprieteConstructible = new LinkedList<ProprieteAConstruire>();
+        int mini=5; //initialise mini à 5, le maximum de construction qu'une propriété peut avoir
+        
+        while (estProprio && i<lesProp.size()) { // a la sortie, si estProprio=true, le joueur est proprietaire de toutes les prop du groupe
+            if (lesProp.get(i).getProprietaire()!=proprio) {
+                estProprio = false;
+            }
+            
+            proprieteConstructible.add(lesProp.get(i)); // on commence a créer une liste au cas ou il est bien propriete de tous les terrains
+            if (mini>lesProp.get(i).getConstruction()) { //  on vas prendre le nombre de construction qu'a le terrain le moins construit
+                mini=lesProp.get(i).getConstruction();
+            }
+        }
+        //On va regarder la répartition
+        if (estProprio) {
+            for (ProprieteAConstruire ct : proprieteConstructible) {
+                if (ct.getConstruction()>mini || ct.getNbHotels()>0) {
+                    proprieteConstructible.remove(ct);
+                }
+            }
+            ProprieteAConstruire pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
+            if (pAConstruire!=null) {
+                pAConstruire.addMaison();
+            }
+            
+        } else {
+            System.out.println("Vous ne possedez pas toutes les propriétés de ce groupe");
+        }
     }
 }

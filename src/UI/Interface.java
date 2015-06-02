@@ -93,4 +93,21 @@ public class Interface {
                 return false;
             }
         }
+        
+        public ProprieteAConstruire messageChoixConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
+            int nbterrain=0;
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Sur quelle terrain voulez vous construire ?"+"\n\t0 - Aucun");
+            for (ProprieteAConstruire pc : lesTerrains) {
+                nbterrain=nbterrain+1;
+                System.out.println("\t"+nbterrain+" - "+pc.getNomCarreau());
+            }
+            int choix = sc.nextInt();
+            
+            if (choix==0 || choix>nbterrain) {
+                return null;
+            } else {
+                return lesTerrains.get(choix);
+            }
+         }
 }
