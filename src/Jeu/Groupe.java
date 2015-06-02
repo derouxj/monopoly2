@@ -14,8 +14,6 @@ public class Groupe {
         setPrixAchatMaison(prixAchatMaison);
         setPrixAchatHotel(prixAchatHotel);
         setCouleur(couleur);
-                    //ArrayList<ProprieteAConstruire> proprietes = new ArrayList<ProprieteAConstruire>();
-
     }
 
     private void setPrixAchatMaison(int numero) {
@@ -41,8 +39,4 @@ public class Groupe {
     public void ajouterPropriete(ProprieteAConstruire prop) {
         getProprietes().add(prop);
     }
-    /*
-    private void addPropriete(ProprieteAConstruire prop) {
-        
-    }*/
 }
