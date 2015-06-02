@@ -129,7 +129,7 @@ public class Monopoly {
 
     public void jouerUnCoup(Joueur j) {
         lancerDesAvancer(j);
-        
+        j.getPositionCourante().action(j);
 
     }
 
