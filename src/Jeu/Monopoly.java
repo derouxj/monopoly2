@@ -10,6 +10,7 @@ public class Monopoly {
     private int nbHotels = 12;
     private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
+
     public Interface interface_9 = new Interface();
     private int d1,d2;
 
@@ -20,7 +21,7 @@ public class Monopoly {
     private void buildGamePlateau(String dataFilename) {
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
-
+ 
             //TODO: create cases instead of displaying
             for (int i = 0; i < data.size(); ++i) {
                 String caseType = data.get(i)[0];
@@ -128,6 +129,7 @@ public void lancerDesAvancer(Joueur j) {
     public void jouerUnCoup(Joueur j) {
         lancerDesAvancer(j);
         j.getPositionCourante().action(j);
+        
     }
     
     public void inscrireJoueurs(int nbj) {

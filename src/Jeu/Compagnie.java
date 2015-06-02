@@ -29,4 +29,7 @@ public class Compagnie extends CarreauPropriete {
             return 4*(super.getMonopoly().getD1()+super.getMonopoly().getD2());
         }
     }
+    
+    
+    
 }
