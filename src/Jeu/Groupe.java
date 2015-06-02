@@ -33,7 +33,7 @@ public class Groupe {
     public CouleurPropriete getCouleur() {
         return this.couleur;
     }
-    
+
     public ArrayList<ProprieteAConstruire> getProprietes() {
         return proprietes;
     }
@@ -45,12 +45,11 @@ public class Groupe {
     public int getPrixAchatHotel() {
         return prixAchatHotel;
     }
-    
     public void ajouterPropriete(ProprieteAConstruire prop) {
         getProprietes().add(prop);
     }
     /*
-    private void addPropriete(ProprieteAConstruire prop) {
+     private void addPropriete(ProprieteAConstruire prop) {
         
-    }*/
+     }*/
 }

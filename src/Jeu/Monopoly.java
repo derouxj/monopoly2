@@ -1,5 +1,6 @@
 package Jeu;
 //https://github.com/derouxj/monopoly2
+
 import UI.Interface;
 import java.io.*;
 import java.util.*;
@@ -10,8 +11,9 @@ public class Monopoly {
     private int nbHotels = 12;
     private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
+
     public Interface interface_9 = new Interface();
-    private int d1,d2;
+    private int d1, d2;
 
     public Monopoly(String dataFilename) {
         buildGamePlateau(dataFilename);
@@ -24,22 +26,22 @@ public class Monopoly {
             //TODO: create cases instead of displaying
             for (int i = 0; i < data.size(); ++i) {
                 String caseType = data.get(i)[0];
-                
+
                 if (caseType.compareTo("P") == 0) {
                     System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    HashMap<String,Groupe> lesGroupes= new HashMap<String,Groupe>();
+                    HashMap<String, Groupe> lesGroupes = new HashMap<String, Groupe>();
                     Groupe grp;
                     if (!lesGroupes.containsKey(data.get(i)[3])) {
-                        lesGroupes.put(data.get(i)[3], new Groupe(Integer.parseInt(data.get(i)[11]), Integer.parseInt(data.get(i)[12]),CouleurPropriete.valueOf(data.get(i)[3])));
+                        lesGroupes.put(data.get(i)[3], new Groupe(Integer.parseInt(data.get(i)[11]), Integer.parseInt(data.get(i)[12]), CouleurPropriete.valueOf(data.get(i)[3])));
 
                     }
-                    grp=lesGroupes.get(data.get(i)[3]);
+                    grp = lesGroupes.get(data.get(i)[3]);
                     int loyer[] = new int[7];
                     for (int j = 0; j <= 6; j++) {
                         loyer[j] = Integer.parseInt(data.get(i)[j + 5]);
                     }
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp));
-                 } else if (caseType.compareTo("G") == 0) {
+                } else if (caseType.compareTo("G") == 0) {
                     System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2]));
                 } else if (caseType.compareTo("C") == 0) {
@@ -79,30 +81,30 @@ public class Monopoly {
         return data;
     }
 
-public void lancerDesAvancer(Joueur j) {
-		d1 = genDes();
-                d2 = genDes();
-                Carreau pos = j.getPositionCourante();
-                int num = pos.getNumero();
-                HashMap<Integer,Carreau> collectCarreau = getCarreaux();
-                int numFuture = d1+d2+num;
-                Carreau posFuture = collectCarreau.get(numFuture);
-                    
-                    j.deplacer(posFuture);
-                
-                String nom = j.getNomJoueur();
-                int total = d1+d2;
-                String nomCarreau = posFuture.getNomCarreau();
-                
-                    System.out.println("le joueur "+nom+" a lancé les dés faisant un score de "+total+" sa nouvelle position est la case "+nomCarreau);
-                
-                LinkedList<Joueur> collectJoueurs = getJoueurs();
-                
-                    for (Joueur lejoueur : collectJoueurs){
-                      interface_9.messageEtatJoueur(lejoueur);
-                    }
-                
-	}
+    public void lancerDesAvancer(Joueur j) {
+        d1 = genDes();
+        d2 = genDes();
+        Carreau pos = j.getPositionCourante();
+        int num = pos.getNumero();
+        HashMap<Integer, Carreau> collectCarreau = getCarreaux();
+        int numFuture = d1 + d2 + num;
+        Carreau posFuture = collectCarreau.get(numFuture);
+
+        j.deplacer(posFuture);
+
+        String nom = j.getNomJoueur();
+        int total = d1 + d2;
+        String nomCarreau = posFuture.getNomCarreau();
+
+        System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
+
+        LinkedList<Joueur> collectJoueurs = getJoueurs();
+
+        for (Joueur lejoueur : collectJoueurs) {
+            interface_9.messageEtatJoueur(lejoueur);
+        }
+
+    }
 
     public int genDes() {
         Random rand = new Random();
@@ -112,12 +114,12 @@ public void lancerDesAvancer(Joueur j) {
     public HashMap<Integer, Carreau> getCarreaux() {
         return carreaux;
     }
-    
-    public int getD1(){
+
+    public int getD1() {
         return d1;
     }
-    
-    public int getD2(){
+
+    public int getD2() {
         return d2;
     }
 
@@ -128,8 +130,9 @@ public void lancerDesAvancer(Joueur j) {
     public void jouerUnCoup(Joueur j) {
         lancerDesAvancer(j);
         j.getPositionCourante().action(j);
+
     }
-    
+
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
@@ -142,7 +145,7 @@ public void lancerDesAvancer(Joueur j) {
             System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a obtenu " + nb);
         }
         int max = 0;
-        for (int i = 0;i < lesLances.size(); i++) {
+        for (int i = 0; i < lesLances.size(); i++) {
             if (max < lesLances.get(i)) {
                 max = lesLances.get(i);
             }
@@ -150,12 +153,19 @@ public void lancerDesAvancer(Joueur j) {
         int laPos = lesLances.indexOf(max);
         joueurs.add(js.get(laPos));
         js.remove(js.get(laPos));
-        while(!js.isEmpty()) {
+        while (!js.isEmpty()) {
             joueurs.add(js.getFirst());
             js.remove(js.getFirst());
         }
-        System.out.println(lesLances.size());
-        System.out.println(js.size());
+    }
+
+    public boolean estFini() {
+        return this.getJoueurs().size() == 1;
+    }
+
+    public void joueurSuivant() {
+        Joueur j = joueurs.removeFirst();
+        joueurs.add(j);
     }
     
     public int getNbMaisons() {

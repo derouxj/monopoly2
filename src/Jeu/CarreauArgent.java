@@ -9,15 +9,14 @@ public class CarreauArgent extends CarreauAction {
         setMontant(montant);
 
     }
-    
+
     @Override
-        public void action(Joueur j) {
-            
-        }
+    public void action(Joueur j) {
+
+    }
 
     private void setMontant(int prixAchat) {
         this.montant = montant;
     }
-    
 
 }
