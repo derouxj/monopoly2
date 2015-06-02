@@ -31,11 +31,11 @@ public class Groupe {
     public CouleurPropriete getCouleur() {
         return this.couleur;
     }
-    
+
     public ArrayList<ProprieteAConstruire> getProprietes() {
         return proprietes;
     }
-    
+
     public void ajouterPropriete(ProprieteAConstruire prop) {
         getProprietes().add(prop);
     }

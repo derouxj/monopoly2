@@ -14,13 +14,13 @@ import java.util.Scanner;
 public class jeu {
 
     public static void main(String[] args) {
-        boolean fini = false;
-        Monopoly mon = new Monopoly("/users/info/etu-s2/derouxj/m2105/monopoly2/Monopoly/src/data/data.txt");
+        int choix;
+        Monopoly mon = new Monopoly("/users/info/etu-s2/baiyantm/java/monopoly2/src/data/data.txt");
 
         Scanner sc = new Scanner(System.in);
-        while (!fini) {
+        do {
             System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
-            int choix = sc.nextInt();
+            choix = sc.nextInt();
             switch (choix) {
                 case 1: {
                     boolean ok = false;
@@ -36,19 +36,39 @@ public class jeu {
                             for (int i = 0; i < mon.getJoueurs().size(); i++) {
                                 System.out.println((i + 1) + "e " + mon.getJoueurs().get(i).getNomJoueur());
                             }
+                            System.out.println();
                         }
                     }
+                    break;
                 }
                 case 2: {
-                    if(!mon.getJoueurs().isEmpty()) {
-                    }
-                    else {
+                    if (!mon.getJoueurs().isEmpty()) {
+                        while (!mon.estFini()) {
+                            int compteDouble = 0;
+                            mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                            while (mon.getD1() == mon.getD2() && compteDouble < 3) {
+                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                                compteDouble++;
+                            }
+                            if (compteDouble == 3) {
+                                mon.getJoueurs().getFirst().envoyerPrison();
+                            }
+                            if (!mon.estFini()) {
+                                mon.joueurSuivant();
+                            }
+                        }
+                        System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
+                    } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
-                    
+                    break;
                 }
+                case 3: {
+                    break;
+                }
+                default:
+                    break;
             }
-        }
-
+        } while (choix != 0);
     }
 }

@@ -10,8 +10,8 @@ public abstract class Carreau {
         setNumero(numero);
         setCarreau(nomCarreau);
     }
-    
-    public abstract void action(Joueur j) ;
+
+    public abstract void action(Joueur j);
 
     private void setNumero(int numero) {
         this.numero = numero;
@@ -28,8 +28,8 @@ public abstract class Carreau {
     public String getNomCarreau() {
         return this.nomCarreau;
     }
-    
-    public Monopoly getMonopoly(){
+
+    public Monopoly getMonopoly() {
         return monopoly;
     }
 }
