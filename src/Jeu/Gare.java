@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Gare extends CarreauPropriete {
 
-    public Gare(int numero, String nomCarreau) {
-        super(numero, nomCarreau, 200);
+    public Gare(int numero, String nomCarreau,Monopoly monopoly) {
+        super(numero, nomCarreau, 200,monopoly);
         //    numéro de la case, son nom, le prix de l'achat (toujours 200)
     }
 

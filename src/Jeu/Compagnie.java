@@ -4,8 +4,8 @@ import Jeu.Monopoly;
 
 public class Compagnie extends CarreauPropriete {
 
-    public Compagnie(int numero, String nomCarreau, int prixAchat) {
-        super(numero, nomCarreau, prixAchat);
+    public Compagnie(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {
+        super(numero, nomCarreau, prixAchat,monopoly);
     }
 
     @Override

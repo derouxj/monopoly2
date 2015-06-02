@@ -55,12 +55,19 @@ public class Joueur {
         return this.cash;
     }
 
-    public void addPropriete(Carreau c) {
-        throw new UnsupportedOperationException();
+    public void addPropriete(CarreauPropriete c) {
+        if (c.getClass().getSimpleName().equals("Gare")) {
+            this.gares.add((Gare) c);
+        } else if (c.getClass().getSimpleName().equals("Compagnie")) {
+            this.compagnies.add((Compagnie)c);
+        } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
+            this.proprietesAConstruire.add((ProprieteAConstruire) c);
+        }
+        c.setProprietaire(this);
     }
 
     public void setCash(int solde) {
-        throw new UnsupportedOperationException();
+        cash=solde;
     }
 
     /**

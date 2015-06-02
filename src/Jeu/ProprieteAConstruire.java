@@ -11,8 +11,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
     private int[] loyers;
     private Groupe groupePropriete;
 
-    public ProprieteAConstruire(int numero, String nomCarreau, int[] loyer, int prixAchat, Groupe groupePropriete) {
-        super(numero, nomCarreau, prixAchat);
+    public ProprieteAConstruire(int numero, String nomCarreau, int[] loyer, int prixAchat, Groupe groupePropriete,Monopoly monopoly) {
+        super(numero, nomCarreau, prixAchat,monopoly);
         setLoyers(loyer);
         setGroupePropriete(groupePropriete);
         groupePropriete.ajouterPropriete(this);
@@ -78,7 +78,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
     }
 
     public CouleurPropriete getCouleur() {
-        return super.getNomGroupe();
+        return getGroupePropriete().getCouleur();
     }
 
     public int getNbMaisons() {

@@ -8,8 +8,8 @@ public abstract class CarreauPropriete extends Carreau {
     private Joueur proprietaire;
     Scanner s = new Scanner(System.in);
 
-    public CarreauPropriete(int numero, String nomCarreau, int prixAchat) {
-        super(numero, nomCarreau);
+    public CarreauPropriete(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {
+        super(numero, nomCarreau,monopoly);
         setPrixAchat(prixAchat);
         setProprietaire(null);
     }
@@ -30,17 +30,12 @@ public abstract class CarreauPropriete extends Carreau {
         return proprietaire;
     }
 
-    public CouleurPropriete getNomGroupe() { // a supprimer a mon avis
-        throw new UnsupportedOperationException();
-    }
-
     public void achatPropriete(Joueur j) {
         int prix = this.getPrixAchat();
         int cash = j.getCash();
         if (prix <= cash) {
             String nomC = this.getNomCarreau();
-            CouleurPropriete nomG = this.getNomGroupe();
-            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, nomG, prix, j);
+            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix, j);
             if (rep == true) {
                 j.setCash(j.getCash() - prix);
                 j.addPropriete(this);
