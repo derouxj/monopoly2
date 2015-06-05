@@ -115,7 +115,7 @@ public class Interface {
             if (choix==0 || choix>nbterrain) {
                 return null;
             } else {
-                return lesTerrains.get(choix);
+                return lesTerrains.get(choix-1);
             }
          }
 }

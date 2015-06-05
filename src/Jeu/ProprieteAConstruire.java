@@ -54,7 +54,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
     }
 
     private void setNbMaisons(int numero) {
-        this.nbMaisons = nbMaisons;
+        this.nbMaisons = numero;
     }
 
     private void setNbHotel(int nb) {
@@ -72,6 +72,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
     public int calculLoyer() {
         if (getNbHotels() == 1) {
             return getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
+        } else if (getNbMaisons()==0){
+            return 0;
         } else {
             return getLoyers()[getNbMaisons()];
         }
@@ -111,6 +113,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
             if (mini>lesProp.get(i).getConstruction()) { //  on vas prendre le nombre de construction qu'a le terrain le moins construit
                 mini=lesProp.get(i).getConstruction();
             }
+            i++;
         }
         //On va regarder la répartition
         if (estProprio) {
@@ -128,8 +131,13 @@ public class ProprieteAConstruire extends CarreauPropriete {
             }
             ProprieteAConstruire pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
             if (pAConstruire!=null) {
-                if (mini==4) {
-                    proprio.setCash(cash-prixHotel);
+                int nbMaisonsMonopoly = super.getMonopoly().getNbMaisons();
+                int nbHotelsMonopoly = super.getMonopoly().getNbHotels();
+                if (mini==4) {//construction d'hotel
+                    if (nbHotelsMonopoly>0){
+                        proprio.setCash(cash-prixHotel);
+                    }
+                    
                 } else {
                     proprio.setCash(cash-prixMaison);
                 }
