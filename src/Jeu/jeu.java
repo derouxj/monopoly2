@@ -25,24 +25,33 @@ public class jeu {
             choix = sc.nextInt();
             switch (choix) {
                 case 1: {
-                    boolean ok = false;
-                    while (!ok) {
-                        System.out.println("Combien de joueurs ? (2 à 6)");
-                        int nbj = sc.nextInt();
-                        if (nbj < 2 || nbj > 6) {
-                            System.out.println(nbj + " pas entre 2 et 6");
-                        } else {
-                            mon.inscrireJoueurs(nbj);
-                            ok = true;
-                            System.out.println("Ordre : ");
-                            for (int i = 0; i < mon.getJoueurs().size(); i++) {
-                                System.out.println((i + 1) + "e " + mon.getJoueurs().get(i).getNomJoueur());
+                    boolean Entier = true;
+                    while (Entier) {
+                        try {
+                            int nbj = 0;
+                            boolean ok = false;
+                            while (!ok) {
+                                System.out.println("Combien de joueurs ? (2 à 6)");
+                                nbj = sc.nextInt();
+                                if (nbj < 2 || nbj > 6) {
+                                    System.out.println(nbj + " pas entre 2 et 6");
+                                } else {
+                                    mon.inscrireJoueurs(nbj);
+                                    ok = true;
+                                    System.out.println("Ordre : ");
+                                    for (int i = 0; i < mon.getJoueurs().size(); i++) {
+                                        System.out.println((i + 1) + "e " + mon.getJoueurs().get(i).getNomJoueur());
+                                    }
+                                    System.out.println();
+                                }
+                                Entier = true;
                             }
-                            System.out.println();
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Ce n'est pas un entier");
                         }
                     }
-                    break;
                 }
+                break;
                 case 2: {
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
