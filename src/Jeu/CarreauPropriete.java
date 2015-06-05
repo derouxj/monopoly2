@@ -37,7 +37,7 @@ public abstract class CarreauPropriete extends Carreau {
             String nomC = this.getNomCarreau();
             Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix, j);
             if (rep == true) {
-                j.setCash(j.getCash() - prix);
+                j.setCash(cash - prix);
                 j.addPropriete(this);
             }
            

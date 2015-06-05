@@ -44,7 +44,9 @@ public class Interface {
                 } else {
                     System.out.println("      propriétés à construire de ce joueur : ");
                     for (ProprieteAConstruire p : proprietes) {
+
                         System.out.print("      - " + p.getNomCarreau() + " du groupe " + p.getCouleur());
+
                         int nbhotels = p.getNbHotels();
                         int nbmaisons = p.getNbMaisons();
                         if (nbmaisons == 0 && nbhotels == 0) {
@@ -100,6 +102,7 @@ public class Interface {
             }
         }
         
+
         public ProprieteAConstruire messageChoixConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
             if (lesTerrains.isEmpty()) {return null;}
             
@@ -118,4 +121,18 @@ public class Interface {
                 return lesTerrains.get(choix-1);
             }
          }
+
+        public void messagePrison(Joueur j) {
+            System.out.println(j.getNomJoueur()+" a été envoyé en prison.");
+        }
+        
+        public void messageCartePrison(boolean yn, Joueur j) {
+            if(yn) {
+                System.out.print(j.getNomJoueur()+" s'est vu ajouter une carte Vous êtes liberé de prison");
+            }
+            else {
+                System.out.print(j.getNomJoueur()+" s'est vu retirer une carte Vous êtes liberé de prison");
+            }
+        }
+
 }

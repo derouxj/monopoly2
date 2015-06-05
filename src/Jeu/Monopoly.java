@@ -84,8 +84,10 @@ public class Monopoly {
     public void lancerDesAvancer(Joueur j) {
         d1 = genDes();
         d2 = genDes();
-        Carreau pos = j.getPositionCourante();
-        int num = pos.getNumero();
+        //Carreau pos = j.getPositionCourante();
+        //int num = pos.getNumero();
+        System.out.println(j.getPositionCourante().getNomCarreau());
+        int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int numFuture = d1 + d2 + num; //modulo
         Carreau posFuture = collectCarreau.get(numFuture);
@@ -173,5 +175,9 @@ public class Monopoly {
     }
     public int getNbHotels() {
         return nbHotels;
+    }
+    
+    public Joueur getJoueurCourant() {
+        return this.getJoueurs().getFirst();
     }
 }
