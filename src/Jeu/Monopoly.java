@@ -183,4 +183,19 @@ public class Monopoly {
     public Joueur getJoueurCourant() {
         return this.getJoueurs().getFirst();
     }
+    
+    public void triche(){
+        
+        LinkedList<Joueur> joueurs1 =  this.getJoueurs();
+        
+        for(Joueur leJoueurtr : joueurs1){
+            Scanner sc = new Scanner(System.in);
+                System.out.println("sur quelle case souhaitez-vous aller avec ce joueur ?");
+            int numvoulu = sc.nextInt();
+            Carreau carreauvoulu = carreaux.get(numvoulu);
+                leJoueurtr.deplacer(carreauvoulu);
+                leJoueurtr.getPositionCourante().action(leJoueurtr);
+                } 
+               
+        }
 }
