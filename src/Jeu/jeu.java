@@ -87,7 +87,7 @@ public class jeu {
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
                     
-                    propBleuC.deplacer(plateau.get(9));
+                    propBleuC.setPositionCourante(plateau.get(9));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propBleuC);

@@ -102,7 +102,7 @@ public class Monopoly {
         
         Carreau posFuture = collectCarreau.get(numFuture);
 
-        j.deplacer(posFuture);
+        j.setPositionCourante(posFuture);
 
         String nom = j.getNomJoueur();
         int total = d1 + d2;
@@ -200,7 +200,7 @@ public class Monopoly {
                 System.out.println("sur quelle case souhaitez-vous aller avec ce joueur ?");
             int numvoulu = sc.nextInt();
             Carreau carreauvoulu = carreaux.get(numvoulu);
-                leJoueurtr.deplacer(carreauvoulu);
+                leJoueurtr.setPositionCourante(carreauvoulu);
                 leJoueurtr.getPositionCourante().action(leJoueurtr);
                 } 
                

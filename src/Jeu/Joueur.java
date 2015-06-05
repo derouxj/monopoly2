@@ -31,10 +31,6 @@ public class Joueur {
         return this.positionCourante;
     }
 
-    public void deplacer(Carreau posFuture) {
-        this.setPositionCourante(posFuture);
-    }
-
     public void recevoirLoyer(int l) {
         setCash(getCash() + l);
         System.out.println(getMonopoly().interface_9.messageReceptionCash(this, l));
