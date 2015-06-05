@@ -33,7 +33,7 @@ public abstract class CarreauPropriete extends Carreau {
     public CouleurPropriete getNomGroupe() { // a supprimer a mon avis
         throw new UnsupportedOperationException();
     }
-
+    
     public void achatPropriete(Joueur j) {
         int prix = this.getPrixAchat();
         int cash = j.getCash();
