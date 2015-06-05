@@ -17,11 +17,11 @@ public class jeu {
     public static void main(String[] args) {
         boolean fini = false;
         int choix;
-        Monopoly mon = new Monopoly("src/data/data.txt");
+        Monopoly mon = new Monopoly("/users/info/etu-s2/derouxj/m2105/monopoly2/Monopoly/src/data/data.txt");
 
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter\n4. Initialiser données");
+            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
             choix = sc.nextInt();
             switch (choix) {
                 case 1: {

@@ -196,4 +196,10 @@ public class Joueur {
         this.setCartePrison(cartePrison-1);
         this.getMonopoly().interface_9.messageCartePrison(false, this);
     }
+    
+    public void ajouterCash(int cash){
+        setCash(getCash()+cash);
+    }
+    
+    
 }
