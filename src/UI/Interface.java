@@ -58,7 +58,7 @@ public class Interface {
                         }
                     }
                 }
-                        
+                    System.out.println();     
         }
         
 	
