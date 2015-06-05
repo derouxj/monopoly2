@@ -47,19 +47,19 @@ public class jeu {
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
                             int compteDouble = 0;
-                            mon.jouerUnCoup(mon.getJoueurCourant());
+                            mon.jouerUnCoup(mon.getJoueurs().getFirst());
                             while (mon.getD1() == mon.getD2() && compteDouble < 3) {
-                                mon.jouerUnCoup(mon.getJoueurCourant());
+                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
                                 compteDouble++;
                             }
                             if (compteDouble == 3) {
-                                mon.getJoueurCourant().envoyerPrison();
+                                mon.getJoueurs().getFirst().envoyerPrison();
                             }
                             if (!mon.estFini()) {
                                 mon.joueurSuivant();
                             }
                         }
-                        System.out.println("Le joueur " + mon.getJoueurCourant().getNomJoueur() + " a gagné, gg");
+                        System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
                     } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
@@ -79,15 +79,15 @@ public class jeu {
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
-                    for (int i=0;i<3;i++) {
+                    for (int i=0;i<2;i++) {
                         propBleuC.getProprietesAConstruire().get(0).addConstruction();
                     }
-                    for (int i=0;i<5;i++) {
+                    for (int i=0;i<2;i++) {
                         propBleuC.getProprietesAConstruire().get(1).addConstruction();
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
                     
-                    propBleuC.deplacer(plateau.get(7));
+                    propBleuC.deplacer(plateau.get(9));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propBleuC);

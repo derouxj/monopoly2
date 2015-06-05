@@ -24,12 +24,13 @@ public class Monopoly {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
             //TODO: create cases instead of displaying
+            HashMap<String, Groupe> lesGroupes = new HashMap<String, Groupe>();
             for (int i = 0; i < data.size(); ++i) {
                 String caseType = data.get(i)[0];
 
                 if (caseType.compareTo("P") == 0) {
                     System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    HashMap<String, Groupe> lesGroupes = new HashMap<String, Groupe>();
+                    
                     Groupe grp;
                     if (!lesGroupes.containsKey(data.get(i)[3])) {
                         lesGroupes.put(data.get(i)[3], new Groupe(Integer.parseInt(data.get(i)[11]), Integer.parseInt(data.get(i)[12]), CouleurPropriete.valueOf(data.get(i)[3])));
@@ -40,7 +41,9 @@ public class Monopoly {
                     for (int j = 0; j <= 6; j++) {
                         loyer[j] = Integer.parseInt(data.get(i)[j + 5]);
                     }
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp,this));
+                    ProprieteAConstruire prop = new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp,this);
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), prop);
+                    
                 } else if (caseType.compareTo("G") == 0) {
                     System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
