@@ -43,7 +43,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         return groupePropriete;
     }
 
-    public void addMaison() {
+    public void addConstruction() {
         if (getNbMaisons() < 4) {
             setNbMaisons(getNbMaisons() + 1);
         } else {
@@ -97,7 +97,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
         int i=0;
         boolean estProprio = true;
         Joueur proprio=super.getProprietaire();
-        ArrayList<ProprieteAConstruire> lesProp = getGroupePropriete().getProprietes();
+        Groupe grp = this.getGroupePropriete();
+        ArrayList<ProprieteAConstruire> lesProp = grp.getProprietes();
         LinkedList<ProprieteAConstruire> proprieteConstructible = new LinkedList<ProprieteAConstruire>();
         int mini=5; //initialise mini à 5, le maximum de construction qu'une propriété peut avoir
         
@@ -113,14 +114,26 @@ public class ProprieteAConstruire extends CarreauPropriete {
         }
         //On va regarder la répartition
         if (estProprio) {
+            int cash=proprio.getCash();
+            int prixHotel = grp.getPrixAchatHotel();
+            int prixMaison = grp.getPrixAchatMaison();
+            
             for (ProprieteAConstruire ct : proprieteConstructible) {
-                if (ct.getConstruction()>mini || ct.getNbHotels()>0) {
+                if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
+                    //message interface
+                    proprieteConstructible.clear();
+                } else if (ct.getConstruction()>mini || ct.getConstruction()>4) {
                     proprieteConstructible.remove(ct);
                 }
             }
             ProprieteAConstruire pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
             if (pAConstruire!=null) {
-                pAConstruire.addMaison();
+                if (mini==4) {
+                    proprio.setCash(cash-prixHotel);
+                } else {
+                    proprio.setCash(cash-prixMaison);
+                }
+                pAConstruire.addConstruction();
             }
             
         } else {
