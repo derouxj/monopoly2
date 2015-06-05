@@ -25,29 +25,20 @@ public class jeu {
             choix = sc.nextInt();
             switch (choix) {
                 case 1: {
-                    boolean Entier = true;
-                    while (Entier) {
-                        try {
-                            int nbj = 0;
-                            boolean ok = false;
-                            while (!ok) {
-                                System.out.println("Combien de joueurs ? (2 à 6)");
-                                nbj = sc.nextInt();
-                                if (nbj < 2 || nbj > 6) {
-                                    System.out.println(nbj + " pas entre 2 et 6");
-                                } else {
-                                    mon.inscrireJoueurs(nbj);
-                                    ok = true;
-                                    System.out.println("Ordre : ");
-                                    for (int i = 0; i < mon.getJoueurs().size(); i++) {
-                                        System.out.println((i + 1) + "e " + mon.getJoueurs().get(i).getNomJoueur());
-                                    }
-                                    System.out.println();
-                                }
-                                Entier = true;
+                    boolean ok = false;
+                    while (!ok) {
+                        System.out.println("Combien de joueurs ? (2 à 6)");
+                        int nbj = sc.nextInt();
+                        if (nbj < 2 || nbj > 6) {
+                            System.out.println(nbj + " pas entre 2 et 6");
+                        } else {
+                            mon.inscrireJoueurs(nbj);
+                            ok = true;
+                            System.out.println("Ordre : ");
+                            for (int i = 0; i < mon.getJoueurs().size(); i++) {
+                                System.out.println((i + 1) + "e " + mon.getJoueurs().get(i).getNomJoueur());
                             }
-                        } catch (java.util.InputMismatchException e) {
-                            System.out.println("Ce n'est pas un entier");
+                            System.out.println();
                         }
                     }
                 }
@@ -79,28 +70,28 @@ public class jeu {
                 }
                 case 4: {
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
-                    
-                    Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
+
+                    Joueur propBleuC = new Joueur("ProprioBleuCiel", mon);
                     mon.getJoueurs().add(propBleuC);//ajout du joueur ProprioBleuCiel
-                    Joueur PropGare = new Joueur("ProprioGare",mon);
+                    Joueur PropGare = new Joueur("ProprioGare", mon);
                     mon.getJoueurs().add(PropGare);//ajout du joueur ProprioGare (gare Montparnasse et gare du Nord)
-                    
-                    propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
-                    propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
-                    propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
-                    for (int i=0;i<2;i++) {
+
+                    propBleuC.addPropriete((CarreauPropriete) plateau.get(7));
+                    propBleuC.addPropriete((CarreauPropriete) plateau.get(9));
+                    propBleuC.addPropriete((CarreauPropriete) plateau.get(10));
+                    for (int i = 0; i < 2; i++) {
                         propBleuC.getProprietesAConstruire().get(0).addConstruction();
                     }
-                    for (int i=0;i<2;i++) {
+                    for (int i = 0; i < 2; i++) {
                         propBleuC.getProprietesAConstruire().get(1).addConstruction();
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
-                    
+
                     propBleuC.setPositionCourante(plateau.get(9));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propBleuC);
-                    
+
                 }
                 default:
                     break;
