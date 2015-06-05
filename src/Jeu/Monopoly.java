@@ -167,4 +167,8 @@ public class Monopoly {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
+    
+    public Joueur getJoueurCourant() {
+        return this.getJoueurs().getFirst();
+    }
 }

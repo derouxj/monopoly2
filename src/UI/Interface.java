@@ -93,4 +93,8 @@ public class Interface {
                 return false;
             }
         }
+        
+        public void messagePrison(Joueur j) {
+            System.out.println(j.getNomJoueur()+" a été envoyé en prison.");
+        }
 }
