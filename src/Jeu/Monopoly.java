@@ -92,14 +92,21 @@ public class Monopoly {
         System.out.println(j.getPositionCourante().getNomCarreau());
         int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = d1 + d2 + num; //modulo
+        int numFuture = (d1 + d2 + num)%40; //modulo
+        if (d1 + d2 + num >40){
+            j.ajouterCash(200);
+        }
+        
+        
+        
+        
         Carreau posFuture = collectCarreau.get(numFuture);
 
-        j.deplacer(posFuture);
+        j.setPositionCourante(posFuture);
 
         String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = posFuture.getNomCarreau();
+        String nomCarreau = j.getPositionCourante().getNomCarreau();
 
         System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
 
@@ -193,7 +200,7 @@ public class Monopoly {
                 System.out.println("sur quelle case souhaitez-vous aller avec ce joueur ?");
             int numvoulu = sc.nextInt();
             Carreau carreauvoulu = carreaux.get(numvoulu);
-                leJoueurtr.deplacer(carreauvoulu);
+                leJoueurtr.setPositionCourante(carreauvoulu);
                 leJoueurtr.getPositionCourante().action(leJoueurtr);
                 } 
                
