@@ -11,6 +11,9 @@ public class Joueur {
     private ArrayList<Gare> gares = new ArrayList<Gare>();
     private Carreau positionCourante;
     private ArrayList<ProprieteAConstruire> proprietesAConstruire = new ArrayList<ProprieteAConstruire>();
+    private int nbTourPrison;
+    private boolean prison;
+    private int cartePrison;
 
     public Joueur(String n, Monopoly m) {
         this.setNomJoueur(n);
@@ -19,6 +22,9 @@ public class Joueur {
         gares = new ArrayList<Gare>();
         proprietesAConstruire = new ArrayList<ProprieteAConstruire>();
         this.setPositionCourante(monopoly.getCarreaux().get(1));
+        this.setPrison(false);
+        this.setCartePrison(0);
+        this.setNbTourPrison(0);
     }
 
     public Carreau getPositionCourante() {
@@ -128,6 +134,59 @@ public class Joueur {
 
     public void envoyerPrison() {
         this.setPositionCourante(monopoly.getCarreaux().get(11));
+        this.setPrison(true);
+        this.getMonopoly().interface_9.messagePrison(this);
     }
 
+    /**
+     * @return the nbTourPrison
+     */
+    public int getNbTourPrison() {
+        return nbTourPrison;
+    }
+
+    /**
+     * @param nbTourPrison the nbTourPrison to set
+     */
+    public void setNbTourPrison(int nbTourPrison) {
+        this.nbTourPrison = nbTourPrison;
+    }
+
+    /**
+     * @return the prison
+     */
+    public boolean isPrison() {
+        return prison;
+    }
+
+    /**
+     * @param prison the prison to set
+     */
+    public void setPrison(boolean prison) {
+        this.prison = prison;
+    }
+
+    /**
+     * @return the cartePrison
+     */
+    public int getCartePrison() {
+        return cartePrison;
+    }
+
+    /**
+     * @param cartePrison the cartePrison to set
+     */
+    public void setCartePrison(int cartePrison) {
+        this.cartePrison = cartePrison;
+    }
+    
+    public void ajouterCartePrison() {
+        this.setCartePrison(cartePrison+1);
+        this.getMonopoly().interface_9.messageCartePrison(true, this);
+    }
+
+    public void retirerCartePrison() {
+        this.setCartePrison(cartePrison-1);
+        this.getMonopoly().interface_9.messageCartePrison(false, this);
+    }
 }
