@@ -1,0 +1,32 @@
+CC,L,Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée.
+CC,B,Reculez de trois cases.,-3
+CC,M,Vous êtes imposés pour les réparations de voirie à raison de : 40€ par maison et 115€ par hôtel.,40,115
+CC,A,Amende pour excès de vitesse : 15€,15
+CC,M,Faites des réparations dans toutes vos maisons : versez pour chaque maison 25€ et pour chaque hôtel 100€,25,100
+CC,A,Amende pour ivresse : 20€,20
+CC,T,Avencez jusqu'à la case départ,1
+CC,P,Allez en prison. Avencez tout droit en prison.Ne passeéz pas par la case Départ. Ne recevez pas 200€.
+CC,T,Rendez-vous à l'Avenue Henri-Martin. Si vous paéssez par la case Départ, recevez 200€,25
+CC,T,Allez à la gare de Lyon si vous passez par la case Départ.Recevez 200€,16
+CC,A,Payer pour frais de scolarité : 150€,-150
+CC,G,Vous avez gagnez le prix de mots croisés. Recevez 100€,100
+CC,G,La banque vous verse un dividende de 50€,50
+CC,B,rendez vous à la rue de la Paix.,40
+CC,G,Votre immeuble et votre prêt rapporte. Vous devez toucher 150€,150
+CC,B,Accédez au Boulevard de la Vilette . Si vous passez par la case Départ vous touchez 200€,12
+CDC,L,Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée.
+CDC,A,Payer u_ne amende de 10€ , 10
+CDC,G,C'est votre anniversaire chaque joueur vous doit 10€ ___________
+CDC,G,Erreur de la banque en votre faveur recevez 200€,200
+CDC,B,retournez à Belleville,2
+CDC,A,Payer la note du medecin : 50€ , 50
+CDC,G, les contribuitions vous rapportent la somme de 20€,20
+CDC,A,Payer à l'Hôpital 100€,-100
+CDC,G,Vous héritez : 100€ ,100
+CDC,B,Allez en prison. Avencez tout droit en prison.Ne passeéz pas par la case Départ. Ne recevez pas 200€.,11
+CDC,A,Payer votre police d'assurance : 50€ , 50
+CDC,G,La vente de votre stock vous rapporte : 50€,50
+CDC,B,Avencez jusqu'à la case départ,1
+CDC,G,recevez votre interêt à l'emprunt à 7% : 25€ , 25
+CDC,G,recevez votre revenu annuel: 100€ , 100
+CDC,G,Vous avez gagné le deuxième prix de beauté : recevez 10€ , 10s

@@ -79,15 +79,15 @@ public class jeu {
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
-                    for (int i=0;i<3;i++) {
+                    for (int i=0;i<2;i++) {
                         propBleuC.getProprietesAConstruire().get(0).addConstruction();
                     }
-                    for (int i=0;i<5;i++) {
+                    for (int i=0;i<2;i++) {
                         propBleuC.getProprietesAConstruire().get(1).addConstruction();
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
                     
-                    propBleuC.deplacer(plateau.get(7));
+                    propBleuC.deplacer(plateau.get(9));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propBleuC);
