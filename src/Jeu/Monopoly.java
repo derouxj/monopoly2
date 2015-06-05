@@ -40,22 +40,22 @@ public class Monopoly {
                     for (int j = 0; j <= 6; j++) {
                         loyer[j] = Integer.parseInt(data.get(i)[j + 5]);
                     }
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp,this));
                 } else if (caseType.compareTo("G") == 0) {
                     System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2]));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
                 } else if (caseType.compareTo("C") == 0) {
                     System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new Compagnie(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3])));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new Compagnie(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]),this));
                 } else if (caseType.compareTo("CT") == 0) {
                     System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2]));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
                 } else if (caseType.compareTo("CA") == 0) {
                     System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauArgent(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3])));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauArgent(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]),this));
                 } else if (caseType.compareTo("CM") == 0) {
                     System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2]));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
                 } else {
                     System.err.println("[buildGamePleateau()] : Invalid Data type");
                 }
@@ -84,10 +84,12 @@ public class Monopoly {
     public void lancerDesAvancer(Joueur j) {
         d1 = genDes();
         d2 = genDes();
-        Carreau pos = j.getPositionCourante();
-        int num = pos.getNumero();
+        //Carreau pos = j.getPositionCourante();
+        //int num = pos.getNumero();
+        System.out.println(j.getPositionCourante().getNomCarreau());
+        int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = d1 + d2 + num;
+        int numFuture = d1 + d2 + num; //modulo
         Carreau posFuture = collectCarreau.get(numFuture);
 
         j.deplacer(posFuture);
@@ -167,4 +169,30 @@ public class Monopoly {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
+    
+    public int getNbMaisons() {
+        return nbMaisons;
+    }
+    public int getNbHotels() {
+        return nbHotels;
+    }
+    
+    public Joueur getJoueurCourant() {
+        return this.getJoueurs().getFirst();
+    }
+    
+    public void triche(){
+        
+        LinkedList<Joueur> joueurs1 =  this.getJoueurs();
+        
+        for(Joueur leJoueurtr : joueurs1){
+            Scanner sc = new Scanner(System.in);
+                System.out.println("sur quelle case souhaitez-vous aller avec ce joueur ?");
+            int numvoulu = sc.nextInt();
+            Carreau carreauvoulu = carreaux.get(numvoulu);
+                leJoueurtr.deplacer(carreauvoulu);
+                leJoueurtr.getPositionCourante().action(leJoueurtr);
+                } 
+               
+        }
 }
