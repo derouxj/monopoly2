@@ -30,19 +30,14 @@ public abstract class CarreauPropriete extends Carreau {
         return proprietaire;
     }
 
-    public CouleurPropriete getNomGroupe() { // a supprimer a mon avis
-        throw new UnsupportedOperationException();
-    }
-
     public void achatPropriete(Joueur j) {
         int prix = this.getPrixAchat();
         int cash = j.getCash();
         if (prix <= cash) {
             String nomC = this.getNomCarreau();
-            CouleurPropriete nomG = this.getNomGroupe();
-            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, nomG, prix, j);
+            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix, j);
             if (rep == true) {
-                j.setCash(j.getCash() - prix);
+                j.setCash(cash - prix);
                 j.addPropriete(this);
             }
            

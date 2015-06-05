@@ -44,7 +44,7 @@ public class Interface {
                 } else {
                     System.out.println("propriétés à construire de ce joueur : ");
                     for (ProprieteAConstruire p : proprietes) {
-                        System.out.print("- " + p.getNomCarreau() + " du groupe " + p.getNomGroupe());
+                        System.out.print("- " + p.getNomCarreau() + " du groupe " + p.getCouleur());
                         int nbhotels = p.getNbHotels();
                         int nbmaisons = p.getNbMaisons();
                         if (nbmaisons == 0 && nbhotels == 0) {
@@ -79,10 +79,10 @@ public class Interface {
             return nom;
         }
         
-        public Boolean messageAchatPropriete(String nomC,CouleurPropriete nomG,int prix, Joueur j){
+        public Boolean messageAchatPropriete(String nomC,int prix, Joueur j){
             String rep ="v";
             while (rep != "y" || rep !="n") {
-                System.out.println("Acheter "+nomC+" de "+nomG+" pour "+prix+" ? (y/n)");
+                System.out.println("Acheter "+nomC+" pour "+prix+" ? (y/n)");
                 rep = sc.nextLine();
             }
             if (rep == "y") {

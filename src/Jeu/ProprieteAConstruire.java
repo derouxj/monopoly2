@@ -74,7 +74,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
     }
 
     public CouleurPropriete getCouleur() {
-        return super.getNomGroupe();
+        return groupePropriete.getCouleur();
     }
 
     public int getNbMaisons() {
