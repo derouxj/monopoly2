@@ -8,8 +8,8 @@ public abstract class CarreauPropriete extends Carreau {
     private Joueur proprietaire;
     Scanner s = new Scanner(System.in);
 
-    public CarreauPropriete(int numero, String nomCarreau, int prixAchat) {
-        super(numero, nomCarreau);
+    public CarreauPropriete(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {
+        super(numero, nomCarreau,monopoly);
         setPrixAchat(prixAchat);
         setProprietaire(null);
     }

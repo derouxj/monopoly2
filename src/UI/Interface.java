@@ -19,32 +19,34 @@ public class Interface {
                 System.out.println("Nom du joueur : " + leJoueur.getNomJoueur());
                 System.out.println("  - position : " + leJoueur.getPositionCourante().getNomCarreau());
                 System.out.println("  - solde : " + leJoueur.getCash());
-                System.out.print("  - propriétés : ");
+                System.out.println("  - propriétés : ");
                 ArrayList<Gare> gares = leJoueur.getGares();
                 if (gares.isEmpty()) {
-                    System.out.println("Ce joueur n'a aucune gares.");
+                    System.out.println("      Ce joueur n'a aucune gares.");
                 } else {
-                    System.out.println("gares de ce joueur : ");
+                    System.out.println("      gares de ce joueur : ");
                     for (Gare g : gares) {
-                        System.out.println("- " + g.getNomCarreau());
+                        System.out.println("      - " + g.getNomCarreau());
                     }
                 }
                 ArrayList<Compagnie> compagnies = leJoueur.getCompagnies();
                 if (compagnies.isEmpty()) {
-                    System.out.println("Ce joueur n'a pas de compagnies.");
+                    System.out.println("      Ce joueur n'a pas de compagnies.");
                 } else {
-                    System.out.println("compagnies de ce joueur : ");
+                    System.out.println("      compagnies de ce joueur : ");
                     for (Compagnie c : compagnies) {
-                        System.out.print("- " + c.getNomCarreau());
+                        System.out.print("      - " + c.getNomCarreau());
                     }
                 }
                 ArrayList<ProprieteAConstruire> proprietes = leJoueur.getProprietesAConstruire();
                 if (proprietes.isEmpty()) {
-                    System.out.println("Ce joueur n'a aucune propriétés à construire.");
+                    System.out.println("      Ce joueur n'a aucune propriétés à construire.");
                 } else {
-                    System.out.println("propriétés à construire de ce joueur : ");
+                    System.out.println("      propriétés à construire de ce joueur : ");
                     for (ProprieteAConstruire p : proprietes) {
-                        System.out.print("- " + p.getNomCarreau() + " du groupe " + p.getCouleur());
+
+                        System.out.print("      - " + p.getNomCarreau() + " du groupe " + p.getCouleur());
+
                         int nbhotels = p.getNbHotels();
                         int nbmaisons = p.getNbMaisons();
                         if (nbmaisons == 0 && nbhotels == 0) {
@@ -80,12 +82,18 @@ public class Interface {
         }
         
         public Boolean messageAchatPropriete(String nomC,int prix, Joueur j){
-            String rep ="v";
-            while (rep != "y" || rep !="n") {
+            Scanner sc = new Scanner(System.in);
+            boolean aRepondu = false;
+            String rep;
+            do {
                 System.out.println("Acheter "+nomC+" pour "+prix+" ? (y/n)");
                 rep = sc.nextLine();
-            }
-            if (rep == "y") {
+                if(rep.equals("y")|| rep.equals("n")) {
+                    aRepondu = true;
+                }
+            }while(!aRepondu);
+            
+            if (rep.equals("y")) {
                 System.out.println("confirmation de l'achat de " + nomC+ " par "+ j.getNomJoueur());
                 return true;
             } else {
@@ -94,6 +102,26 @@ public class Interface {
             }
         }
         
+
+        public ProprieteAConstruire messageChoixConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
+            if (lesTerrains.isEmpty()) {return null;}
+            
+            int nbterrain=0;
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Sur quelle terrain voulez vous construire ?"+"\n\t0 - Aucun");
+            for (ProprieteAConstruire pc : lesTerrains) {
+                nbterrain=nbterrain+1;
+                System.out.println("\t"+nbterrain+" - "+pc.getNomCarreau());
+            }
+            int choix = sc.nextInt();
+            
+            if (choix==0 || choix>nbterrain) {
+                return null;
+            } else {
+                return lesTerrains.get(choix-1);
+            }
+         }
+
         public void messagePrison(Joueur j) {
             System.out.println(j.getNomJoueur()+" a été envoyé en prison.");
         }
@@ -106,4 +134,5 @@ public class Interface {
                 System.out.print(j.getNomJoueur()+" s'est vu retirer une carte Vous êtes liberé de prison");
             }
         }
+
 }

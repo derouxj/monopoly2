@@ -5,6 +5,7 @@
  */
 package Jeu;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -14,12 +15,13 @@ import java.util.Scanner;
 public class jeu {
 
     public static void main(String[] args) {
+        boolean fini = false;
         int choix;
-        Monopoly mon = new Monopoly("/users/info/etu-s2/lebretov/monopoly2/src/data/data.txt");
+        Monopoly mon = new Monopoly("src/data/data.txt");
 
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
+            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter\n4. Initialiser données");
             choix = sc.nextInt();
             switch (choix) {
                 case 1: {
@@ -65,6 +67,31 @@ public class jeu {
                 }
                 case 3: {
                     break;
+                }
+                case 4: {
+                    HashMap<Integer, Carreau> plateau = mon.getCarreaux();
+                    
+                    Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
+                    mon.getJoueurs().add(propBleuC);//ajout du joueur ProprioBleuCiel
+                    Joueur PropGare = new Joueur("ProprioGare",mon);
+                    mon.getJoueurs().add(PropGare);//ajout du joueur ProprioGare (gare Montparnasse et gare du Nord)
+                    
+                    propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
+                    propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
+                    propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
+                    for (int i=0;i<3;i++) {
+                        propBleuC.getProprietesAConstruire().get(0).addConstruction();
+                    }
+                    for (int i=0;i<5;i++) {
+                        propBleuC.getProprietesAConstruire().get(1).addConstruction();
+                    }
+                    propBleuC.getProprietesAConstruire().get(2).addConstruction();
+                    
+                    propBleuC.deplacer(plateau.get(7));
+                    System.out.println(propBleuC.getPositionCourante().getNomCarreau());
+                    propBleuC.getPositionCourante().action(propBleuC);
+                    mon.interface_9.messageEtatJoueur(propBleuC);
+                    
                 }
                 default:
                     break;
