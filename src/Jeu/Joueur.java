@@ -179,5 +179,14 @@ public class Joueur {
     public void setCartePrison(int cartePrison) {
         this.cartePrison = cartePrison;
     }
+    
+    public void ajouterCartePrison() {
+        this.setCartePrison(cartePrison+1);
+        this.getMonopoly().interface_9.messageCartePrison(true, this);
+    }
 
+    public void retirerCartePrison() {
+        this.setCartePrison(cartePrison-1);
+        this.getMonopoly().interface_9.messageCartePrison(false, this);
+    }
 }

@@ -97,4 +97,13 @@ public class Interface {
         public void messagePrison(Joueur j) {
             System.out.println(j.getNomJoueur()+" a été envoyé en prison.");
         }
+        
+        public void messageCartePrison(boolean yn, Joueur j) {
+            if(yn) {
+                System.out.print(j.getNomJoueur()+" s'est vu ajouter une carte Vous êtes liberé de prison");
+            }
+            else {
+                System.out.print(j.getNomJoueur()+" s'est vu retirer une carte Vous êtes liberé de prison");
+            }
+        }
 }
