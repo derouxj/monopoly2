@@ -24,12 +24,13 @@ public class Monopoly {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
             //TODO: create cases instead of displaying
+            HashMap<String, Groupe> lesGroupes = new HashMap<String, Groupe>();
             for (int i = 0; i < data.size(); ++i) {
                 String caseType = data.get(i)[0];
 
                 if (caseType.compareTo("P") == 0) {
                     System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    HashMap<String, Groupe> lesGroupes = new HashMap<String, Groupe>();
+                    
                     Groupe grp;
                     if (!lesGroupes.containsKey(data.get(i)[3])) {
                         lesGroupes.put(data.get(i)[3], new Groupe(Integer.parseInt(data.get(i)[11]), Integer.parseInt(data.get(i)[12]), CouleurPropriete.valueOf(data.get(i)[3])));
@@ -40,7 +41,9 @@ public class Monopoly {
                     for (int j = 0; j <= 6; j++) {
                         loyer[j] = Integer.parseInt(data.get(i)[j + 5]);
                     }
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp,this));
+                    ProprieteAConstruire prop = new ProprieteAConstruire(Integer.parseInt(data.get(i)[1]), data.get(i)[2], loyer, Integer.parseInt(data.get(i)[4]), grp,this);
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), prop);
+                    
                 } else if (caseType.compareTo("G") == 0) {
                     System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
@@ -89,14 +92,21 @@ public class Monopoly {
         System.out.println(j.getPositionCourante().getNomCarreau());
         int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = d1 + d2 + num; //modulo
+        int numFuture = (d1 + d2 + num)%40; //modulo
+        if (d1 + d2 + num >40){
+            j.ajouterCash(200);
+        }
+        
+        
+        
+        
         Carreau posFuture = collectCarreau.get(numFuture);
 
-        j.deplacer(posFuture);
+        j.setPositionCourante(posFuture);
 
         String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = posFuture.getNomCarreau();
+        String nomCarreau = j.getPositionCourante().getNomCarreau();
 
         System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
 
@@ -197,7 +207,7 @@ public class Monopoly {
                 System.out.println("sur quelle case souhaitez-vous aller avec ce joueur ?");
             int numvoulu = sc.nextInt();
             Carreau carreauvoulu = carreaux.get(numvoulu);
-                leJoueurtr.deplacer(carreauvoulu);
+                leJoueurtr.setPositionCourante(carreauvoulu);
                 leJoueurtr.getPositionCourante().action(leJoueurtr);
                 } 
                

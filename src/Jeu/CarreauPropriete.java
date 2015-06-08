@@ -29,6 +29,10 @@ public abstract class CarreauPropriete extends Carreau {
     public Joueur getProprietaire() {
         return proprietaire;
     }
+    
+    public CouleurPropriete getNomGroupe() { // a supprimer a mon avis
+        throw new UnsupportedOperationException();
+    }
 
     public void achatPropriete(Joueur j) {
         int prix = this.getPrixAchat();

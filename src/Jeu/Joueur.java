@@ -31,10 +31,6 @@ public class Joueur {
         return this.positionCourante;
     }
 
-    public void deplacer(Carreau posFuture) {
-        this.setPositionCourante(posFuture);
-    }
-
     public void recevoirLoyer(int l) {
         setCash(getCash() + l);
         System.out.println(getMonopoly().interface_9.messageReceptionCash(this, l));
@@ -196,4 +192,10 @@ public class Joueur {
         this.setCartePrison(cartePrison-1);
         this.getMonopoly().interface_9.messageCartePrison(false, this);
     }
+    
+    public void ajouterCash(int cash){
+        setCash(getCash()+cash);
+    }
+    
+    
 }

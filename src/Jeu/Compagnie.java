@@ -1,7 +1,5 @@
 package Jeu;
 
-import Jeu.Monopoly;
-
 public class Compagnie extends CarreauPropriete {
 
     public Compagnie(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {

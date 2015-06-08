@@ -44,9 +44,7 @@ public class Interface {
                 } else {
                     System.out.println("      propriétés à construire de ce joueur : ");
                     for (ProprieteAConstruire p : proprietes) {
-
                         System.out.print("      - " + p.getNomCarreau() + " du groupe " + p.getCouleur());
-
                         int nbhotels = p.getNbHotels();
                         int nbmaisons = p.getNbMaisons();
                         if (nbmaisons == 0 && nbhotels == 0) {
@@ -58,7 +56,7 @@ public class Interface {
                         }
                     }
                 }
-                        
+                    System.out.println();     
         }
         
 	

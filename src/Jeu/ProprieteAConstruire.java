@@ -115,20 +115,27 @@ public class ProprieteAConstruire extends CarreauPropriete {
             }
             i++;
         }
+        i=0;
+        
         //On va regarder la répartition
         if (estProprio) {
+            System.out.println(mini);////////////////
             int cash=proprio.getCash();
             int prixHotel = grp.getPrixAchatHotel();
             int prixMaison = grp.getPrixAchatMaison();
             
-            for (ProprieteAConstruire ct : proprieteConstructible) {
+            while (i<lesProp.size()) {
+                ProprieteAConstruire ct = proprieteConstructible.get(i);
                 if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
                     //message interface
                     proprieteConstructible.clear();
                 } else if (ct.getConstruction()>mini || ct.getConstruction()>4) {
                     proprieteConstructible.remove(ct);
+                } else {
+                    i++;
                 }
             }
+            
             ProprieteAConstruire pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
             if (pAConstruire!=null) {
                 int nbMaisonsMonopoly = super.getMonopoly().getNbMaisons();
@@ -136,9 +143,13 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 if (mini==4) {//construction d'hotel
                     if (nbHotelsMonopoly>0){
                         proprio.setCash(cash-prixHotel);
-                    }
                     
                 } else {
+                    if (nbMaisonsMonopoly>0) {
+                        proprio.setCash(cash-prixMaison);
+                    }
+                     
+                    }
                     proprio.setCash(cash-prixMaison);
                 }
                 pAConstruire.addConstruction();
