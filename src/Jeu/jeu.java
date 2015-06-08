@@ -21,14 +21,29 @@ public class jeu {
 
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter\n4. Initialiser données");
+            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
             choix = sc.nextInt();
             switch (choix) {
                 case 1: {
                     boolean ok = false;
                     while (!ok) {
-                        System.out.println("Combien de joueurs ? (2 à 6)");
-                        int nbj = sc.nextInt();
+                        int nbj = 0;
+                        boolean bonjour = true;
+                        while (bonjour) {
+                            try {
+                                System.out.println("Combien de joueurs ? (2 à 6)");
+                                if (sc.hasNextInt()) {
+                                    nbj = sc.nextInt();
+                                } else {
+                                    sc.next();
+                                    continue;
+                                }
+                                bonjour = false;
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Ce n'est pas un entier !");
+                                sc.next();
+                            }
+                        }
                         if (nbj < 2 || nbj > 6) {
                             System.out.println(nbj + " pas entre 2 et 6");
                         } else {
@@ -41,25 +56,25 @@ public class jeu {
                             System.out.println();
                         }
                     }
-                    break;
                 }
+                break;
                 case 2: {
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
                             int compteDouble = 0;
-                            mon.jouerUnCoup(mon.getJoueurCourant());
+                            mon.jouerUnCoup(mon.getJoueurs().getFirst());
                             while (mon.getD1() == mon.getD2() && compteDouble < 3) {
-                                mon.jouerUnCoup(mon.getJoueurCourant());
+                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
                                 compteDouble++;
                             }
                             if (compteDouble == 3) {
-                                mon.getJoueurCourant().envoyerPrison();
+                                mon.getJoueurs().getFirst().envoyerPrison();
                             }
                             if (!mon.estFini()) {
                                 mon.joueurSuivant();
                             }
                         }
-                        System.out.println("Le joueur " + mon.getJoueurCourant().getNomJoueur() + " a gagné, gg");
+                        System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
                     } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }

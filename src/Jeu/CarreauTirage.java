@@ -9,7 +9,11 @@ public class CarreauTirage extends CarreauAction {
 
     @Override
     public void action(Joueur j) {
-
-    }
+        if(super.getNomCarreau()=="Chance") {
+            //super.getMonopoly().tirerCarteChance()
+        } else {
+            
+        }
+    } 
 
 }

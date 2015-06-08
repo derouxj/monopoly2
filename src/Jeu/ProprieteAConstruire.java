@@ -124,7 +124,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
             int prixHotel = grp.getPrixAchatHotel();
             int prixMaison = grp.getPrixAchatMaison();
             
-            while (i<lesProp.size()) {
+            while (i<proprieteConstructible.size()) {
                 ProprieteAConstruire ct = proprieteConstructible.get(i);
                 if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
                     //message interface
@@ -143,12 +143,11 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 if (mini==4) {//construction d'hotel
                     if (nbHotelsMonopoly>0){
                         proprio.setCash(cash-prixHotel);
-                    
+                    }
                 } else {
                     if (nbMaisonsMonopoly>0) {
                         proprio.setCash(cash-prixMaison);
-                    }
-                     
+                    
                     }
                     proprio.setCash(cash-prixMaison);
                 }
