@@ -17,7 +17,7 @@ public class jeu {
     public static void main(String[] args) {
         boolean fini = false;
         int choix;
-        Monopoly mon = new Monopoly("src/data/data.txt");
+        Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
 
         Scanner sc = new Scanner(System.in);
         do {
