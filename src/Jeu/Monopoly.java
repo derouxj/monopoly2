@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
 package Jeu;
 //https://github.com/derouxj/monopoly2
 
@@ -17,12 +13,7 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
-    
-<<<<<<< HEAD
-    public Interface interface_9 = new Interface();
-=======
     public Interface interface_9 = new Interface(this);
->>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
     private int d1, d2;
 
     public Monopoly(String dataFilename,String dataFile) {
@@ -241,10 +232,6 @@ public class Monopoly {
             }
         }
         int laPos = lesLances.indexOf(max);
-<<<<<<< HEAD
-        
-=======
->>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
         joueurs.add(js.get(laPos));
         js.remove(js.get(laPos));
         while (!js.isEmpty()) {
@@ -418,18 +405,7 @@ public class Monopoly {
      */
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
-    }
-<<<<<<< HEAD
-
-    
-
-    
-
-    
-
-=======
-    
-        
+    }   
     /**
      *Ajoute au monopoly des maisons
      * @param nbMaison nombre de maison a ajouter au monopoly
@@ -473,6 +449,5 @@ public class Monopoly {
     public void setNbHotels(int nbHotels) {
         this.nbHotels = nbHotels;
     }
->>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
     
 }
