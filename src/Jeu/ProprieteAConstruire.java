@@ -26,8 +26,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
         } else {
             if (jProprio != j) {
                 int l = this.calculLoyer();
-                jProprio.recevoirLoyer(l);
-                j.payerLoyer(l);
+                jProprio.recevoir(l);
+                j.payer(l);
 
             } else {
                 construire();
@@ -87,7 +87,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         }
         if (superprop == true) {
            loyer = 2*loyer;
-        }s
+        }
         } else {
             loyer = getLoyers()[getNbMaisons()];
         }

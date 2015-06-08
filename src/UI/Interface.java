@@ -66,11 +66,11 @@ public class Interface {
         }*/
         
         public String messageReceptionCash(Joueur j,int somme) {
-            return (j.getNomJoueur()+" a recu "+somme+" $");
+            return (j.getNomJoueur()+" a recu "+somme+" €");
         }
         
         public String messagePerteCash(Joueur j,int somme) {
-            return (j.getNomJoueur()+" a perdu "+somme+" $");
+            return (j.getNomJoueur()+" a perdu "+somme+" €");
         }
         
         public String nouveauJoueur() {

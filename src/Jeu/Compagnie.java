@@ -14,8 +14,8 @@ public class Compagnie extends CarreauPropriete {
         } else {
             if (jProprio != j) {
                 int l = this.calculLoyer();
-                j.payerLoyer(l);
-                jProprio.recevoirLoyer(l);
+                j.payer(l);
+                jProprio.recevoir(l);
             }
         }
     }

@@ -102,12 +102,9 @@ public class Monopoly {
         Carreau posFuture = collectCarreau.get(numFuture);
 
         getJoueurCourant().setPositionCourante(posFuture);
-
-        String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = getJoueurCourant().getPositionCourante().getNomCarreau();
 
-        System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
+        System.out.println("le joueur " + getJoueurCourant().getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " +        getJoueurCourant().getPositionCourante().getNomCarreau());
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -146,7 +143,7 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-            lancerDesAvancer(getJoueurCourant());
+            lancerDesAvancer();
         j.getPositionCourante().action(j);
 
     }
@@ -225,4 +222,4 @@ public class Monopoly {
         pileCDC.addLast(carte);
         return carte;
     }
-}
+        }
