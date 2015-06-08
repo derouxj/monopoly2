@@ -2,14 +2,14 @@ package Jeu;
 
 public enum CouleurPropriete {
 
-    bleuFonce("bleuFonce"),
-    orange("orange"),
-    mauve("mauve"),
-    violet("violet"),
-    bleuCiel("bleuCiel"),
-    jaune("jaune"),
-    vert("vert"),
-    rouge("rouge");
+    bleuFonce("Bleu foncé"),
+    orange("Orange"),
+    mauve("Mauve"),
+    violet("Violet"),
+    bleuCiel("Bleu ciel"),
+    jaune("Jaune"),
+    vert("Vert"),
+    rouge("Rouge");
 
     private String couleur;
 
