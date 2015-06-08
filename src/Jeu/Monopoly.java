@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
 package Jeu;
 //https://github.com/derouxj/monopoly2
 
@@ -14,7 +18,11 @@ public class Monopoly {
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
     
+<<<<<<< HEAD
     public Interface interface_9 = new Interface();
+=======
+    public Interface interface_9 = new Interface(this);
+>>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
     private int d1, d2;
 
     public Monopoly(String dataFilename,String dataFile) {
@@ -233,7 +241,10 @@ public class Monopoly {
             }
         }
         int laPos = lesLances.indexOf(max);
+<<<<<<< HEAD
         
+=======
+>>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
         joueurs.add(js.get(laPos));
         js.remove(js.get(laPos));
         while (!js.isEmpty()) {
@@ -408,6 +419,7 @@ public class Monopoly {
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
     }
+<<<<<<< HEAD
 
     
 
@@ -415,5 +427,52 @@ public class Monopoly {
 
     
 
+=======
+    
+        
+    /**
+     *Ajoute au monopoly des maisons
+     * @param nbMaison nombre de maison a ajouter au monopoly
+     */
+    public void ajouterMaison(int nbMaison) {
+        setNbMaisons(getNbMaisons()+nbMaison);
+    }
+    
+    /**
+     *Enlève au monopoly UNE maison au monopoly
+     */
+    public void enleverMaison() {
+        setNbMaisons(getNbMaisons()-1);
+    }
+    
+    /**
+     *Ajoute au monopoly des hotel
+     * @param nbHotel nombre d'hotel à ajouter au monopoly
+     */
+    public void ajouterHotel(int nbHotel) {
+        setNbHotels(getNbHotels()+nbHotel);
+    }
+    
+    /**
+     *Enlève au monopoly UN hotel au monopoly
+     */
+    public void enleverHotel() {
+        setNbHotels(getNbHotels()-1);
+    }
+
+    /**
+     * @param nbMaisons the nbMaisons to set
+     */
+    public void setNbMaisons(int nbMaisons) {
+        this.nbMaisons = nbMaisons;
+    }
+
+    /**
+     * @param nbHotels the nbHotels to set
+     */
+    public void setNbHotels(int nbHotels) {
+        this.nbHotels = nbHotels;
+    }
+>>>>>>> b7ab177a82475cdc18d56c2096850e1f3dd2693e
     
 }

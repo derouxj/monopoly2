@@ -20,6 +20,10 @@ public class Compagnie extends CarreauPropriete {
         }
     }
 
+    /**
+     *Calcul le loyer en fonction des dés
+     * @return int correspondant au loyer
+     */
     @Override
     public int calculLoyer() {
         if (super.getProprietaire().getCompagnies().size() == 2) {

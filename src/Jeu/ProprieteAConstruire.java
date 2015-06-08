@@ -74,7 +74,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         int loyer = 0;
         int i = 0;
         Boolean superprop = false;
-        ArrayList<ProprieteAConstruire> groupeprop = this.groupePropriete.getProprietes();
+        ArrayList<ProprieteAConstruire> groupeprop = getGroupePropriete().getProprietes();
         if (getNbHotels() == 1) {
             loyer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
         } else if (getNbMaisons() == 0) {
@@ -83,7 +83,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                     i = i + 1;
                 }
             }
-            if (i == this.groupePropriete.getProprietes().size() - 1) {
+            if (i == getGroupePropriete().getProprietes().size() - 1) {
                 superprop = true;
                 loyer = 2 * loyer;
             }
@@ -134,7 +134,6 @@ public class ProprieteAConstruire extends CarreauPropriete {
         
         //On va regarder la répartition
         if (estProprio) {
-            System.out.println(mini);////////////////
             int cash=proprio.getCash();
             int prixHotel = grp.getPrixAchatHotel();
             int prixMaison = grp.getPrixAchatMaison();
@@ -157,14 +156,14 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 int nbHotelsMonopoly = super.getMonopoly().getNbHotels();
                 if (mini==4) {//construction d'hotel
                     if (nbHotelsMonopoly>0){
-                        proprio.setCash(cash-prixHotel);
+                        proprio.payer(prixHotel);
+                        super.getMonopoly().enleverHotel();
                     }
                 } else {
                     if (nbMaisonsMonopoly>0) {
-                        proprio.setCash(cash-prixMaison);
-                    
+                        proprio.payer(prixMaison);
+                         super.getMonopoly().enleverMaison();
                     }
-                    proprio.setCash(cash-prixMaison);
                 }
                 pAConstruire.addConstruction();
             }

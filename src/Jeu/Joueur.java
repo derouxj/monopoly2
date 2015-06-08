@@ -31,15 +31,24 @@ public class Joueur {
         return this.positionCourante;
     }
 
+    /**
+     *Ajoute la somme en paramètre au cash du joueur.
+     * @param l somme a recevoir
+     */
     public void recevoir(int l) {
         setCash(getCash() + l);
         getMonopoly().interface_9.messageReceptionCash(this, l);
     }
 
+    /**
+     *Enlève la somme en paramètre au cash du joueur.
+     * si il n'a pas assez de cash, il a perdu et est supprimé de la liste des joueurs.
+     * @param l somme à enlever
+     */
     public void payer(int l) {
         if (getCash() - l < 0) {
-            System.out.println(this.getNomJoueur()+" a PERDU !");
-            monopoly.getJoueurs().remove(this);
+            System.out.println("PERDU"); //a finir
+            this.virer();
         } else {
             setCash(getCash() - l);
             getMonopoly().interface_9.messagePerteCash(this, l);
@@ -58,15 +67,27 @@ public class Joueur {
         return this.cash;
     }
 
+    /**
+     *on ajoute la propriété donné en paramètre.
+     * si c'est une gare, on ajoute cette gare à l'arraylist "gares" en vérifiant qu'il n'en possède pas plus de 4 (pour etre conforme au diagramme de classe)
+     * si c'est une compagnie, on ajoute cette compagnie à l'arraylist "compagnies" en vérifiant qu'il n'en possède pas plus de 2 (pour etre conforme au diagramme de classe)
+     * si c'est une propriété à construire, on ajoute cette propriété à "priprietesAConstruire" en vérifiant qu'il n'en possède pas plus de 28 (pour etre conforme au diagramme de classe)
+     */
     public void addPropriete(CarreauPropriete c) {
         if (c.getClass().getSimpleName().equals("Gare")) {
-            this.gares.add((Gare) c);
+            if (getGares().size()<4) {
+                getGares().add((Gare)c);
+            }
         } else if (c.getClass().getSimpleName().equals("Compagnie")) {
-            this.compagnies.add((Compagnie)c);
+            if (getCompagnies().size()<2) {
+                getCompagnies().add((Compagnie)c);
+            }
         } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
-            this.proprietesAConstruire.add((ProprieteAConstruire) c);
+            if (getProprietesAConstruire().size()<28) {
+                getProprietesAConstruire().add((ProprieteAConstruire) c);
+            }
         }
-        c.setProprietaire(this);
+        c.definirProprietaire(this);
     }
 
     public void setCash(int solde) {
@@ -137,14 +158,24 @@ public class Joueur {
     }
 
     /**
+<<<<<<< HEAD
+     *Change la position du joueur par celle de la prison (case n°11)
+     *Change la variable prison du joueur à true.
+=======
      *envoie le joueur en prison
+>>>>>>> 2ca422627a310cf21cc0f661ad657cf272c2feef
      */
     public void envoyerPrison() {
-        this.setPositionCourante(monopoly.getCarreaux().get(11));
+        this.setPositionCourante(getMonopoly().getCarreaux().get(11));
         this.setPrison(true);
         this.getMonopoly().interface_9.messagePrison(this);
     }
-    
+   
+    /**
+     *Change la position du joueur par celle du numero en paramètre.
+     * Si il passe par la case départ il recoit 200€
+     * @param numero numero de la case d'arrivé
+     */
     public void envoyerCase(int numero){
         int numPos = getPositionCourante().getNumero();
         
@@ -153,21 +184,29 @@ public class Joueur {
         } else if (numPos<numero && numero<0) {
             passeDepart();
         }
-        setPositionCourante(monopoly.getCarreaux().get(numero));
-    }
-    
-    public void passeDepart() {
-        setCash(getCash()+200);
+        setPositionCourante(getMonopoly().getCarreaux().get(numero));
     }
     
     /**
-     * deplace le joueur du nombre de case inscrit en paramètre
+     *Est déclenché si la joueur passe par la case départ, il recoit donc 200€
+     */
+    private void passeDepart() {
+        this.recevoir(200);
+    }
+    
+    /**
+     * deplace le joueur du nombre de case inscrit en paramètre. Vérifie également si il est passé par la case départ.
      * 
+     * @param nbCaseADeplacer avance le joueur de ce nombre
      */
     public void deplacer(int nbCaseADeplacer) {
         envoyerCase(verifPos(nbCaseADeplacer));
     }
     
+    /**
+     *Vérifie si le joueur est arrivé à la fin du plateau ou pas
+     * @param nbAAvancer nombre de case à avancer
+     */
     private int verifPos(int nbAAvancer) {
         int posFutur=getPositionCourante().getNumero()+nbAAvancer;
         if (posFutur>40) {
@@ -220,19 +259,24 @@ public class Joueur {
     }
     
     public void ajouterCartePrison() {
-        this.setCartePrison(cartePrison+1);
-        this.getMonopoly().interface_9.messageCartePrison(true, this);
+        this.setCartePrison(getCartePrison()+1);
+        this.getMonopoly().interface_9.messageCartePrison(true);
     }
 
     public void retirerCartePrison() {
-        this.setCartePrison(cartePrison-1);
-        this.getMonopoly().interface_9.messageCartePrison(false, this);
+        this.setCartePrison(getCartePrison()-1);
+        this.getMonopoly().interface_9.messageCartePrison(false);
     }
     
     public void ajouterCash(int cash){
         setCash(getCash()+cash);
     }
 
+    /**
+     *Vérifie le nombre de tour passé en prison par le joueur et applique la règle:
+     * si il a passé moins de deux tours, il rejoue
+     * sinon il doit payer 50
+     */
     public void tourPrison() {
         if (this.getNbTourPrison() > 2) {
             System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
@@ -242,5 +286,23 @@ public class Joueur {
             System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
             this.setNbTourPrison(this.getNbTourPrison() + 1);
         }
+    }
+    
+    /**
+     *Supprime le joueur du monopoly, rend toutes ses maisons et hotels à la banque et rend tous ses terrains achetable.
+     */
+    public void virer() {
+        for (Gare g : getGares()) {
+            g.definirProprietaire(null);
+        }
+        for (Compagnie c : getCompagnies()) {
+            c.definirProprietaire(null);
+        }
+        for (ProprieteAConstruire pc : getProprietesAConstruire()) {
+            getMonopoly().ajouterMaison(pc.getNbMaisons());
+            getMonopoly().ajouterHotel(pc.getNbHotels());
+            pc.definirProprietaire(null);
+        }
+        getMonopoly().getJoueurs().remove(this);
     }
 }
