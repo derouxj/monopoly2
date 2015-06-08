@@ -109,7 +109,7 @@ public class jeu {
                     
                  
                         
-                    propBleuC.deplacer(plateau.get(6));
+                    propBleuC.setPositionCourante(plateau.get(6));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propGare);
@@ -120,7 +120,7 @@ public class jeu {
                     //propCompagnie.addPropriete((Compagnie)plateau.get(29));
                     
                     
-                    propGare.deplacer(plateau.get(13));
+                    propGare.setPositionCourante(plateau.get(13));
                     System.out.println(propGare.getPositionCourante().getNomCarreau());
                     propGare.getPositionCourante().action(propGare);
                     mon.interface_9.messageEtatJoueur(propCompagnie);
