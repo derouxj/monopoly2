@@ -47,8 +47,13 @@ public class Joueur {
      */
     public void payer(int l) {
         if (getCash() - l < 0) {
+<<<<<<< HEAD
             System.out.println("PERDU"); //a finir
             this.virer();
+=======
+            System.out.println(this.getNomJoueur()+" a PERDU !");
+            monopoly.getJoueurs().remove(this);
+>>>>>>> 2ca422627a310cf21cc0f661ad657cf272c2feef
         } else {
             setCash(getCash() - l);
             getMonopoly().interface_9.messagePerteCash(this, l);
@@ -158,8 +163,12 @@ public class Joueur {
     }
 
     /**
+<<<<<<< HEAD
      *Change la position du joueur par celle de la prison (case n°11)
      *Change la variable prison du joueur à true.
+=======
+     *envoie le joueur en prison
+>>>>>>> 2ca422627a310cf21cc0f661ad657cf272c2feef
      */
     public void envoyerPrison() {
         this.setPositionCourante(getMonopoly().getCarreaux().get(11));
@@ -188,10 +197,6 @@ public class Joueur {
      */
     private void passeDepart() {
         this.recevoir(200);
-    }
-    
-    public void anniversaire() {
-        
     }
     
     /**

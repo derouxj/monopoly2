@@ -1,5 +1,7 @@
 package Jeu;
 
+import java.util.LinkedList;
+
 public class CarreauTirage extends CarreauAction {
 
     public CarreauTirage(int numero, String nomCarreau,Monopoly monopoly) {
@@ -21,7 +23,7 @@ public class CarreauTirage extends CarreauAction {
         } else if (monType=="T") {
             super.getMonopoly().getJoueurCourant().envoyerCase(ct.getNombreAction());
         } else if (monType=="M") {
-            super.getMonopoly().getJoueurCourant().anniversaire();
+            this.anniversaire();
         } else if (monType=="A") {
             super.getMonopoly().getJoueurCourant().recevoir(ct.getNombreAction());
         } else if (monType=="B") {
@@ -32,4 +34,14 @@ public class CarreauTirage extends CarreauAction {
             System.out.println("ERREUR, type non reconnu");
         }
     } 
+    
+    public void anniversaire() {
+        LinkedList<Joueur> collectJoueurs = super.getMonopoly().getJoueurs();
+        collectJoueurs.removeFirst();
+        for (Joueur j : collectJoueurs) {
+            j.setCash(j.getCash()-10);
+        }
+        super.getMonopoly().getJoueurCourant().recevoir(10*collectJoueurs.size());
+    }
+    
 }
