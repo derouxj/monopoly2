@@ -11,6 +11,8 @@ public class Monopoly {
     private int nbHotels = 12;
     private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
+    private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
+    private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
 
     public Interface interface_9 = new Interface();
     private int d1, d2;
