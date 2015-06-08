@@ -233,6 +233,15 @@ public class Joueur {
     public void ajouterCash(int cash){
         setCash(getCash()+cash);
     }
-    
-    
+
+    public void tourPrison() {
+        if (this.getNbTourPrison() > 2) {
+            System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
+            this.setNbTourPrison(0);
+            this.payer(50);
+        } else {
+            System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
+            this.setNbTourPrison(this.getNbTourPrison() + 1);
+        }
+    }
 }

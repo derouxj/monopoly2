@@ -88,9 +88,18 @@ public class jeu {
                     
                     Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
                     mon.getJoueurs().add(propBleuC);//ajout du joueur ProprioBleuCiel
-                    Joueur PropGare = new Joueur("ProprioGare",mon);
-                    mon.getJoueurs().add(PropGare);//ajout du joueur ProprioGare (gare Montparnasse et gare du Nord)
                     
+                    Joueur propGare = new Joueur("ProprioGare",mon);
+                    mon.getJoueurs().add(propGare);//ajout du joueur ProprioGare (toutes les gares)
+                    
+                    Joueur propCompagnie = new Joueur("ProprioCompagnie",mon);
+                    mon.getJoueurs().add(propCompagnie);  //ajout du joueur ProprioCompagnie (test avec une seule compagnie)
+                    
+                    mon.setD1(5);
+                    mon.setD2(4);
+                    
+                   
+                            
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
@@ -102,14 +111,43 @@ public class jeu {
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
                     
-                    propBleuC.setPositionCourante(plateau.get(9));
+                    //propBleuC.deplacer(plateau.get(7));
+                    System.out.println(propBleuC.getPositionCourante().getNomCarreau());
+                    //propBleuC.getPositionCourante().action(propBleuC);
+                    mon.interface_9.messageEtatJoueur(propBleuC);
+                    
+                    
+                    propGare.addPropriete((Gare)plateau.get(6));
+                    propGare.addPropriete((Gare)plateau.get(16));
+                    propGare.addPropriete((Gare)plateau.get(26));
+                    propGare.addPropriete((Gare)plateau.get(36));
+                    
+                 
+                        
+                    propBleuC.setPositionCourante(plateau.get(6));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
                     propBleuC.getPositionCourante().action(propBleuC);
-                    mon.interface_9.messageEtatJoueur(propBleuC);
+                    mon.interface_9.messageEtatJoueur(propGare);
+                    
+                    
+                    
+                    propCompagnie.addPropriete((Compagnie)plateau.get(13));
+                    //propCompagnie.addPropriete((Compagnie)plateau.get(29));
+                    
+                    
+                    propGare.setPositionCourante(plateau.get(13));
+                    System.out.println(propGare.getPositionCourante().getNomCarreau());
+                    propGare.getPositionCourante().action(propGare);
+                    mon.interface_9.messageEtatJoueur(propCompagnie);
+                    
+                }
+                case 5: {
                     
                 }
                 default:
                     break;
+                                 
+
             }
         } while (choix != 0);
     }

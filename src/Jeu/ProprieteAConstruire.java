@@ -70,13 +70,29 @@ public class ProprieteAConstruire extends CarreauPropriete {
     }
 
     public int calculLoyer() {
+        int loyer = 0;
+        int i = 0;
+        Boolean superprop = false;
+        ArrayList<ProprieteAConstruire> groupeprop = this.groupePropriete.getProprietes();
         if (getNbHotels() == 1) {
-            return getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
+            loyer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
         } else if (getNbMaisons()==0){
-            return 0;
-        } else {
-            return getLoyers()[getNbMaisons()];
+            for (ProprieteAConstruire prop : groupeprop){
+            while (prop.getProprietaire() == this.getProprietaire()) {
+                i = i+1;
+            }
         }
+        if (i == this.groupePropriete.getProprietes().size()-1) {
+            superprop = true;
+        }
+        if (superprop == true) {
+           loyer = 2*loyer;
+        }
+        } else {
+            loyer = getLoyers()[getNbMaisons()];
+        }
+                 
+        return loyer;
     }
 
     public CouleurPropriete getCouleur() {
@@ -147,7 +163,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 } else {
                     if (nbMaisonsMonopoly>0) {
                         proprio.setCash(cash-prixMaison);
-                        System.out.println(prixMaison);
+                    
                     }
                     proprio.setCash(cash-prixMaison);
                 }

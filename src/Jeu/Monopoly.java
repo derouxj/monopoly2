@@ -86,28 +86,26 @@ public class Monopoly {
         return data;
     }
 
-    public void lancerDesAvancer(Joueur j) {
+    public void lancerDesAvancer() {
         d1 = genDes();
         d2 = genDes();
-        //Carreau pos = j.getPositionCourante();
+        //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(j.getPositionCourante().getNomCarreau());
-        int num = j.getPositionCourante().getNumero();
+        System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
+        int num = getJoueurCourant().getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int numFuture = ((d1 + d2 + num)%41)+1; //modulo
         if (d1 + d2 + num >40){
-            j.ajouterCash(200);
+            getJoueurCourant().ajouterCash(200);
         }
         
         Carreau posFuture = collectCarreau.get(numFuture);
+        getJoueurCourant().setPositionCourante(posFuture);
 
-        j.setPositionCourante(posFuture);
-
-        String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = j.getPositionCourante().getNomCarreau();
 
-        System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
+        System.out.println("le joueur " + getJoueurCourant().getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " +        getJoueurCourant().getPositionCourante().getNomCarreau());
+
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -133,15 +131,28 @@ public class Monopoly {
     public int getD2() {
         return d2;
     }
-
+    
+    public void setD1(int dpr){
+        this.d1=dpr;
+    }
+   
+    public void setD2(int dse){
+        this.d2=dse;
+    }
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
 
     public void jouerUnCoup(Joueur j) {
-        lancerDesAvancer(j);
-        j.getPositionCourante().action(j);
-
+        d1 = genDes();
+        d2 = genDes();
+        System.out.println(j.getNomJoueur()+" a lancé les dés et a obtenu "+d1+" et "+d2);
+        if(!j.isPrison()) {
+            faireUnTour();
+        }
+        else {
+            lancerDesPrison();
+        }
     }
 
     public void inscrireJoueurs(int nbj) {
@@ -217,5 +228,49 @@ public class Monopoly {
         pileCDC.removeFirst();
         pileCDC.addLast(carte);
         return carte;
+    }
+
+        
+
+    public void lancerDesPrison() { //lancé si le joueur est emprisonné
+        if (d1 == d2) { //le joueur fait un double
+            System.out.println(getJoueurCourant().getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
+            getJoueurCourant().setPrison(true);
+            getJoueurCourant().setNbTourPrison(0);
+            faireUnTour();
+        }
+        else { //pas de chance
+            if(getJoueurCourant().getCartePrison()!=0) {
+                getJoueurCourant().tourPrison();
+            }
+            else{
+                System.out.println(getJoueurCourant().getNomJoueur()+" possède "+getJoueurCourant().getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
+                Scanner sc = new Scanner(System.in);
+                String rep = sc.nextLine();
+                boolean ok = false;
+                while(!ok) {
+                    if(rep == "oui") {
+                        ok = true;
+                        getJoueurCourant().retirerCartePrison();
+                        getJoueurCourant().setPrison(false);
+                        getJoueurCourant().setNbTourPrison(0);
+                        faireUnTour();
+                    }
+                    else if(rep == "non") {
+                        ok = true;
+                        getJoueurCourant().tourPrison();
+                    }
+                    else {
+                        System.out.println("Veuillez répondre correctement !");
+                        ok = false;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void faireUnTour() {
+        lancerDesAvancer();
+        getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
 }
