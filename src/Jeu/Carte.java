@@ -10,6 +10,6 @@ package Jeu;
  *
  * @author carrejer
  */
-public class CarteCaisseCommunaute extends Carte {
-    private String description;
+public abstract class Carte {
+    
 }

@@ -99,9 +99,6 @@ public class Monopoly {
             j.ajouterCash(200);
         }
         
-        
-        
-        
         Carreau posFuture = collectCarreau.get(numFuture);
 
         j.setPositionCourante(posFuture);
@@ -207,4 +204,18 @@ public class Monopoly {
                 } 
                
         }
+    
+    public CarteChance tirerCarteChance() {
+        CarteChance carte = pileCC.getFirst();
+        pileCC.removeFirst();
+        pileCC.addLast(carte);
+        return carte;
+    }
+    
+    public CarteCaisseCommunaute tirerCarteCaisseCommunaute() {
+        CarteCaisseCommunaute carte = pileCDC.getFirst();
+        pileCDC.removeFirst();
+        pileCDC.addLast(carte);
+        return carte;
+    }
 }

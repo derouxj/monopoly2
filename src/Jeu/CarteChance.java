@@ -10,15 +10,28 @@ package Jeu;
  *
  * @author carrejer
  */
-public class CarteChance {
+public class CarteChance extends Carte {
     private String description,type;
-    private int mouvement,reparationMaison,ReparationHotel,somme;
+    private int reparationMaison,reparationHotel,nombreAction;
     
     private CarteChance(String type,String pDesc) {
         setType(type);
         setDescription(pDesc);
     }
-    private CarteChance(String )
+    private CarteChance(String type,String description,int nombreAction) {
+        setType(type);
+        setDescription(description);
+        setNombreAction(nombreAction);
+    }
+    
+    private CarteChance(String type,String description,int reparationMaison,int reparationHotel) {
+        setType(type);
+        setDescription(description);
+        setReparationMaison(reparationMaison);
+        setReparationHotel(reparationHotel);
+    }
+    
+    
 
     /**
      * @return the description
@@ -49,20 +62,6 @@ public class CarteChance {
     }
 
     /**
-     * @return the mouvement
-     */
-    public int getMouvement() {
-        return mouvement;
-    }
-
-    /**
-     * @param mouvement the mouvement to set
-     */
-    private void setMouvement(int mouvement) {
-        this.mouvement = mouvement;
-    }
-
-    /**
      * @return the reparationMaison
      */
     public int getReparationMaison() {
@@ -80,27 +79,27 @@ public class CarteChance {
      * @return the ReparationHotel
      */
     public int getReparationHotel() {
-        return ReparationHotel;
+        return reparationHotel;
     }
 
     /**
      * @param ReparationHotel the ReparationHotel to set
      */
-    private void setReparationHotel(int ReparationHotel) {
-        this.ReparationHotel = ReparationHotel;
+    private void setReparationHotel(int reparationHotel) {
+        this.reparationHotel = reparationHotel;
     }
 
     /**
-     * @return the somme
+     * @return the nombreAction
      */
-    public int getSomme() {
-        return somme;
+    public int getNombreAction() {
+        return nombreAction;
     }
 
     /**
-     * @param somme the somme to set
+     * @param nombreAction the nombreAction to set
      */
-    private void setSomme(int somme) {
-        this.somme = somme;
+    private void setNombreAction(int nombreAction) {
+        this.nombreAction = nombreAction;
     }
 }
