@@ -35,15 +35,6 @@ public abstract class Carte {
         setMonopoly(monopoly);
     }
     
-    public void action() {
-        String monType=getType();
-        if (monType=="L") {
-            monopoly.getJoueurCourant().ajouterCartePrison();
-        } else if (monType=="B") {
-            monopoly.getJoueurCourant();
-        }
-    }
-    
     /**
      * @return the description
      */

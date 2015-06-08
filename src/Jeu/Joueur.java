@@ -33,7 +33,7 @@ public class Joueur {
 
     public void recevoir(int l) {
         setCash(getCash() + l);
-        System.out.println(getMonopoly().interface_9.messageReceptionCash(this, l));
+        getMonopoly().interface_9.messageReceptionCash(this, l);
     }
 
     public void payer(int l) {
@@ -42,7 +42,7 @@ public class Joueur {
             monopoly.getJoueurs().remove(this);
         } else {
             setCash(getCash() - l);
-            System.out.println(getMonopoly().interface_9.messagePerteCash(this, l));
+            getMonopoly().interface_9.messagePerteCash(this, l);
         }
     }
 
@@ -143,6 +143,42 @@ public class Joueur {
         this.setPositionCourante(monopoly.getCarreaux().get(11));
         this.setPrison(true);
         this.getMonopoly().interface_9.messagePrison(this);
+    }
+    
+    public void envoyerCase(int numero){
+        int numPos = getPositionCourante().getNumero();
+        
+        if (numPos>numero && numero>0) {
+            passeDepart();
+        } else if (numPos<numero && numero<0) {
+            passeDepart();
+        }
+        setPositionCourante(monopoly.getCarreaux().get(numero));
+    }
+    
+    public void passeDepart() {
+        setCash(getCash()+200);
+    }
+    
+    public void anniversaire() {
+        
+    }
+    
+    /**
+     * deplace le joueur du nombre de case inscrit en paramètre
+     * 
+     */
+    public void deplacer(int nbCaseADeplacer) {
+        envoyerCase(verifPos(nbCaseADeplacer));
+    }
+    
+    private int verifPos(int nbAAvancer) {
+        int posFutur=getPositionCourante().getNumero()+nbAAvancer;
+        if (posFutur>40) {
+            return 40-posFutur;
+        } else {
+            return posFutur;
+        }
     }
 
     /**

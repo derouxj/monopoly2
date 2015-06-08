@@ -60,7 +60,7 @@ public class Monopoly {
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauArgent(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]),this));
                 } else if (caseType.compareTo("CM") == 0) {
                     System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauMouvement(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
                 } else {
                     System.err.println("[buildGamePleateau()] : Invalid Data type");
                 }
@@ -72,6 +72,10 @@ public class Monopoly {
             System.err.println("[buildGamePlateau()] : Error while reading file!");
         }
     }
+    
+    
+    
+    
 
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
         ArrayList<String[]> data = new ArrayList<String[]>();
@@ -89,16 +93,11 @@ public class Monopoly {
     public void lancerDesAvancer() {
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
-        int num = getJoueurCourant().getPositionCourante().getNumero();
+        Joueur j = getJoueurCourant();
+        System.out.println(j.getPositionCourante().getNomCarreau());
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = (d1 + d2 + num)%40; //modulo
-        if (d1 + d2 + num >40){
-            getJoueurCourant().ajouterCash(200);
-        }
+        j.deplacer(d1+d2);
         
-        Carreau posFuture = collectCarreau.get(numFuture);
-        getJoueurCourant().setPositionCourante(posFuture);
 
         int total = d1 + d2;
 

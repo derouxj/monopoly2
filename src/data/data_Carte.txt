@@ -1,5 +1,5 @@
 CC,L,Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée.
-CC,B,Reculez de trois cases,3
+CC,B,Reculez de trois cases,-3
 CC,M,Vous êtes imposés pour les réparations de voirie à raison de : 40€ par maison et 115€ par hôtel.,40,115
 CC,A,Amende pour excès de vitesse :15€,-15
 CC,M,Faites des réparations dans toutes vos maisons : versez pour chaque maison 25€ et pour chaque hôtel 100€,25,100
