@@ -108,6 +108,9 @@ public class jeu {
                     mon.interface_9.messageEtatJoueur(propBleuC);
                     
                 }
+                case 5: {
+                    
+                }
                 default:
                     break;
             }

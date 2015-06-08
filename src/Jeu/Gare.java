@@ -17,8 +17,8 @@ public class Gare extends CarreauPropriete {
         } else {
             if (jProprio != j) {
                 int l = this.calculLoyer();
-                jProprio.recevoirLoyer(l);
-                j.payerLoyer(l);
+                jProprio.recevoir(l);
+                j.payer(l);
 
             }
         }

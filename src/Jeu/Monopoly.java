@@ -87,11 +87,9 @@ public class Monopoly {
     }
 
     public void lancerDesAvancer(Joueur j) {
-        d1 = genDes();
-        d2 = genDes();
         //Carreau pos = j.getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(j.getPositionCourante().getNomCarreau());
+        System.out.println(j.getNomJoueur()+" est sur le carreau "+j.getPositionCourante().getNomCarreau());
         int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int numFuture = (d1 + d2 + num)%40; //modulo
@@ -103,11 +101,9 @@ public class Monopoly {
 
         j.setPositionCourante(posFuture);
 
-        String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = j.getPositionCourante().getNomCarreau();
 
-        System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
+        System.out.println(j.getNomJoueur() + " a fait un score de " + total + ", sa nouvelle position est la case " + j.getPositionCourante().getNomCarreau());
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -139,9 +135,15 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-        lancerDesAvancer(j);
-        j.getPositionCourante().action(j);
-
+        d1 = genDes();
+        d2 = genDes();
+        System.out.println(j.getNomJoueur()+" a lancé les dés et a obtenu "+d1+" et "+d2);
+        if(!j.isPrison()) {
+            faireUnTour(j);
+        }
+        else {
+            lancerDesPrison(j);
+        }
     }
 
     public void inscrireJoueurs(int nbj) {
@@ -217,5 +219,47 @@ public class Monopoly {
         pileCDC.removeFirst();
         pileCDC.addLast(carte);
         return carte;
+    }
+    
+    public void lancerDesPrison(Joueur j) { //lancé si le joueur est emprisonné
+        if (d1 == d2) { //le joueur fait un double
+            System.out.println(j.getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
+            j.setPrison(true);
+            j.setNbTourPrison(0);
+            faireUnTour(j);
+        }
+        else { //pas de chance
+            if(j.getCartePrison()!=0) {
+                j.tourPrison();
+            }
+            else{
+                System.out.println(j.getNomJoueur()+" possède "+j.getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
+                Scanner sc = new Scanner(System.in);
+                String rep = sc.nextLine();
+                boolean ok = false;
+                while(!ok) {
+                    if(rep == "oui") {
+                        ok = true;
+                        j.retirerCartePrison();
+                        j.setPrison(false);
+                        j.setNbTourPrison(0);
+                        faireUnTour(j);
+                    }
+                    else if(rep == "non") {
+                        ok = true;
+                        j.tourPrison();
+                    }
+                    else {
+                        System.out.println("Veuillez répondre correctement !");
+                        ok = false;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void faireUnTour(Joueur j) {
+        lancerDesAvancer(j);
+        j.getPositionCourante().action(j);
     }
 }
