@@ -87,8 +87,6 @@ public class Monopoly {
     }
 
     public void lancerDesAvancer() {
-        d1 = genDes();
-        d2 = genDes();
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
         System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
@@ -240,23 +238,29 @@ public class Monopoly {
             faireUnTour();
         }
         else { //pas de chance
-            if(getJoueurCourant().getCartePrison()!=0) {
+            if(getJoueurCourant().getCartePrison()==0) {
                 getJoueurCourant().tourPrison();
             }
             else{
                 System.out.println(getJoueurCourant().getNomJoueur()+" possède "+getJoueurCourant().getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
                 Scanner sc = new Scanner(System.in);
-                String rep = sc.nextLine();
+                String rep;
                 boolean ok = false;
-                while(!ok) {
-                    if(rep == "oui") {
+                while (!ok) {
+                    if (sc.hasNextLine()) {
+                        rep = sc.nextLine();
+                    } else {
+                        sc.next();
+                        continue;
+                    }
+                    if(rep.equals("oui")) {
                         ok = true;
                         getJoueurCourant().retirerCartePrison();
                         getJoueurCourant().setPrison(false);
                         getJoueurCourant().setNbTourPrison(0);
                         faireUnTour();
                     }
-                    else if(rep == "non") {
+                    else if(rep.equals("non")) {
                         ok = true;
                         getJoueurCourant().tourPrison();
                     }
