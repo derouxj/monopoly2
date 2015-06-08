@@ -65,12 +65,12 @@ public class Interface {
             return (jPaye.getNomJoueur()+"a payé "+somme+" à "+jGagne.getNomJoueur());
         }*/
         
-        public String messageReceptionCash(Joueur j,int somme) {
-            return (j.getNomJoueur()+" a recu "+somme+" $");
+        public void messageReceptionCash(Joueur j,int somme) {
+            System.out.println(j.getNomJoueur()+" a recu "+somme+" €");
         }
         
-        public String messagePerteCash(Joueur j,int somme) {
-            return (j.getNomJoueur()+" a perdu "+somme+" $");
+        public void messagePerteCash(Joueur j,int somme) {
+            System.out.println(j.getNomJoueur()+" a perdu "+somme+" €");
         }
         
         public String nouveauJoueur() {
@@ -126,10 +126,10 @@ public class Interface {
         
         public void messageCartePrison(boolean yn, Joueur j) {
             if(yn) {
-                System.out.print(j.getNomJoueur()+" s'est vu ajouter une carte Vous êtes liberé de prison");
+                System.out.println(j.getNomJoueur()+" s'est vu ajouter une carte <<Vous êtes liberé de prison>>");
             }
             else {
-                System.out.print(j.getNomJoueur()+" s'est vu retirer une carte Vous êtes liberé de prison");
+                System.out.println(j.getNomJoueur()+" s'est vu retirer une carte <<Vous êtes liberé de prison>>");
             }
         }
 

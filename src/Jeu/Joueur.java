@@ -31,17 +31,18 @@ public class Joueur {
         return this.positionCourante;
     }
 
-    public void recevoirLoyer(int l) {
+    public void recevoir(int l) {
         setCash(getCash() + l);
-        System.out.println(getMonopoly().interface_9.messageReceptionCash(this, l));
+        getMonopoly().interface_9.messageReceptionCash(this, l);
     }
 
-    public void payerLoyer(int l) {
+    public void payer(int l) {
         if (getCash() - l < 0) {
             System.out.println("PERDU"); //a finir
+            monopoly.getJoueurs().remove(this);
         } else {
             setCash(getCash() - l);
-            System.out.println(getMonopoly().interface_9.messagePerteCash(this, l));
+            getMonopoly().interface_9.messagePerteCash(this, l);
         }
     }
 
@@ -140,6 +141,42 @@ public class Joueur {
         this.setPrison(true);
         this.getMonopoly().interface_9.messagePrison(this);
     }
+    
+    public void envoyerCase(int numero){
+        int numPos = getPositionCourante().getNumero();
+        
+        if (numPos>numero && numero>0) {
+            passeDepart();
+        } else if (numPos<numero && numero<0) {
+            passeDepart();
+        }
+        setPositionCourante(monopoly.getCarreaux().get(numero));
+    }
+    
+    public void passeDepart() {
+        setCash(getCash()+200);
+    }
+    
+    public void anniversaire() {
+        
+    }
+    
+    /**
+     * deplace le joueur du nombre de case inscrit en paramètre
+     * 
+     */
+    public void deplacer(int nbCaseADeplacer) {
+        envoyerCase(verifPos(nbCaseADeplacer));
+    }
+    
+    private int verifPos(int nbAAvancer) {
+        int posFutur=getPositionCourante().getNumero()+nbAAvancer;
+        if (posFutur>40) {
+            return 40-posFutur;
+        } else {
+            return posFutur;
+        }
+    }
 
     /**
      * @return the nbTourPrison
@@ -196,6 +233,15 @@ public class Joueur {
     public void ajouterCash(int cash){
         setCash(getCash()+cash);
     }
-    
-    
+
+    public void tourPrison() {
+        if (this.getNbTourPrison() > 2) {
+            System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
+            this.setNbTourPrison(0);
+            this.payer(50);
+        } else {
+            System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
+            this.setNbTourPrison(this.getNbTourPrison() + 1);
+        }
+    }
 }

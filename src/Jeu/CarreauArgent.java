@@ -12,11 +12,15 @@ public class CarreauArgent extends CarreauAction {
 
     @Override
     public void action(Joueur j) {
-
+        j.recevoir(getMontant());
     }
 
-    private void setMontant(int prixAchat) {
+    private void setMontant(int montant) {
         this.montant = montant;
+    }
+    
+    public int getMontant() {
+        return montant;
     }
 
 }

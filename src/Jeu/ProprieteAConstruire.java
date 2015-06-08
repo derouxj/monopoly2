@@ -26,8 +26,8 @@ public class ProprieteAConstruire extends CarreauPropriete {
         } else {
             if (jProprio != j) {
                 int l = this.calculLoyer();
-                jProprio.recevoirLoyer(l);
-                j.payerLoyer(l);
+                jProprio.recevoir(l);
+                j.payer(l);
 
             } else {
                 construire();
@@ -69,14 +69,29 @@ public class ProprieteAConstruire extends CarreauPropriete {
         return loyers;
     }
 
+    @Override
     public int calculLoyer() {
+        int loyer = 0;
+        int i = 0;
+        Boolean superprop = false;
+        ArrayList<ProprieteAConstruire> groupeprop = this.groupePropriete.getProprietes();
         if (getNbHotels() == 1) {
-            return getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
-        } else if (getNbMaisons()==0){
-            return 0;
+            loyer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
+        } else if (getNbMaisons() == 0) {
+            for (ProprieteAConstruire prop : groupeprop) {
+                while (prop.getProprietaire() == this.getProprietaire()) {
+                    i = i + 1;
+                }
+            }
+            if (i == this.groupePropriete.getProprietes().size() - 1) {
+                superprop = true;
+                loyer = 2 * loyer;
+            }
         } else {
-            return getLoyers()[getNbMaisons()];
+            loyer = getLoyers()[getNbMaisons()];
         }
+
+        return loyer;
     }
 
     public CouleurPropriete getCouleur() {
@@ -124,7 +139,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
             int prixHotel = grp.getPrixAchatHotel();
             int prixMaison = grp.getPrixAchatMaison();
             
-            while (i<lesProp.size()) {
+            while (i<proprieteConstructible.size()) {
                 ProprieteAConstruire ct = proprieteConstructible.get(i);
                 if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
                     //message interface
@@ -143,12 +158,11 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 if (mini==4) {//construction d'hotel
                     if (nbHotelsMonopoly>0){
                         proprio.setCash(cash-prixHotel);
-                    
+                    }
                 } else {
                     if (nbMaisonsMonopoly>0) {
                         proprio.setCash(cash-prixMaison);
-                    }
-                     
+                    
                     }
                     proprio.setCash(cash-prixMaison);
                 }
