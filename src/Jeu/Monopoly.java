@@ -129,7 +129,14 @@ public class Monopoly {
     public int getD2() {
         return d2;
     }
-
+    
+    public void setD1(int dpr){
+        this.d1=dpr;
+    }
+   
+    public void setD2(int dse){
+        this.d2=dse;
+    }
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
