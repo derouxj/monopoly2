@@ -60,7 +60,7 @@ public class Monopoly {
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauArgent(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]),this));
                 } else if (caseType.compareTo("CM") == 0) {
                     System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
-                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
+                    carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauMouvement(Integer.parseInt(data.get(i)[1]), data.get(i)[2],this));
                 } else {
                     System.err.println("[buildGamePleateau()] : Invalid Data type");
                 }
@@ -94,7 +94,7 @@ public class Monopoly {
         System.out.println(j.getPositionCourante().getNomCarreau());
         int num = j.getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = (d1 + d2 + num)%40; //modulo
+        int numFuture = ((d1 + d2 + num)%41)+1; //modulo
         if (d1 + d2 + num >40){
             j.ajouterCash(200);
         }
