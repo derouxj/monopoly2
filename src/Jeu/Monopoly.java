@@ -86,26 +86,26 @@ public class Monopoly {
         return data;
     }
 
-    public void lancerDesAvancer(Joueur j) {
+    public void lancerDesAvancer() {
         d1 = genDes();
         d2 = genDes();
-        //Carreau pos = j.getPositionCourante();
+        //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(j.getPositionCourante().getNomCarreau());
-        int num = j.getPositionCourante().getNumero();
+        System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
+        int num = getJoueurCourant().getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int numFuture = (d1 + d2 + num)%40; //modulo
         if (d1 + d2 + num >40){
-            j.ajouterCash(200);
+            getJoueurCourant().ajouterCash(200);
         }
         
         Carreau posFuture = collectCarreau.get(numFuture);
 
-        j.setPositionCourante(posFuture);
+        getJoueurCourant().setPositionCourante(posFuture);
 
         String nom = j.getNomJoueur();
         int total = d1 + d2;
-        String nomCarreau = j.getPositionCourante().getNomCarreau();
+        String nomCarreau = getJoueurCourant().getPositionCourante().getNomCarreau();
 
         System.out.println("le joueur " + nom + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + nomCarreau);
 
@@ -146,7 +146,7 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-        lancerDesAvancer(j);
+            lancerDesAvancer(getJoueurCourant());
         j.getPositionCourante().action(j);
 
     }
