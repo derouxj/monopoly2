@@ -236,23 +236,29 @@ public class Monopoly {
             faireUnTour(j);
         }
         else { //pas de chance
-            if(j.getCartePrison()!=0) {
+            if(j.getCartePrison()==0) {
                 j.tourPrison();
             }
-            else{
+            else {
                 System.out.println(j.getNomJoueur()+" possède "+j.getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
                 Scanner sc = new Scanner(System.in);
-                String rep = sc.nextLine();
+                String rep;
                 boolean ok = false;
-                while(!ok) {
-                    if(rep == "oui") {
+                while (!ok) {
+                    if (sc.hasNextLine()) {
+                        rep = sc.nextLine();
+                    } else {
+                        sc.next();
+                        continue;
+                    }
+                    if(rep.equals("oui")) {
                         ok = true;
                         j.retirerCartePrison();
                         j.setPrison(false);
                         j.setNbTourPrison(0);
                         faireUnTour(j);
                     }
-                    else if(rep == "non") {
+                    else if(rep.equals("non")) {
                         ok = true;
                         j.tourPrison();
                     }

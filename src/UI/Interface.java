@@ -126,10 +126,10 @@ public class Interface {
         
         public void messageCartePrison(boolean yn, Joueur j) {
             if(yn) {
-                System.out.print(j.getNomJoueur()+" s'est vu ajouter une carte Vous êtes liberé de prison");
+                System.out.println(j.getNomJoueur()+" s'est vu ajouter une carte <<Vous êtes liberé de prison>>");
             }
             else {
-                System.out.print(j.getNomJoueur()+" s'est vu retirer une carte Vous êtes liberé de prison");
+                System.out.println(j.getNomJoueur()+" s'est vu retirer une carte <<Vous êtes liberé de prison>>");
             }
         }
 

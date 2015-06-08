@@ -62,7 +62,7 @@ public class jeu {
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
                             int compteDouble = 0;
-                            mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                            mon.jouerUnCoup(mon.getJoueurCourant());
                             while (mon.getD1() == mon.getD2() && compteDouble < 3) {
                                 mon.jouerUnCoup(mon.getJoueurs().getFirst());
                                 compteDouble++;
@@ -141,8 +141,10 @@ public class jeu {
                     mon.interface_9.messageEtatJoueur(propCompagnie);
                     
                 }
-                case 5: {
-                    
+                case 5: { //envoyer quelqu'un croupir en taule
+                    mon.getJoueurCourant().envoyerPrison();
+                    mon.getJoueurCourant().ajouterCartePrison();
+                    mon.jouerUnCoup(mon.getJoueurCourant());
                 }
                 default:
                     break;
