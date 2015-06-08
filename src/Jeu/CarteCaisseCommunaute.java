@@ -11,5 +11,15 @@ package Jeu;
  * @author carrejer
  */
 public class CarteCaisseCommunaute extends Carte {
-    private String description;
+    public CarteCaisseCommunaute(String type,String pDesc) {
+        super(type,pDesc);
+    }
+    
+    public CarteCaisseCommunaute(String type,String description,int nombreAction) {
+        super(type,description,nombreAction);
+    }
+    
+    public CarteCaisseCommunaute(String type,String description,int reparationMaison,int reparationHotel) {
+        super(type,description,reparationMaison,reparationHotel);
+    }
 }
