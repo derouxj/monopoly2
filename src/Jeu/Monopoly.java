@@ -100,11 +100,12 @@ public class Monopoly {
         }
         
         Carreau posFuture = collectCarreau.get(numFuture);
-
         getJoueurCourant().setPositionCourante(posFuture);
+
         int total = d1 + d2;
 
         System.out.println("le joueur " + getJoueurCourant().getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " +        getJoueurCourant().getPositionCourante().getNomCarreau());
+
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -143,9 +144,15 @@ public class Monopoly {
     }
 
     public void jouerUnCoup(Joueur j) {
-            lancerDesAvancer();
-        j.getPositionCourante().action(j);
-
+        d1 = genDes();
+        d2 = genDes();
+        System.out.println(j.getNomJoueur()+" a lancé les dés et a obtenu "+d1+" et "+d2);
+        if(!j.isPrison()) {
+            faireUnTour();
+        }
+        else {
+            lancerDesPrison();
+        }
     }
 
     public void inscrireJoueurs(int nbj) {
@@ -222,4 +229,48 @@ public class Monopoly {
         pileCDC.addLast(carte);
         return carte;
     }
+
+        
+
+    public void lancerDesPrison() { //lancé si le joueur est emprisonné
+        if (d1 == d2) { //le joueur fait un double
+            System.out.println(getJoueurCourant().getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
+            getJoueurCourant().setPrison(true);
+            getJoueurCourant().setNbTourPrison(0);
+            faireUnTour();
         }
+        else { //pas de chance
+            if(getJoueurCourant().getCartePrison()!=0) {
+                getJoueurCourant().tourPrison();
+            }
+            else{
+                System.out.println(getJoueurCourant().getNomJoueur()+" possède "+getJoueurCourant().getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
+                Scanner sc = new Scanner(System.in);
+                String rep = sc.nextLine();
+                boolean ok = false;
+                while(!ok) {
+                    if(rep == "oui") {
+                        ok = true;
+                        getJoueurCourant().retirerCartePrison();
+                        getJoueurCourant().setPrison(false);
+                        getJoueurCourant().setNbTourPrison(0);
+                        faireUnTour();
+                    }
+                    else if(rep == "non") {
+                        ok = true;
+                        getJoueurCourant().tourPrison();
+                    }
+                    else {
+                        System.out.println("Veuillez répondre correctement !");
+                        ok = false;
+                    }
+                }
+            }
+        }
+    }
+    
+    public void faireUnTour() {
+        lancerDesAvancer();
+        getJoueurCourant().getPositionCourante().action(getJoueurCourant());
+    }
+}
