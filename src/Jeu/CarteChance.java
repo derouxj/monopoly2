@@ -13,16 +13,16 @@ package Jeu;
 public class CarteChance extends Carte {
 
     
-    public CarteChance(String type,String pDesc) {
-        super(type,pDesc);
+    public CarteChance(String type,String pDesc,Monopoly monopoly) {
+        super(type,pDesc,monopoly);
     }
     
-    public CarteChance(String type,String description,int nombreAction) {
-        super(type,description,nombreAction);
+    public CarteChance(String type,String description,int nombreAction,Monopoly monopoly) {
+        super(type,description,nombreAction,monopoly);
     }
     
-    public CarteChance(String type,String description,int reparationMaison,int reparationHotel) {
-        super(type,description,reparationMaison,reparationHotel);
+    public CarteChance(String type,String description,int reparationMaison,int reparationHotel,Monopoly monopoly) {
+        super(type,description,reparationMaison,reparationHotel,monopoly);
     }
     
     
