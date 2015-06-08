@@ -160,10 +160,6 @@ public class Joueur {
         setCash(getCash()+200);
     }
     
-    public void anniversaire() {
-        
-    }
-    
     /**
      * deplace le joueur du nombre de case inscrit en paramètre
      * 
