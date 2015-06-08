@@ -233,6 +233,7 @@ public class Monopoly {
             }
         }
         int laPos = lesLances.indexOf(max);
+        
         joueurs.add(js.get(laPos));
         js.remove(js.get(laPos));
         while (!js.isEmpty()) {
