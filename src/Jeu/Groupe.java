@@ -17,11 +17,11 @@ public class Groupe {
     }
 
     private void setPrixAchatMaison(int numero) {
-        this.prixAchatMaison = prixAchatMaison;
+        this.prixAchatMaison = numero;
     }
 
     private void setPrixAchatHotel(int numero) {
-        this.prixAchatHotel = prixAchatHotel;
+        this.prixAchatHotel = numero;
     }
 
     private void setCouleur(CouleurPropriete couleur) {

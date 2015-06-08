@@ -143,12 +143,11 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 if (mini==4) {//construction d'hotel
                     if (nbHotelsMonopoly>0){
                         proprio.setCash(cash-prixHotel);
-                    
+                    }
                 } else {
                     if (nbMaisonsMonopoly>0) {
                         proprio.setCash(cash-prixMaison);
-                    }
-                     
+                        System.out.println(prixMaison);
                     }
                     proprio.setCash(cash-prixMaison);
                 }

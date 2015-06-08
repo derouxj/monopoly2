@@ -21,7 +21,7 @@ public class CarteCaisseCommunaute extends Carte {
     
     public CarteCaisseCommunaute(String type,String description,int reparationMaison,int reparationHotel,Monopoly monopoly) {
         super(type,description,reparationMaison,reparationHotel,monopoly);
-    
+    }
     
     
     
