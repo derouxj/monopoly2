@@ -38,7 +38,8 @@ public class Joueur {
 
     public void payer(int l) {
         if (getCash() - l < 0) {
-            System.out.println("PERDU"); //a finir
+            System.out.println(this.getNomJoueur()+" a PERDU !");
+            monopoly.getJoueurs().remove(this);
         } else {
             setCash(getCash() - l);
             System.out.println(getMonopoly().interface_9.messagePerteCash(this, l));
@@ -135,6 +136,9 @@ public class Joueur {
         this.proprietesAConstruire = proprietesAConstruire;
     }
 
+    /**
+     *envoie le joueur en prison
+     */
     public void envoyerPrison() {
         this.setPositionCourante(monopoly.getCarreaux().get(11));
         this.setPrison(true);

@@ -228,9 +228,10 @@ public class Monopoly {
         return carte;
     }
 
-        
-
-    public void lancerDesPrison() { //lancé si le joueur est emprisonné
+    /**
+     * a lancer si le joueur est emprisonné
+     */
+    public void lancerDesPrison() {
         if (d1 == d2) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
             getJoueurCourant().setPrison(true);
