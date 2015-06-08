@@ -13,13 +13,13 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
-    private ArrayList<CarteChance> carteChance = new ArrayList<CarteChance>();
- private ArrayList<CarteCaisseCommunaute> carteCaisseCommunaute = new ArrayList<CarteCaisseCommunaute>();
+    
     public Interface interface_9 = new Interface();
     private int d1, d2;
 
-    public Monopoly(String dataFilename) {
+    public Monopoly(String dataFilename,String dataFile) {
         buildGamePlateau(dataFilename);
+        buildGameCarte(dataFile);
     }
     
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
@@ -88,6 +88,8 @@ public class Monopoly {
     }
     
     private void buildGameCarte(String dataFilename) {
+        ArrayList<CarteChance> chanceTmp = new ArrayList<CarteChance>();
+        ArrayList<CarteCaisseCommunaute> cdcTmp = new ArrayList<CarteCaisseCommunaute>();
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
@@ -96,68 +98,63 @@ public class Monopoly {
                 String caseType = data.get(i)[0];
 
                 if (caseType.compareTo("CC") == 0) {
-                    String caseType2 = data.get(i)[0];
+                    String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
                         CarteChance liberer = new CarteChance(data.get(i)[1], data.get(i)[2], this);
-                        carteChance.add(liberer);
+                        chanceTmp.add(liberer);
                     } else if (caseType2.compareTo("B") == 0) {
                         CarteChance reculer = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteChance.add(reculer);
+                        chanceTmp.add(reculer);
 
                     } else if (caseType2.compareTo("M") == 0) {
                         CarteChance reparation = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4]), this);
-                        carteChance.add(reparation);
+                        chanceTmp.add(reparation);
 
                     } else if (caseType2.compareTo("A") == 0) {
                         CarteChance amende = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteChance.add(amende);
+                        chanceTmp.add(amende);
                     } else if (caseType2.compareTo("T") == 0) {
                         CarteChance deplacer = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteChance.add(deplacer);
+                        chanceTmp.add(deplacer);
 
                     } else if (caseType2.compareTo("P") == 0) {
                         CarteChance prison = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteChance.add(prison);
+                        chanceTmp.add(prison);
 
                     }
 
                 } else if (caseType.compareTo("CDC") == 0) {
-                    String caseType2 = data.get(i)[0];
+                    String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        
-                         CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
-                        carteCaisseCommunaute.add(liberer);
-                        
-                                            } else if (caseType2.compareTo("A") == 0) {
-                        CarteCaisseCommunaute amende = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteCaisseCommunaute.add(amende);
-                        
-                        
-                                            } else if ( caseType2.compareTo("N") == 0) {
-                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
-                        carteCaisseCommunaute.add(liberer);
-                                            
-                             } else if ( caseType2.compareTo("P") == 0) {
-                        CarteCaisseCommunaute prison = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteCaisseCommunaute.add(prison);
-                        
-                             } else if ( caseType2.compareTo("T") == 0) {
-                        CarteCaisseCommunaute deplacer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteCaisseCommunaute.add(deplacer);
-                        
 
-                        
-                        
-                        
-                        
+                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
+                        cdcTmp.add(liberer);
+
+                    } else if (caseType2.compareTo("A") == 0) {
+                        CarteCaisseCommunaute amende = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
+                        cdcTmp.add(amende);
+
+                    } else if (caseType2.compareTo("N") == 0) {
+                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
+                        cdcTmp.add(liberer);
+
+                    } else if (caseType2.compareTo("P") == 0) {
+                        CarteCaisseCommunaute prison = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
+                        cdcTmp.add(prison);
+
+                    } else if (caseType2.compareTo("T") == 0) {
+                        CarteCaisseCommunaute deplacer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
+                        cdcTmp.add(deplacer);
 
                     } else {
-                        System.err.println("[buildGamePleateau()] : Invalid Data type");
+                        System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
                 }
             }
+            
+            
 
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
