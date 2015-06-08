@@ -33,7 +33,7 @@ public class Joueur {
 
     public void recevoir(int l) {
         setCash(getCash() + l);
-        System.out.println(getMonopoly().interface_9.messageReceptionCash(this, l));
+        getMonopoly().interface_9.messageReceptionCash(this, l);
     }
 
     public void payer(int l) {
@@ -42,7 +42,7 @@ public class Joueur {
             monopoly.getJoueurs().remove(this);
         } else {
             setCash(getCash() - l);
-            System.out.println(getMonopoly().interface_9.messagePerteCash(this, l));
+            getMonopoly().interface_9.messagePerteCash(this, l);
         }
     }
 

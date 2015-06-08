@@ -69,6 +69,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         return loyers;
     }
 
+    @Override
     public int calculLoyer() {
         int loyer = 0;
         int i = 0;
@@ -79,15 +80,15 @@ public class ProprieteAConstruire extends CarreauPropriete {
         } else if (getNbMaisons()==0){
             for (ProprieteAConstruire prop : groupeprop){
             while (prop.getProprietaire() == this.getProprietaire()) {
-                i = i+1;
+                    i = i+1;
+                }
             }
-        }
-        if (i == this.groupePropriete.getProprietes().size()-1) {
-            superprop = true;
-        }
-        if (superprop == true) {
-           loyer = 2*loyer;
-        }
+            if (i == this.groupePropriete.getProprietes().size()-1) {
+                superprop = true;
+            }
+            if (superprop == true) {
+               loyer = 2*loyer;
+            }
         } else {
             loyer = getLoyers()[getNbMaisons()];
         }
