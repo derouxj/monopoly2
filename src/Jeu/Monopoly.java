@@ -13,6 +13,7 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
+    
     public Interface interface_9 = new Interface();
     private int d1, d2;
 
@@ -20,7 +21,7 @@ public class Monopoly {
         buildGamePlateau(dataFilename);
         buildGameCarte(dataFile);
     }
-
+    
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
         ArrayList<String[]> data = new ArrayList<String[]>();
 
@@ -85,7 +86,7 @@ public class Monopoly {
             System.err.println("[buildGamePlateau()] : Error while reading file!");
         }
     }
-
+    
     private void buildGameCarte(String dataFilename) {
         LinkedList<CarteChance> chanceTmp = new LinkedList<CarteChance>();
         LinkedList<CarteCaisseCommunaute> cdcTmp = new LinkedList<CarteCaisseCommunaute>();
@@ -153,39 +154,43 @@ public class Monopoly {
                     }
                 }
             }
-            int nbCC = chanceTmp.size() - 1;
-            int nbCDC = cdcTmp.size() - 1;
-
+            int nbCC = chanceTmp.size()-1;
+            int nbCDC= cdcTmp.size()-1;
+            
             int rnd;
-
+            
             while (!chanceTmp.isEmpty()) {
-                rnd = rand.nextInt((nbCC - 0 + 1) + 0);
+                rnd=rand.nextInt((nbCC - 0 + 1) + 0);
                 getPileCC().add(chanceTmp.get(rnd));
                 chanceTmp.remove(rnd);
                 nbCC--;
             }
-
+            
             while (!cdcTmp.isEmpty()) {
-                rnd = rand.nextInt((nbCDC - 0 + 1) + 0);
+                rnd=rand.nextInt((nbCDC - 0 + 1) + 0);
                 getPileCDC().add(cdcTmp.get(rnd));
                 cdcTmp.remove(rnd);
                 nbCDC--;
             }
-
+            
             /*for (CarteChance cc : getPileCC()) {
-             System.out.println(cc.getDescription());
-             }
-             System.out.println("\n\n");
-             for (CarteCaisseCommunaute cdc : getPileCDC()) {
-             System.out.println(cdc.getDescription());
-             }*/
+                System.out.println(cc.getDescription());
+            }
+            System.out.println("\n\n");
+            for (CarteCaisseCommunaute cdc : getPileCDC()) {
+                System.out.println(cdc.getDescription());
+            }*/
+            
+            
+            
+
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
         } catch (IOException e) {
             System.err.println("[buildGameCarte()] : Error while reading file!");
         }
     }
-
+    
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
@@ -255,7 +260,7 @@ public class Monopoly {
         }
 
     }
-
+    
     public void jouerUnCoup(Joueur j) {
         d1 = genDes();
         d2 = genDes();
@@ -266,16 +271,16 @@ public class Monopoly {
             lancerDesPrison();
         }
     }
-
+    
     public void joueurSuivant() {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
-
+    
     public Joueur getJoueurCourant() {
         return this.getJoueurs().getFirst();
     }
-
+    
     public CarteChance tirerCarteChance() {
         CarteChance carte = getPileCC().getFirst();
         getPileCC().removeFirst();
@@ -289,7 +294,7 @@ public class Monopoly {
         getPileCDC().addLast(carte);
         return carte;
     }
-
+    
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (d1 == d2) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur() + " a fait un double(" + d1 + "," + d2 + ") et a été libéré de prison.");
@@ -333,11 +338,11 @@ public class Monopoly {
         lancerDesAvancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
-
+    
     public boolean estFini() {
         return this.getJoueurs().size() == 1;
     }
-
+    
     public void triche() {
 
         LinkedList<Joueur> joueurs1 = this.getJoueurs();
@@ -381,7 +386,7 @@ public class Monopoly {
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
-
+    
     public int getNbMaisons() {
         return nbMaisons;
     }
@@ -404,4 +409,11 @@ public class Monopoly {
         return pileCDC;
     }
 
+    
+
+    
+
+    
+
+    
 }
