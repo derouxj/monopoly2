@@ -27,8 +27,23 @@ public class jeu {
                 case 1: {
                     boolean ok = false;
                     while (!ok) {
-                        System.out.println("Combien de joueurs ? (2 à 6)");
-                        int nbj = sc.nextInt();
+                        int nbj = 0;
+                        boolean bonjour = true;
+                        while (bonjour) {
+                            try {
+                                System.out.println("Combien de joueurs ? (2 à 6)");
+                                if (sc.hasNextInt()) {
+                                    nbj = sc.nextInt();
+                                } else {
+                                    sc.next();
+                                    continue;
+                                }
+                                bonjour = false;
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Ce n'est pas un entier !");
+                                sc.next();
+                            }
+                        }
                         if (nbj < 2 || nbj > 6) {
                             System.out.println(nbj + " pas entre 2 et 6");
                         } else {
@@ -41,8 +56,8 @@ public class jeu {
                             System.out.println();
                         }
                     }
-                    break;
                 }
+                break;
                 case 2: {
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
