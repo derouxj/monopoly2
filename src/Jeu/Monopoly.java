@@ -89,16 +89,11 @@ public class Monopoly {
     public void lancerDesAvancer() {
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
-        int num = getJoueurCourant().getPositionCourante().getNumero();
+        Joueur j = getJoueurCourant();
+        System.out.println(j.getPositionCourante().getNomCarreau());
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
-        int numFuture = ((d1 + d2 + num)%41)+1; //modulo
-        if (d1 + d2 + num >40){
-            getJoueurCourant().ajouterCash(200);
-        }
+        j.deplacer(d1+d2);
         
-        Carreau posFuture = collectCarreau.get(numFuture);
-        getJoueurCourant().setPositionCourante(posFuture);
 
         int total = d1 + d2;
 
