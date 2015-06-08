@@ -124,7 +124,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
             int prixHotel = grp.getPrixAchatHotel();
             int prixMaison = grp.getPrixAchatMaison();
             
-            while (i<lesProp.size()) {
+            while (i<proprieteConstructible.size()) {
                 ProprieteAConstruire ct = proprieteConstructible.get(i);
                 if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
                     //message interface

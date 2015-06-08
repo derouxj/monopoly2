@@ -11,6 +11,8 @@ public class Monopoly {
     private int nbHotels = 12;
     private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
+    private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
+    private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
 
     public Interface interface_9 = new Interface();
     private int d1, d2;
@@ -96,9 +98,6 @@ public class Monopoly {
         if (d1 + d2 + num >40){
             j.ajouterCash(200);
         }
-        
-        
-        
         
         Carreau posFuture = collectCarreau.get(numFuture);
 
@@ -205,4 +204,18 @@ public class Monopoly {
                 } 
                
         }
+    
+    public CarteChance tirerCarteChance() {
+        CarteChance carte = pileCC.getFirst();
+        pileCC.removeFirst();
+        pileCC.addLast(carte);
+        return carte;
+    }
+    
+    public CarteCaisseCommunaute tirerCarteCaisseCommunaute() {
+        CarteCaisseCommunaute carte = pileCDC.getFirst();
+        pileCDC.removeFirst();
+        pileCDC.addLast(carte);
+        return carte;
+    }
 }
