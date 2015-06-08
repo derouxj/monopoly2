@@ -88,8 +88,9 @@ public class Monopoly {
     }
     
     private void buildGameCarte(String dataFilename) {
-        ArrayList<CarteChance> chanceTmp = new ArrayList<CarteChance>();
-        ArrayList<CarteCaisseCommunaute> cdcTmp = new ArrayList<CarteCaisseCommunaute>();
+        LinkedList<CarteChance> chanceTmp = new LinkedList<CarteChance>();
+        LinkedList<CarteCaisseCommunaute> cdcTmp = new LinkedList<CarteCaisseCommunaute>();
+        Random rand = new Random();
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
 
@@ -153,6 +154,33 @@ public class Monopoly {
                     }
                 }
             }
+            int nbCC = chanceTmp.size()-1;
+            int nbCDC= cdcTmp.size()-1;
+            
+            int rnd;
+            
+            while (!chanceTmp.isEmpty()) {
+                rnd=rand.nextInt((nbCC - 0 + 1) + 0);
+                getPileCC().add(chanceTmp.get(rnd));
+                chanceTmp.remove(rnd);
+                nbCC--;
+            }
+            
+            while (!cdcTmp.isEmpty()) {
+                rnd=rand.nextInt((nbCDC - 0 + 1) + 0);
+                getPileCDC().add(cdcTmp.get(rnd));
+                cdcTmp.remove(rnd);
+                nbCDC--;
+            }
+            
+            /*for (CarteChance cc : getPileCC()) {
+                System.out.println(cc.getDescription());
+            }
+            System.out.println("\n\n");
+            for (CarteCaisseCommunaute cdc : getPileCDC()) {
+                System.out.println(cdc.getDescription());
+            }*/
+            
             
             
 
@@ -194,7 +222,6 @@ public class Monopoly {
         //int num = pos.getNumero();
         Joueur j = getJoueurCourant();
         System.out.println(j.getPositionCourante().getNomCarreau());
-        HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         j.deplacer(d1 + d2);
 
         int total = d1 + d2;
@@ -230,16 +257,16 @@ public class Monopoly {
     }
     
     public CarteChance tirerCarteChance() {
-        CarteChance carte = pileCC.getFirst();
-        pileCC.removeFirst();
-        pileCC.addLast(carte);
+        CarteChance carte = getPileCC().getFirst();
+        getPileCC().removeFirst();
+        getPileCC().addLast(carte);
         return carte;
     }
 
     public CarteCaisseCommunaute tirerCarteCaisseCommunaute() {
-        CarteCaisseCommunaute carte = pileCDC.getFirst();
-        pileCDC.removeFirst();
-        pileCDC.addLast(carte);
+        CarteCaisseCommunaute carte = getPileCDC().getFirst();
+        getPileCDC().removeFirst();
+        getPileCDC().addLast(carte);
         return carte;
     }
     
@@ -341,6 +368,20 @@ public class Monopoly {
 
     public int getNbHotels() {
         return nbHotels;
+    }
+
+    /**
+     * @return the pileCC
+     */
+    public LinkedList<CarteChance> getPileCC() {
+        return pileCC;
+    }
+
+    /**
+     * @return the pileCDC
+     */
+    public LinkedList<CarteCaisseCommunaute> getPileCDC() {
+        return pileCDC;
     }
 
     
