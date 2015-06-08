@@ -86,24 +86,24 @@ public class Monopoly {
         return data;
     }
 
-    public void lancerDesAvancer(Joueur j) {
-        //Carreau pos = j.getPositionCourante();
+    public void lancerDesAvancer() {
+        //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
-        System.out.println(j.getNomJoueur()+" est sur le carreau "+j.getPositionCourante().getNomCarreau());
-        int num = j.getPositionCourante().getNumero();
+        System.out.println(getJoueurCourant().getPositionCourante().getNomCarreau());
+        int num = getJoueurCourant().getPositionCourante().getNumero();
         HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int numFuture = (d1 + d2 + num)%40; //modulo
         if (d1 + d2 + num >40){
-            j.ajouterCash(200);
+            getJoueurCourant().ajouterCash(200);
         }
         
         Carreau posFuture = collectCarreau.get(numFuture);
-
-        j.setPositionCourante(posFuture);
+        getJoueurCourant().setPositionCourante(posFuture);
 
         int total = d1 + d2;
 
-        System.out.println(j.getNomJoueur() + " a fait un score de " + total + ", sa nouvelle position est la case " + j.getPositionCourante().getNomCarreau());
+        System.out.println("le joueur " + getJoueurCourant().getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " +        getJoueurCourant().getPositionCourante().getNomCarreau());
+
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -146,10 +146,10 @@ public class Monopoly {
         d2 = genDes();
         System.out.println(j.getNomJoueur()+" a lancé les dés et a obtenu "+d1+" et "+d2);
         if(!j.isPrison()) {
-            faireUnTour(j);
+            faireUnTour();
         }
         else {
-            lancerDesPrison(j);
+            lancerDesPrison();
         }
     }
 
@@ -227,20 +227,22 @@ public class Monopoly {
         pileCDC.addLast(carte);
         return carte;
     }
-    
-    public void lancerDesPrison(Joueur j) { //lancé si le joueur est emprisonné
+
+        
+
+    public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (d1 == d2) { //le joueur fait un double
-            System.out.println(j.getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
-            j.setPrison(true);
-            j.setNbTourPrison(0);
-            faireUnTour(j);
+            System.out.println(getJoueurCourant().getNomJoueur()+" a fait un double("+d1+","+d2+") et a été libéré de prison.");
+            getJoueurCourant().setPrison(true);
+            getJoueurCourant().setNbTourPrison(0);
+            faireUnTour();
         }
         else { //pas de chance
-            if(j.getCartePrison()==0) {
-                j.tourPrison();
+            if(getJoueurCourant().getCartePrison()==0) {
+                getJoueurCourant().tourPrison();
             }
-            else {
-                System.out.println(j.getNomJoueur()+" possède "+j.getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
+            else{
+                System.out.println(getJoueurCourant().getNomJoueur()+" possède "+getJoueurCourant().getCartePrison()+" carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
                 Scanner sc = new Scanner(System.in);
                 String rep;
                 boolean ok = false;
@@ -253,14 +255,14 @@ public class Monopoly {
                     }
                     if(rep.equals("oui")) {
                         ok = true;
-                        j.retirerCartePrison();
-                        j.setPrison(false);
-                        j.setNbTourPrison(0);
-                        faireUnTour(j);
+                        getJoueurCourant().retirerCartePrison();
+                        getJoueurCourant().setPrison(false);
+                        getJoueurCourant().setNbTourPrison(0);
+                        faireUnTour();
                     }
                     else if(rep.equals("non")) {
                         ok = true;
-                        j.tourPrison();
+                        getJoueurCourant().tourPrison();
                     }
                     else {
                         System.out.println("Veuillez répondre correctement !");
@@ -271,8 +273,8 @@ public class Monopoly {
         }
     }
     
-    public void faireUnTour(Joueur j) {
-        lancerDesAvancer(j);
-        j.getPositionCourante().action(j);
+    public void faireUnTour() {
+        lancerDesAvancer();
+        getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
 }
