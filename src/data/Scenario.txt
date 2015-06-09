@@ -8,9 +8,9 @@ Lancer les dés et avancer :
 ////////////////////////////////////////////////////////////////////////////////
 
 1 : le système affiche les informations relatives au joueur avant déplacement
-3 : le système déplace le joueur selon le montant des deux dés
+2 : le système déplace le joueur selon le montant des deux dés
 3 : le système affiche les nouvelles informations relatives au joueur après déplacement
-
+4 : le système affiche les informations relatives à tout les joueurs 
 ////////////////////////////////////////////////////////////////////////////////
 Aller en prison
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,21 +30,19 @@ Calcul Loyer Gare
 1 : 
 
 ////////////////////////////////////////////////////////////////////////////////
-Jouer un coup propriété
+Jouer un coup propriété à construire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : le joueur commence un tour et lance les dés
-2 : le système gènére aléatoirement les dés
-3 : le joueur se deplace en fonction des dés 
-4 : le joueur tombe sur une propriété (propriétés, gares, compagnies)
-5 : le système vérifie que la propriété est sans propriétaire
-6 : le joueur peut acheter la propriété.
+1 : le joueur commence un tour et avance
+2 : le joueur tombe sur une propriété à construire 
+3 : le système vérifie que la propriété est sans propriétaire
+4 : le joueur peut acheter la propriété.
 
 
 secondaire
-1 : Au cours de l'étape 5, si le joueur tombe sur une propriété d'un autre joueur, il devra lui payer un loyer.
+1 : Au cours de l'étape 4, si le joueur tombe sur une propriété d'un autre joueur, il devra lui payer un loyer, on sort du scénario.
 
-2: Au cours de l'étapr 5, si le joueur tombe sur une propriété dont il possède tout les terrains, il pourra construire.
+2 : Au cours de l'étape 4, si le joueur tombe sur une propriété, il pourra peut-être construire, on sort du scénario.
 
 ////////////////////////////////////////////////////////////////////////////////
 Achat propriete
@@ -65,7 +63,10 @@ secondaires
 Construire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système vérifie que le joueur est bien propriétaire de tout les terrains d'un groupe de propriété
+2 : Le système détermine le terrain le moins construit parmi le groupe de propriété possédé
+3 : Le système détermine ensuite si le joueur possède l'argent et/ou le nombre de propriété nécessaire sur tout les terrains du groupe
+4 : 
 
 ////////////////////////////////////////////////////////////////////////////////
 messageChoixConstruction
