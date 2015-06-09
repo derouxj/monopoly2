@@ -3,6 +3,7 @@ package Jeu;
 import java.util.ArrayList;
 
 public class Gare extends CarreauPropriete {
+    private final int PRIXLOYER=25;
 
     public Gare(int numero, String nomCarreau,Monopoly monopoly) {
         super(numero, nomCarreau, 200,monopoly);
@@ -24,8 +25,12 @@ public class Gare extends CarreauPropriete {
         }
     }
 
+    /**
+     *Calcul le loyer en fonction du nombre de gare du propriétaire de cette dernière
+     * @return int correspondant au loyer
+     */
     @Override
-    public int calculLoyer() { // renommé de calculLoyerGare (pour factoriser)
+    public int calculLoyer() {
         int nbGares = 0;
         int loyer = 0;
         ArrayList<Gare> collectGares = super.getProprietaire().getGares();
@@ -39,7 +44,7 @@ public class Gare extends CarreauPropriete {
     }
 
     public int getPrixLoyer() {
-        return 25;
+        return PRIXLOYER;
     }
 
 }

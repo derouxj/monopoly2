@@ -14,6 +14,40 @@ public abstract class CarreauPropriete extends Carreau {
         setProprietaire(null);
     }
 
+    /**
+     *On sait que la propriété n'a pas de propriétaire.
+     * on vérifie si le joueur a assez d'argent, puis on lui propose de l'acheter ou non via l'interface.
+     * si il répond oui, on lui ajoute cette propriété.
+     */
+    public void achatPropriete(Joueur j) {
+        int prix = this.getPrixAchat();
+        int cash = j.getCash();
+        if (prix <= cash) {
+            String nomC = this.getNomCarreau();
+            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix);
+            if (rep == true) {
+                j.setCash(cash - prix);
+                j.addPropriete(this);
+            }
+        } else {
+            System.out.println("Ce joueur n'a pas assez d'argent pour acheter cette propriété !");
+        }
+    }
+    
+    /**
+     *Défini le joueur j comme etant le propriétaire de cette propriété
+     * @param j futur propriétaire
+     */
+    public void definirProprietaire(Joueur j) {
+        setProprietaire(j);
+    }
+
+    public Monopoly getMonopoly() {
+        return super.getMonopoly();
+    }
+
+    public abstract int calculLoyer();
+    
     private void setPrixAchat(int prixAchat) {
         this.prixAchat = prixAchat;
     }
@@ -22,37 +56,11 @@ public abstract class CarreauPropriete extends Carreau {
         return this.prixAchat;
     }
 
-    public void setProprietaire(Joueur j) {
+    private void setProprietaire(Joueur j) {
         this.proprietaire = j;
     }
 
     public Joueur getProprietaire() {
         return proprietaire;
     }
-    
-    public CouleurPropriete getNomGroupe() { // a supprimer a mon avis
-        throw new UnsupportedOperationException();
-    }
-
-    public void achatPropriete(Joueur j) {
-        int prix = this.getPrixAchat();
-        int cash = j.getCash();
-        if (prix <= cash) {
-            String nomC = this.getNomCarreau();
-            Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix, j);
-            if (rep == true) {
-                j.setCash(cash - prix);
-                j.addPropriete(this);
-            }
-           
-        } else {
-            System.out.println("Ce joueur n'a pas assez d'argent pour acheter cette propriété !");
-        }
-    }
-
-    public Monopoly getMonopoly() {
-        return super.getMonopoly();
-    }
-
-    public abstract int calculLoyer();
 }
