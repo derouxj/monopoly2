@@ -34,7 +34,18 @@ Calcul Loyer Gare
 Jouer un coup propriété
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : le joueur commence un tour et lance les dés
+2 : le système gènére aléatoirement les dés
+3 : le joueur se deplace en fonction des dés 
+4 : le joueur tombe sur une propriété (propriétés, gares, compagnies)
+5 : le système vérifie que la propriété est sans propriétaire
+6 : le joueur peut acheter la propriété.
+
+
+secondaire
+1 : Au cours de l'étape 5, si le joueur tombe sur une propriété d'un autre joueur, il devra lui payer un loyer.
+
+2: Au cours de l'étapr 5, si le joueur tombe sur une propriété dont il possède tout les terrains, il pourra construire.
 
 ////////////////////////////////////////////////////////////////////////////////
 Achat propriete
