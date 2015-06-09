@@ -5,10 +5,10 @@ import Jeu.*;
 import java.util.Scanner;
 import java.util.*;
 
-public class Interface {
+public class Interface implements java.io.Serializable{
 
     public Monopoly monopoly;
-    Scanner sc = new Scanner(System.in);
+    transient Scanner sc = new Scanner(System.in);
 
     public Interface(Monopoly mono) {
         monopoly=mono;

@@ -1,6 +1,6 @@
 package Jeu;
 
-public class CarreauMouvement extends CarreauAction {
+public class CarreauMouvement extends CarreauAction implements java.io.Serializable{
 
     public CarreauMouvement(int numero, String nomCarreau,Monopoly monopoly) {
         super(numero, nomCarreau,monopoly);
