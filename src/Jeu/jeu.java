@@ -113,6 +113,7 @@ public class jeu {
                     
                     //propBleuC.deplacer(plateau.get(7));
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
+                    System.out.println(propBleuC.getProprietesAConstruire().get(0).getGroupePropriete().getCouleur());
                     //propBleuC.getPositionCourante().action(propBleuC);
                     mon.interface_9.messageEtatJoueur(propBleuC);
                     
