@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class CarreauTirage extends CarreauAction implements java.io.Serializable{
-    private ArrayList<ProprieteAConstruire> collectPAC;
-    private int nbM = 0;
-    private int nbH = 0;
-    private int prixR;
+    
+
 
     public CarreauTirage(int numero, String nomCarreau,Monopoly monopoly) {
         super(numero, nomCarreau,monopoly);
@@ -43,15 +41,7 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
             super.getMonopoly().getJoueurCourant().envoyerPrison();
         } else if (monType.equals("M")) {
             System.out.println(ct.getDescription());
-            collectPAC = j.getProprietesAConstruire();
-            for (ProprieteAConstruire pAC : collectPAC){
-                nbH = nbH + pAC.getNbHotels();
-                nbM = nbM + pAC.getNbMaisons();
-            }
-            prixR = nbH * ct.getReparationHotel() + nbM*ct.getReparationMaison();
-            int cash = j.getCash();
-            j.setCash(cash-prixR);
-            System.out.println("Les réparations ont été faites sur " + nbM +" maisons et " + nbH + " hotels pour le prix de "+ prixR + "$.");
+            this.reparation(ct, j);
         } else {
             System.out.println("ERREUR, type non reconnu");
         }
@@ -66,4 +56,20 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         super.getMonopoly().getJoueurCourant().recevoir(10*collectJoueurs.size());
     }
     
+    public void reparation(Carte ct,Joueur j) {
+        int nbM = 0;
+        int nbH = 0;
+        int prixR;
+        ArrayList<ProprieteAConstruire> collectPAC;
+        collectPAC = j.getProprietesAConstruire();
+        for (ProprieteAConstruire pAC : collectPAC) {
+            nbH = nbH + pAC.getNbHotels();
+            nbM = nbM + pAC.getNbMaisons();
+        }
+        prixR = nbH * ct.getReparationHotel() + nbM * ct.getReparationMaison();
+        j.payer(prixR);
+        
+            System.out.println("Les réparations ont été faites sur " + nbM +" maisons et " + nbH + " hotels pour le prix de "+ prixR + "$.");
+    }
+
 }
