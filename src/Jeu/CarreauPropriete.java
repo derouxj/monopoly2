@@ -2,11 +2,10 @@ package Jeu;
 
 import java.util.Scanner;
 
-public abstract class CarreauPropriete extends Carreau {
+public abstract class CarreauPropriete extends Carreau implements java.io.Serializable{
 
     private int prixAchat;
     private Joueur proprietaire;
-    Scanner s = new Scanner(System.in);
 
     public CarreauPropriete(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {
         super(numero, nomCarreau,monopoly);

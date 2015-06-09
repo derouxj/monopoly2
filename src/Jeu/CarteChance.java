@@ -10,7 +10,7 @@ package Jeu;
  *
  * @author carrejer
  */
-public class CarteChance extends Carte {
+public class CarteChance extends Carte implements java.io.Serializable{
 
     
     public CarteChance(String type,String pDesc,Monopoly monopoly) {

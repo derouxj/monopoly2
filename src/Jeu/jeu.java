@@ -17,14 +17,17 @@ public class jeu {
     public static void main(String[] args) {
         boolean fini = false;
         int choix;
-        Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
-
+        
+        //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
+        Monopoly mon = new Monopoly();
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
+            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter\n6.Charger partie");
             choix = sc.nextInt();
+            
             switch (choix) {
                 case 1: {
+                    mon.newDB();
                     boolean ok = false;
                     while (!ok) {
                         int nbj = 0;
@@ -56,9 +59,12 @@ public class jeu {
                             System.out.println();
                         }
                     }
+                    mon.updateDB();
                 }
                 break;
                 case 2: {
+                    mon.loadDB();
+                
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
                             int compteDouble = 0;
@@ -73,6 +79,7 @@ public class jeu {
                             if (!mon.estFini()) {
                                 mon.joueurSuivant();
                             }
+                            mon.updateDB();
                         }
                         System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
                     } else {
@@ -84,6 +91,7 @@ public class jeu {
                     break;
                 }
                 case 4: {
+                    mon.newDB();
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
                     
                     Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
@@ -143,9 +151,14 @@ public class jeu {
                     
                 }
                 case 5: { //envoyer quelqu'un croupir en taule
+                    mon.newDB();
                     mon.getJoueurCourant().envoyerPrison();
                     mon.getJoueurCourant().ajouterCartePrison();
                     mon.jouerUnCoup(mon.getJoueurCourant());
+                }
+                case 6: {
+                    if (!mon.loadDB()){mon.newDB();}
+                    mon.updateDB();
                 }
                 default:
                     break;

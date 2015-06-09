@@ -1,6 +1,6 @@
 package Jeu;
 
-public class CarreauArgent extends CarreauAction {
+public class CarreauArgent extends CarreauAction implements java.io.Serializable{
 
     private int montant;
 

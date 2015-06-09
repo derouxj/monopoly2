@@ -10,7 +10,7 @@ package Jeu;
  *
  * @author carrejer
  */
-public abstract class Carte {
+public abstract class Carte implements java.io.Serializable{
     private Monopoly monopoly;
     private String description,type;
     private int reparationMaison,reparationHotel,nombreAction;

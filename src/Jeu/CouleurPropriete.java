@@ -1,6 +1,6 @@
 package Jeu;
 
-public enum CouleurPropriete {
+public enum CouleurPropriete implements java.io.Serializable{
 
     bleuFonce("Bleu foncé"),
     orange("Orange"),

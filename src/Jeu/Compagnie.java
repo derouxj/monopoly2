@@ -1,6 +1,6 @@
 package Jeu;
 
-public class Compagnie extends CarreauPropriete {
+public class Compagnie extends CarreauPropriete implements java.io.Serializable{
 
     public Compagnie(int numero, String nomCarreau, int prixAchat,Monopoly monopoly) {
         super(numero, nomCarreau, prixAchat,monopoly);

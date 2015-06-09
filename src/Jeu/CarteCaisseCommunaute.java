@@ -10,7 +10,7 @@ package Jeu;
  *
  * @author carrejer
  */
-public class CarteCaisseCommunaute extends Carte {
+public class CarteCaisseCommunaute extends Carte implements java.io.Serializable{
     public CarteCaisseCommunaute(String type,String pDesc,Monopoly monopoly) {
         super(type,pDesc,monopoly);
     }
