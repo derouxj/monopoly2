@@ -111,10 +111,12 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
-    private void buildGameCarte(String dataFilename) {
+     private void buildGameCarte(String dataFilename) {
+        LinkedList<CarteChance> chanceTmp = new LinkedList<CarteChance>();
+        LinkedList<CarteCaisseCommunaute> cdcTmp = new LinkedList<CarteCaisseCommunaute>();
+        Random rand = new Random();
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
-            Random rand = new Random();
 
             //TODO: create cases instead of displaying
             for (int i = 0; i < data.size(); ++i) {
@@ -176,10 +178,6 @@ public class Monopoly implements java.io.Serializable{
                     }
                 }
             }
-
-            
-            
-            
             int nbCC = chanceTmp.size()-1;
             int nbCDC= cdcTmp.size()-1;
             
@@ -207,7 +205,6 @@ public class Monopoly implements java.io.Serializable{
                 System.out.println(cdc.getDescription());
             }*/
             
-            
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
         } catch (IOException e) {
@@ -215,6 +212,10 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
+    /**
+     *
+     * @param nbj, Ordonne les joueurs en fonction du joueur ayant fait le plus gros lancé de dés (il sera positionné en premier) le joueur à sa gauche est le suivant et ainsi de suite
+     */
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
@@ -241,6 +242,9 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
+    /**
+     *Récupère les dés lancés et déplace le joueur
+     */
     public void lancerDesAvancer() {
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
@@ -261,6 +265,10 @@ public class Monopoly implements java.io.Serializable{
 
     }
 
+    /**
+     *
+     * @param j, Lance les dés, si le joueur est en prison : appelle faire un tour, sinon lance : lancerDesPrison
+     */
     public void jouerUnCoup(Joueur j) {
         d1 = genDes();
         d2 = genDes();
@@ -272,15 +280,26 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
+    /**
+     * Passe la main au joueur suivant
+     */
     public void joueurSuivant() {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
 
+    /**
+     *
+     * @return le joueur courant
+     */
     public Joueur getJoueurCourant() {
         return this.getJoueurs().getFirst();
     }
 
+    /**
+     *
+     * @return la carte chance au sommet de la pile
+     */
     public CarteChance tirerCarteChance() {
         CarteChance carte = pileCC.getFirst();
         pileCC.removeFirst();
@@ -288,6 +307,10 @@ public class Monopoly implements java.io.Serializable{
         return carte;
     }
 
+    /**
+     *
+     * @return la carte communaute au sommet de la pile
+     */
     public CarteCaisseCommunaute tirerCarteCaisseCommunaute() {
         CarteCaisseCommunaute carte = pileCDC.getFirst();
         pileCDC.removeFirst();
@@ -295,6 +318,9 @@ public class Monopoly implements java.io.Serializable{
         return carte;
     }
 
+    /**
+     *Si le joueur emprisonné fait un double alors il est libéré, s'il possède une carte "libérer de prison" il a le choix de l'utiliser ou non
+     */
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (d1 == d2) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur() + " a fait un double(" + d1 + "," + d2 + ") et a été libéré de prison.");
@@ -334,15 +360,25 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
+    /**
+     *Lance les dés et execute l'action correspondante au carreau
+     */
     public void faireUnTour() {
         lancerDesAvancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
-
+    
+    /**
+     *
+     * @return si c'est la fin du tour
+     */
     public boolean estFini() {
         return this.getJoueurs().size() == 1;
     }
 
+    /**
+     *Demande la saisit du numéro de la case et déplace le joueur à cette case
+     */
     public void triche() {
 
         LinkedList<Joueur> joueurs1 = this.getJoueurs();
@@ -357,6 +393,21 @@ public class Monopoly implements java.io.Serializable{
         }
 
     }
+    
+        /**
+     * @return the pileCC
+     */
+    public LinkedList<CarteChance> getPileCC() {
+        return pileCC;
+    }
+
+    /**
+     * @return the pileCDC
+     */
+    public LinkedList<CarteCaisseCommunaute> getPileCDC() {
+        return pileCDC;
+    }
+    
 
     public int genDes() {
         Random rand = new Random();
@@ -395,28 +446,10 @@ public class Monopoly implements java.io.Serializable{
         return nbHotels;
     }
 
-    /**
-     * @return the pileCC
-     */
-    public LinkedList<CarteChance> getPileCC() {
-        return pileCC;
-    }
 
+    
+    
     /**
-     * @return the pileCDC
-     */
-    public LinkedList<CarteCaisseCommunaute> getPileCDC() {
-        return pileCDC;
-    }
-    
-        
-
-    /**
-=======
-    
-    
-        /**
->>>>>>> c9782dd7d0b7fdc11777da9f1d536ffbfc6e486d
      *Ajoute au monopoly des maisons
      * @param nbMaison nombre de maison a ajouter au monopoly
      */
