@@ -23,25 +23,25 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         }
         
         String monType=ct.getType();
-        if (monType=="L") {
+        if (monType.equals("L")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().ajouterCartePrison();
-        } else if (monType=="T") {
+        } else if (monType.equals("T")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().envoyerCase(ct.getNombreAction());
-        } else if (monType=="N") {
+        } else if (monType.equals("N")) {
             System.out.println(ct.getDescription());
             this.anniversaire();
-        } else if (monType=="A") {
+        } else if (monType.equals("A")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().recevoir(ct.getNombreAction());
-        } else if (monType=="B") {
+        } else if (monType.equals("B")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().deplacer(ct.getNombreAction());
-        } else if (monType=="P") {
+        } else if (monType.equals("P")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().envoyerPrison();
-        } else if (monType=="M") {
+        } else if (monType.equals("M")) {
             System.out.println(ct.getDescription());
             collectPAC = j.getProprietesAConstruire();
             for (ProprieteAConstruire pAC : collectPAC){
