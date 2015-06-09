@@ -91,7 +91,7 @@ public class Joueur implements java.io.Serializable{
     }
 
     public void setCash(int solde) {
-        cash=solde;
+        cash = solde;
     }
 
     /**
@@ -158,12 +158,9 @@ public class Joueur implements java.io.Serializable{
     }
 
     /**
-<<<<<<< HEAD
      *Change la position du joueur par celle de la prison (case n°11)
      *Change la variable prison du joueur à true.
-=======
      *envoie le joueur en prison
->>>>>>> 2ca422627a310cf21cc0f661ad657cf272c2feef
      */
     public void envoyerPrison() {
         this.setPositionCourante(getMonopoly().getCarreaux().get(11));
@@ -178,10 +175,10 @@ public class Joueur implements java.io.Serializable{
      */
     public void envoyerCase(int numero){
         int numPos = getPositionCourante().getNumero();
-        
-        if (numPos>numero && numero>0) {
+
+        if (numPos > numero && numero > 0) {
             passeDepart();
-        } else if (numPos<numero && numero<0) {
+        } else if (numPos < numero && numero < 0) {
             passeDepart();
         }
         setPositionCourante(getMonopoly().getCarreaux().get(numero));
@@ -193,7 +190,7 @@ public class Joueur implements java.io.Serializable{
     private void passeDepart() {
         this.recevoir(200);
     }
-    
+
     /**
      * deplace le joueur du nombre de case inscrit en paramètre. Vérifie également si il est passé par la case départ.
      * 
@@ -208,9 +205,9 @@ public class Joueur implements java.io.Serializable{
      * @param nbAAvancer nombre de case à avancer
      */
     private int verifPos(int nbAAvancer) {
-        int posFutur=getPositionCourante().getNumero()+nbAAvancer;
-        if (posFutur>40) {
-            return 40-posFutur;
+        int posFutur = getPositionCourante().getNumero() + nbAAvancer;
+        if (posFutur > 40) {
+            return 40 - posFutur;
         } else {
             return posFutur;
         }
@@ -257,8 +254,9 @@ public class Joueur implements java.io.Serializable{
     public void setCartePrison(int cartePrison) {
         this.cartePrison = cartePrison;
     }
-    
+
     public void ajouterCartePrison() {
+
         this.setCartePrison(getCartePrison()+1);
         this.getMonopoly().interface_9.messageCartePrison(true);
     }
@@ -267,9 +265,9 @@ public class Joueur implements java.io.Serializable{
         this.setCartePrison(getCartePrison()-1);
         this.getMonopoly().interface_9.messageCartePrison(false);
     }
-    
-    public void ajouterCash(int cash){
-        setCash(getCash()+cash);
+
+    public void ajouterCash(int cash) {
+        setCash(getCash() + cash);
     }
 
     /**
@@ -305,4 +303,7 @@ public class Joueur implements java.io.Serializable{
         }
         getMonopoly().getJoueurs().remove(this);
     }
+    
+    
+    
 }
