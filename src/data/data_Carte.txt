@@ -23,7 +23,7 @@ CDC,A,Payer la note du medecin : 50€,-50
 CDC,A,Les contribuitions vous rapportent la somme de 20€,20
 CDC,A,Payer à l'Hôpital 100€,-100
 CDC,A,Vous héritez : 100€ ,100
-CDC,P,Allez en prison. Avencez tout droit en prison.Ne passeéz pas par la case Départ. Ne recevez pas 200€.,11
+CDC,P,Allez en prison. Avencez tout droit en prison.Ne passez pas par la case Départ. Ne recevez pas 200€.,11
 CDC,A,Payer votre police d'assurance : 50€,-50
 CDC,A,La vente de votre stock vous rapporte : 50€,50
 CDC,T,Avancez jusqu'à la case départ,1

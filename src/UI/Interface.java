@@ -5,10 +5,10 @@ import Jeu.*;
 import java.util.Scanner;
 import java.util.*;
 
-public class Interface {
+public class Interface implements java.io.Serializable{
 
     public Monopoly monopoly;
-    Scanner sc = new Scanner(System.in);
+    transient Scanner sc = new Scanner(System.in);
 
     public Interface(Monopoly mono) {
         monopoly=mono;
@@ -24,33 +24,33 @@ public class Interface {
 
         System.out.println("Nom du joueur : " + leJoueur.getNomJoueur());
         System.out.println("  - position : " + leJoueur.getPositionCourante().getNomCarreau());
-        System.out.println("  - solde : " + leJoueur.getCash());
+        System.out.println("  - solde : " + leJoueur.getCash() + "$");
         System.out.println("  - propriétés : ");
         ArrayList<Gare> gares = leJoueur.getGares();
         if (gares.isEmpty()) {
-            System.out.println("      Ce joueur n'a aucune gares.");
+            System.out.println("\tCe joueur n'a aucune gares.");
         } else {
-            System.out.println("      gares de ce joueur : ");
+            System.out.println("\tGares de ce joueur : ");
             for (Gare g : gares) {
-                System.out.println("      - " + g.getNomCarreau());
+                System.out.println("\t- " + g.getNomCarreau());
             }
         }
         ArrayList<Compagnie> compagnies = leJoueur.getCompagnies();
         if (compagnies.isEmpty()) {
-            System.out.println("      Ce joueur n'a pas de compagnies.");
+            System.out.println("\tCe joueur n'a pas de compagnies.");
         } else {
-            System.out.println("      compagnies de ce joueur : ");
+            System.out.println("\tCompagnies de ce joueur : ");
             for (Compagnie c : compagnies) {
                 System.out.print("      - " + c.getNomCarreau());
             }
         }
         ArrayList<ProprieteAConstruire> proprietes = leJoueur.getProprietesAConstruire();
         if (proprietes.isEmpty()) {
-            System.out.println("      Ce joueur n'a aucune propriétés à construire.");
+            System.out.println("\tCe joueur n'a aucune propriétés à construire.");
         } else {
-            System.out.println("      propriétés à construire de ce joueur : ");
+            System.out.println("\tPropriétés à construire de ce joueur : ");
             for (ProprieteAConstruire p : proprietes) {
-                System.out.print("      - " + p.getNomCarreau() + " du groupe " + p.getCouleur());
+                System.out.print("\t- " + p.getNomCarreau() + " du groupe " + p.getCouleur());
                 int nbhotels = p.getNbHotels();
                 int nbmaisons = p.getNbMaisons();
                 if (nbmaisons == 0 && nbhotels == 0) {
