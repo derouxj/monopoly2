@@ -52,7 +52,7 @@ Achat propriete
 2 : Le système détermine si le joueur à suffisamment d'argent pour acheter la propriété 
 3 : Le système demande la confirmation de l'achat du carreau propriété 
 4 : Le joueur confirme l'achat 
-5 : Le système soustrait le prix d'achat de l'argent du joueur et ajoute la nouvelle propriété aux joueurs 
+5 : Le système soustrait le prix d'achat de l'argent du joueur et ajoute la nouvelle propriété au joueur
 
 secondaires 
 1 : Au cours de l'étape 2, si le joueur n'a pas suffisamment d'argent le système sort du scénario achat propriété
@@ -91,16 +91,21 @@ secondaire
 
 
 ////////////////////////////////////////////////////////////////////////////////
-Réparer maisons
+Réparation
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système collecte les propriétés constructibles du joueur
+2 : Le système compte le nombre de maison et/ou hotel sur chaque terrain et les additionnent
+3 : Le système calcul en suite le montant à payer (graĉe au prix de réparation des maisons et hotels donné dans la data)
+4 : Le système fait payer l'utilisateur le montantt
+5 : Le système avertit l'utilisateur du montant qu'il a eu à payer ainsi que le nombre de maison et/ou d'hotel réparé
+
 
 ////////////////////////////////////////////////////////////////////////////////
 messageReparation
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : // fait dans reparation.
 
 ////////////////////////////////////////////////////////////////////////////////
 Anniversaire
