@@ -16,7 +16,7 @@ public class Monopoly implements java.io.Serializable{
     private int d1, d2;
     public Interface interface_9 = new Interface(this);
     
-    private static String SAVE = "clubs.db";
+    private static String SAVE = "save.db";
     private ArrayList<CarteChance> chanceTmp = new ArrayList<CarteChance>();
     private ArrayList<CarteCaisseCommunaute> cdcTmp = new ArrayList<CarteCaisseCommunaute>();
 
