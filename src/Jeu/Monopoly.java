@@ -14,14 +14,15 @@ public class Monopoly {
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
     private ArrayList<CarteChance> carteChance = new ArrayList<CarteChance>();
- private ArrayList<CarteCaisseCommunaute> carteCaisseCommunaute = new ArrayList<CarteCaisseCommunaute>();
+    private ArrayList<CarteCaisseCommunaute> carteCaisseCommunaute = new ArrayList<CarteCaisseCommunaute>();
     public Interface interface_9 = new Interface();
     private int d1, d2;
 
-    public Monopoly(String dataFilename) {
+    public Monopoly(String dataFilename, String dataFilename2) {
         buildGamePlateau(dataFilename);
+        buildGameCarte(dataFilename2);
     }
-    
+
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
         ArrayList<String[]> data = new ArrayList<String[]>();
 
@@ -86,7 +87,7 @@ public class Monopoly {
             System.err.println("[buildGamePlateau()] : Error while reading file!");
         }
     }
-    
+
     private void buildGameCarte(String dataFilename) {
         try {
             ArrayList<String[]> data = readDataFile(dataFilename, ",");
@@ -96,7 +97,7 @@ public class Monopoly {
                 String caseType = data.get(i)[0];
 
                 if (caseType.compareTo("CC") == 0) {
-                    String caseType2 = data.get(i)[0];
+                    String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
                         CarteChance liberer = new CarteChance(data.get(i)[1], data.get(i)[2], this);
@@ -123,35 +124,28 @@ public class Monopoly {
                     }
 
                 } else if (caseType.compareTo("CDC") == 0) {
-                    String caseType2 = data.get(i)[0];
+                    String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        
-                         CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
-                        carteCaisseCommunaute.add(liberer);
-                        
-                                            } else if (caseType2.compareTo("A") == 0) {
-                        CarteCaisseCommunaute amende = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        carteCaisseCommunaute.add(amende);
-                        
-                        
-                                            } else if ( caseType2.compareTo("N") == 0) {
+
                         CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
                         carteCaisseCommunaute.add(liberer);
-                                            
-                             } else if ( caseType2.compareTo("P") == 0) {
+
+                    } else if (caseType2.compareTo("A") == 0) {
+                        CarteCaisseCommunaute amende = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
+                        carteCaisseCommunaute.add(amende);
+
+                    } else if (caseType2.compareTo("N") == 0) {
+                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
+                        carteCaisseCommunaute.add(liberer);
+
+                    } else if (caseType2.compareTo("P") == 0) {
                         CarteCaisseCommunaute prison = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
                         carteCaisseCommunaute.add(prison);
-                        
-                             } else if ( caseType2.compareTo("T") == 0) {
+
+                    } else if (caseType2.compareTo("T") == 0) {
                         CarteCaisseCommunaute deplacer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
                         carteCaisseCommunaute.add(deplacer);
-                        
-
-                        
-                        
-                        
-                        
 
                     } else {
                         System.err.println("[buildGamePleateau()] : Invalid Data type");
@@ -165,7 +159,7 @@ public class Monopoly {
             System.err.println("[buildGameCarte()] : Error while reading file!");
         }
     }
-    
+
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
@@ -211,7 +205,7 @@ public class Monopoly {
         }
 
     }
-    
+
     public void jouerUnCoup(Joueur j) {
         d1 = genDes();
         d2 = genDes();
@@ -222,16 +216,16 @@ public class Monopoly {
             lancerDesPrison();
         }
     }
-    
+
     public void joueurSuivant() {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
-    
+
     public Joueur getJoueurCourant() {
         return this.getJoueurs().getFirst();
     }
-    
+
     public CarteChance tirerCarteChance() {
         CarteChance carte = pileCC.getFirst();
         pileCC.removeFirst();
@@ -245,7 +239,7 @@ public class Monopoly {
         pileCDC.addLast(carte);
         return carte;
     }
-    
+
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (d1 == d2) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur() + " a fait un double(" + d1 + "," + d2 + ") et a été libéré de prison.");
@@ -289,11 +283,11 @@ public class Monopoly {
         lancerDesAvancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
-    
+
     public boolean estFini() {
         return this.getJoueurs().size() == 1;
     }
-    
+
     public void triche() {
 
         LinkedList<Joueur> joueurs1 = this.getJoueurs();
@@ -337,7 +331,7 @@ public class Monopoly {
     public LinkedList<Joueur> getJoueurs() {
         return joueurs;
     }
-    
+
     public int getNbMaisons() {
         return nbMaisons;
     }
@@ -346,11 +340,4 @@ public class Monopoly {
         return nbHotels;
     }
 
-    
-
-    
-
-    
-
-    
 }

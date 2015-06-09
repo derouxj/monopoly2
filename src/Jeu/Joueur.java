@@ -62,7 +62,7 @@ public class Joueur {
         if (c.getClass().getSimpleName().equals("Gare")) {
             this.gares.add((Gare) c);
         } else if (c.getClass().getSimpleName().equals("Compagnie")) {
-            this.compagnies.add((Compagnie)c);
+            this.compagnies.add((Compagnie) c);
         } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
             this.proprietesAConstruire.add((ProprieteAConstruire) c);
         }
@@ -70,7 +70,7 @@ public class Joueur {
     }
 
     public void setCash(int solde) {
-        cash=solde;
+        cash = solde;
     }
 
     /**
@@ -141,38 +141,38 @@ public class Joueur {
         this.setPrison(true);
         this.getMonopoly().interface_9.messagePrison(this);
     }
-    
-    public void envoyerCase(int numero){
+
+    public void envoyerCase(int numero) {
         int numPos = getPositionCourante().getNumero();
-        
-        if (numPos>numero && numero>0) {
+
+        if (numPos > numero && numero > 0) {
             passeDepart();
-        } else if (numPos<numero && numero<0) {
+        } else if (numPos < numero && numero < 0) {
             passeDepart();
         }
         setPositionCourante(monopoly.getCarreaux().get(numero));
     }
-    
+
     public void passeDepart() {
-        setCash(getCash()+200);
+        setCash(getCash() + 200);
     }
-    
+
     public void anniversaire() {
-        
+
     }
-    
+
     /**
      * deplace le joueur du nombre de case inscrit en paramètre
-     * 
+     *
      */
     public void deplacer(int nbCaseADeplacer) {
         envoyerCase(verifPos(nbCaseADeplacer));
     }
-    
+
     private int verifPos(int nbAAvancer) {
-        int posFutur=getPositionCourante().getNumero()+nbAAvancer;
-        if (posFutur>40) {
-            return 40-posFutur;
+        int posFutur = getPositionCourante().getNumero() + nbAAvancer;
+        if (posFutur > 40) {
+            return 40 - posFutur;
         } else {
             return posFutur;
         }
@@ -219,19 +219,19 @@ public class Joueur {
     public void setCartePrison(int cartePrison) {
         this.cartePrison = cartePrison;
     }
-    
+
     public void ajouterCartePrison() {
-        this.setCartePrison(cartePrison+1);
+        this.setCartePrison(cartePrison + 1);
         this.getMonopoly().interface_9.messageCartePrison(true, this);
     }
 
     public void retirerCartePrison() {
-        this.setCartePrison(cartePrison-1);
+        this.setCartePrison(cartePrison - 1);
         this.getMonopoly().interface_9.messageCartePrison(false, this);
     }
-    
-    public void ajouterCash(int cash){
-        setCash(getCash()+cash);
+
+    public void ajouterCash(int cash) {
+        setCash(getCash() + cash);
     }
 
     public void tourPrison() {
