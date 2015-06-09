@@ -14,9 +14,11 @@ public class Monopoly implements java.io.Serializable{
     private LinkedList<CarteChance> pileCC;
     private LinkedList<CarteCaisseCommunaute> pileCDC;
     private int d1, d2;
+    private Score score;
     public Interface interface_9 = new Interface(this);
     
     private static String SAVE = "save.db";
+    private static String SCORE = "score.db";
     private ArrayList<CarteChance> chanceTmp = new ArrayList<CarteChance>();
     private ArrayList<CarteCaisseCommunaute> cdcTmp = new ArrayList<CarteCaisseCommunaute>();
 
@@ -25,7 +27,7 @@ public class Monopoly implements java.io.Serializable{
         buildGameCarte(dataFilename2);
     }
     public Monopoly() {
-        
+        score = new Score();
     }
              // Fichier de sérialisation
 	
@@ -204,13 +206,6 @@ public class Monopoly implements java.io.Serializable{
             for (CarteCaisseCommunaute cdc : getPileCDC()) {
                 System.out.println(cdc.getDescription());
             }*/
-            
-            
-            
-            
-            
-            
-            
             
             
         } catch (FileNotFoundException e) {
@@ -467,17 +462,15 @@ public class Monopoly implements java.io.Serializable{
         /**
      * Met à jour du fichier de sérialisation
      */
-    public boolean updateDB() {
-                System.out.println("Update data");
-
-        return saveDB();
+    public boolean updateDBSave() {
+        return saveDBSave();
     }
 
     /**
      * Création d'une nouvelle sérialisation
      */
-    public void newDB() {
-        System.out.println("Creation data");
+    public void newDBSave() {
+        System.out.println("Creation data save");
 	this.setCarreaux(new HashMap<Integer, Carreau>());
 	this.setJoueurs(new LinkedList<Joueur>());
         this.setPileCC(new LinkedList<CarteChance>());
@@ -490,7 +483,7 @@ public class Monopoly implements java.io.Serializable{
     * Sauvegarde du fichier de sérialisation
     */
 	
-    private boolean saveDB() {
+    private boolean saveDBSave() {
         File file;
         boolean success = true;
         FileOutputStream fos = null;
@@ -534,18 +527,11 @@ public class Monopoly implements java.io.Serializable{
         }
         return success;
     }
-    /*private int nbMaisons = 32;
-    private int nbHotels = 12;
-    private HashMap<Integer, Carreau> carreaux;
-    private LinkedList<Joueur> joueurs;
-    private LinkedList<CarteChance> pileCC;
-    private LinkedList<CarteCaisseCommunaute> pileCDC;
-    private int d1, d2;*/
     /**
      * Chargement des données à partir d'un fichier de sérialisation
      */
-    public boolean loadDB() {
-        System.out.println("Chargement");
+    public boolean loadDBSave() {
+        System.out.println("Chargement save");
         boolean success = true;
         File file = new File(SAVE);
         
@@ -617,4 +603,100 @@ public class Monopoly implements java.io.Serializable{
         this.pileCDC = pileCDC;
     }
     
+    /**
+     * Met à jour du fichier de sérialisation
+     */
+    public boolean updateDBScore() {
+        return saveDBScore();
+    }
+
+    /**
+     * Création d'une nouvelle sérialisation
+     */
+    public void newDBScore() {
+        System.out.println("Creation data score");
+	score = new Score();
+        score.setLesMeilleursJ(new ArrayList<Joueur>());
+    }
+    
+   /**
+    * Sauvegarde du fichier de sérialisation
+    */
+	
+    private boolean saveDBScore() {
+        File file;
+        boolean success = true;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;            
+        
+        file = new File(SCORE);
+        try {
+            fos = new FileOutputStream(file);
+            oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(getScore().getLesMeilleursJ());
+            
+        }
+        catch (Exception e) {
+            System.out.println("SAVE" + e);
+            success = false;
+        }
+        finally {
+                if (oos != null) { 
+                    try { oos.close(); }
+                    catch(IOException e) {}
+                }
+                
+                if (fos != null) { 
+                    try { fos.close(); }
+                    catch(IOException e) {}
+                }
+            
+        }
+        return success;
+    }
+    /**
+     * Chargement des données à partir d'un fichier de sérialisation
+     */
+    public boolean loadDBScore() {
+        System.out.println("Chargement score");
+        boolean success = true;
+        File file = new File(SCORE);
+        
+        if (file.exists()) {
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;            
+
+            try {
+                fis = new FileInputStream(file);
+                ois = new ObjectInputStream(fis);
+
+                getScore().setLesMeilleursJ((ArrayList<Joueur>) ois.readObject());
+                
+            }             
+            catch(Exception e) {
+                System.out.println("LOAD" + e);
+                success = false;
+            }
+            finally {
+                if (ois != null) { 
+                    try { ois.close(); }
+                    catch(IOException e) {}
+                }
+                
+                if (fis != null) { 
+                    try { fis.close(); }
+                    catch(IOException e) {}
+                }
+            }
+        } else { success = false; }
+        return success;
+    }
+
+    /**
+     * @return the score
+     */
+    public Score getScore() {
+        return score;
+    }
 }
