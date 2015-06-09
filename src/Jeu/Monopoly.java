@@ -205,7 +205,6 @@ public class Monopoly implements java.io.Serializable{
                 System.out.println(cdc.getDescription());
             }*/
             
-
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
         } catch (IOException e) {
@@ -447,10 +446,10 @@ public class Monopoly implements java.io.Serializable{
         return nbHotels;
     }
 
+
     
     
-        /**
->>>>>>> c9782dd7d0b7fdc11777da9f1d536ffbfc6e486d
+    /**
      *Ajoute au monopoly des maisons
      * @param nbMaison nombre de maison a ajouter au monopoly
      */
