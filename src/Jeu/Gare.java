@@ -2,7 +2,7 @@ package Jeu;
 
 import java.util.ArrayList;
 
-public class Gare extends CarreauPropriete {
+public class Gare extends CarreauPropriete implements java.io.Serializable{
     private final int PRIXLOYER=25;
 
     public Gare(int numero, String nomCarreau,Monopoly monopoly) {

@@ -5,24 +5,41 @@ import UI.Interface;
 import java.io.*;
 import java.util.*;
 
-public class Monopoly {
+public class Monopoly implements java.io.Serializable{
 
     private int nbMaisons = 32;
     private int nbHotels = 12;
-    private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
-    private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
-    private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
-    private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
-<<<<<<< HEAD
-=======
-    
->>>>>>> 0ef31c2b9b2572596ba6488565b1fa550f44fa35
-    public Interface interface_9 = new Interface(this);
+    private HashMap<Integer, Carreau> carreaux;
+    private LinkedList<Joueur> joueurs;
+    private LinkedList<CarteChance> pileCC;
+    private LinkedList<CarteCaisseCommunaute> pileCDC;
     private int d1, d2;
+    public Interface interface_9 = new Interface(this);
+    
+    private static String SAVE = "clubs.db";
 
     public Monopoly(String dataFilename,String dataFile) {
         buildGamePlateau(dataFilename);
         buildGameCarte(dataFile);
+    }
+    public Monopoly() {
+        
+    }
+             // Fichier de sérialisation
+	
+
+    /**
+     * @return the DB_FILE
+     */
+    public static String getSAVE() {
+        return SAVE;
+    }
+
+    /**
+     * @param fASave the DB_FILE to set
+     */
+    public static void setSAVE(String fASave) {
+        SAVE = fASave;
     }
     
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
@@ -253,7 +270,7 @@ public class Monopoly {
 
         int total = d1 + d2;
 
-        System.out.println("le joueur " + getJoueurCourant().getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + getJoueurCourant().getPositionCourante().getNomCarreau());
+        System.out.println("le joueur " + j.getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + j.getPositionCourante().getNomCarreau());
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();
 
@@ -409,13 +426,9 @@ public class Monopoly {
      */
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
-<<<<<<< HEAD
-    }   
-=======
     }
     
         
->>>>>>> 0ef31c2b9b2572596ba6488565b1fa550f44fa35
     /**
      *Ajoute au monopoly des maisons
      * @param nbMaison nombre de maison a ajouter au monopoly
@@ -458,6 +471,159 @@ public class Monopoly {
      */
     public void setNbHotels(int nbHotels) {
         this.nbHotels = nbHotels;
+    }
+    
+        /**
+     * Met à jour du fichier de sérialisation
+     */
+    public boolean updateDB() {
+                System.out.println("Update data");
+
+        return saveDB();
+    }
+
+    /**
+     * Création d'une nouvelle sérialisation
+     */
+    public void newDB() {
+        System.out.println("Creation data");
+	this.setCarreaux(new HashMap<Integer, Carreau>());
+	this.setJoueurs(new LinkedList<Joueur>());
+        this.setPileCC(new LinkedList<CarteChance>());
+        this.setPileCDC(new LinkedList<CarteCaisseCommunaute>());
+        this.buildGamePlateau("src/data/data.txt");
+        this.buildGameCarte("src/data/data_Carte.txt");
+    }
+    
+   /**
+    * Sauvegarde du fichier de sérialisation
+    */
+	
+    private boolean saveDB() {
+        File file;
+        boolean success = true;
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;            
+        
+        file = new File(SAVE);
+        try {
+            fos = new FileOutputStream(file);
+            oos = new ObjectOutputStream(fos);
+            
+            oos.writeInt(nbMaisons);
+            oos.writeInt(nbHotels);
+            oos.writeObject(carreaux);
+            oos.writeObject(joueurs);
+            oos.writeObject(pileCC);
+            oos.writeObject(pileCDC);
+            oos.writeInt(d1);
+            oos.writeInt(d2);
+
+            /*oos.writeInt(numDerMonit);
+            oos.writeObject(lesClubs);
+            oos.writeObject(lesActivites);
+            oos.writeObject(lesMoniteurs);*/
+            
+        }
+        catch (Exception e) {
+            System.out.println("SAVE" + e);
+            success = false;
+        }
+        finally {
+                if (oos != null) { 
+                    try { oos.close(); }
+                    catch(IOException e) {}
+                }
+                
+                if (fos != null) { 
+                    try { fos.close(); }
+                    catch(IOException e) {}
+                }
+            
+        }
+        return success;
+    }
+    /*private int nbMaisons = 32;
+    private int nbHotels = 12;
+    private HashMap<Integer, Carreau> carreaux;
+    private LinkedList<Joueur> joueurs;
+    private LinkedList<CarteChance> pileCC;
+    private LinkedList<CarteCaisseCommunaute> pileCDC;
+    private int d1, d2;*/
+    /**
+     * Chargement des données à partir d'un fichier de sérialisation
+     */
+    public boolean loadDB() {
+        System.out.println("Chargement");
+        boolean success = true;
+        File file = new File(SAVE);
+        
+        if (file.exists()) {
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;            
+
+            try {
+                fis = new FileInputStream(file);
+                ois = new ObjectInputStream(fis);
+                
+                nbMaisons= ois.readInt();
+                nbHotels= ois.readInt();
+                carreaux = (HashMap<Integer, Carreau>) ois.readObject();
+                joueurs = (LinkedList<Joueur>) ois.readObject();
+                pileCC = (LinkedList<CarteChance>) ois.readObject();
+                pileCDC = (LinkedList<CarteCaisseCommunaute>) ois.readObject();
+                d1 = ois.readInt();
+                d2 = ois.readInt();
+                /*numDerMonit = ois.readInt();
+                lesClubs = (HashMap<String, CAF>) ois.readObject();
+                lesActivites = (HashMap<String, Activite>) ois.readObject();
+                lesMoniteurs = (HashMap<Integer, Moniteur>) ois.readObject();*/
+            }             
+            catch(Exception e) {
+                System.out.println("LOAD" + e);
+                success = false;
+            }
+            finally {
+                if (ois != null) { 
+                    try { ois.close(); }
+                    catch(IOException e) {}
+                }
+                
+                if (fis != null) { 
+                    try { fis.close(); }
+                    catch(IOException e) {}
+                }
+            }
+        } else { success = false; }
+        return success;
+    }
+
+    /**
+     * @param carreaux the carreaux to set
+     */
+    public void setCarreaux(HashMap<Integer, Carreau> carreaux) {
+        this.carreaux = carreaux;
+    }
+
+    /**
+     * @param joueurs the joueurs to set
+     */
+    public void setJoueurs(LinkedList<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+
+    /**
+     * @param pileCC the pileCC to set
+     */
+    public void setPileCC(LinkedList<CarteChance> pileCC) {
+        this.pileCC = pileCC;
+    }
+
+    /**
+     * @param pileCDC the pileCDC to set
+     */
+    public void setPileCDC(LinkedList<CarteCaisseCommunaute> pileCDC) {
+        this.pileCDC = pileCDC;
     }
     
 }

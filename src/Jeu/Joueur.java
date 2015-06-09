@@ -2,7 +2,7 @@ package Jeu;
 
 import java.util.ArrayList;
 
-public class Joueur {
+public class Joueur implements java.io.Serializable{
 
     private String nomJoueur;
     private int cash = 1500;

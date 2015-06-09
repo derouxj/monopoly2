@@ -2,7 +2,7 @@ package Jeu;
 
 import java.util.LinkedList;
 
-public class CarreauTirage extends CarreauAction {
+public class CarreauTirage extends CarreauAction implements java.io.Serializable{
 
     public CarreauTirage(int numero, String nomCarreau,Monopoly monopoly) {
         super(numero, nomCarreau,monopoly);
