@@ -13,7 +13,10 @@ public class Monopoly {
     private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
     private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
+<<<<<<< HEAD
+=======
     
+>>>>>>> 0ef31c2b9b2572596ba6488565b1fa550f44fa35
     public Interface interface_9 = new Interface(this);
     private int d1, d2;
 
@@ -406,9 +409,13 @@ public class Monopoly {
      */
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
+<<<<<<< HEAD
+    }   
+=======
     }
     
         
+>>>>>>> 0ef31c2b9b2572596ba6488565b1fa550f44fa35
     /**
      *Ajoute au monopoly des maisons
      * @param nbMaison nombre de maison a ajouter au monopoly
