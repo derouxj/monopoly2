@@ -7,7 +7,10 @@
 Lancer les dés et avancer :
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le joueur lance les dés.
+2 : le système affiche les informations relatives au joueur avant déplacement
+3 : le système génère aléatoirement les dés
+4 : le système affiche les nouvelles informations relatives au joueur après déplacement
 
 ////////////////////////////////////////////////////////////////////////////////
 Aller en prison
