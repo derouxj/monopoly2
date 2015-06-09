@@ -5,6 +5,8 @@
  */
 package Jeu;
 
+import UI.*;
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -20,6 +22,8 @@ public class jeu {
         
         //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
         Monopoly mon = new Monopoly();
+        
+        
         if(!mon.loadDBScore()) {mon.newDBScore();}
         Scanner sc = new Scanner(System.in);
         do {
