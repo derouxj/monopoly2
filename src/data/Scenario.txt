@@ -26,8 +26,10 @@ Vous etes libéré de prison
 ////////////////////////////////////////////////////////////////////////////////
 Calcul Loyer Gare
 ////////////////////////////////////////////////////////////////////////////////
-
-1 : 
+1 : Le système range les gares possédées par le joueur 
+2 : Le système comptabilise le nombre de gare du joueur
+3 : Le système calcul le montant du loyer en fonction du prix du loyer des gares et le nombre de gare possédé
+4 : Le système retourne ce montant 
 
 ////////////////////////////////////////////////////////////////////////////////
 Jouer un coup propriété à construire
