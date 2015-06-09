@@ -9,18 +9,10 @@ public class Monopoly implements java.io.Serializable{
 
     private int nbMaisons = 32;
     private int nbHotels = 12;
-<<<<<<< HEAD
-    private HashMap<Integer, Carreau> carreaux = new HashMap<Integer, Carreau>();
-    private LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
-    private LinkedList<CarteChance> pileCC = new LinkedList<CarteChance>();
-    private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
-    public Interface interface_9 = new Interface(this);
-=======
     private HashMap<Integer, Carreau> carreaux;
     private LinkedList<Joueur> joueurs;
     private LinkedList<CarteChance> pileCC;
     private LinkedList<CarteCaisseCommunaute> pileCDC;
->>>>>>> e49b702304a09937901a89d2fa10bd730ee0742d
     private int d1, d2;
     public Interface interface_9 = new Interface(this);
     
@@ -420,14 +412,10 @@ public class Monopoly implements java.io.Serializable{
      */
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
-<<<<<<< HEAD
-    }   
-    
-=======
     }
     
         
->>>>>>> e49b702304a09937901a89d2fa10bd730ee0742d
+
     /**
 =======
     
