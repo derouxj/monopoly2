@@ -63,22 +63,32 @@ secondaires
 Construire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : Le système vérifie que le joueur est bien propriétaire de tout les terrains d'un groupe de propriété
-2 : Le système détermine le terrain le moins construit parmi le groupe de propriété possédé
-3 : Le système détermine ensuite si le joueur possède l'argent et/ou le nombre de propriété nécessaire sur tout les terrains du groupe
-4 : le système déterminera le type de propriété à construire
-5 : Une fois déterminé, il enlevera une maison ou hotel à la banque 
+1 : Le système vérifie que le joueur est bien propriétaire de tout les terrains du groupe de propriété
+2 : Le système détermine le terrain le moins construit parmi du groupe de propriété possédé
+3 : Le système détermine ensuite si le joueur possède l'argent nécessaire sur tout les terrains du groupe
+4 : Le systeme donnera au joueur un choix du lieu de construction 
+5 : le système déterminera le type de propriété à construire
+6 : Une fois déterminé, il enlevera une maison ou hotel à la banque
+7 : Le système ajoutera une maison ou hotel sur l'emplacement. 
 
 secondaire
 1 : Au cours de l'étape 1, si le joueur ne possède pas toutes les propriétés d'un groupe il ne peut pas construire, le système affichera un message d'erreur
 
-2 : 
+2 : Au cours de l'étape 3, si le joueur ne possède pas l'argent, on annule la construction et le système sort du scénario 
 
 ////////////////////////////////////////////////////////////////////////////////
 messageChoixConstruction
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : l'interface demande à l'utilisateur sur quel terrain il veut construire
+2 : l'interface informe l'utilisateur quels sont ses terrains constructibles ainsi que les numéros qu'ils leurs sont associés
+3 : l'utilisateur saisie ensuite le numero du terrain à construire
+
+secondaire 
+1 : Au cours de l'étape 3, l'utilisateur peut choisir de ne rien construire, on sort du scénario
+
+2 : Au cours de l'étape 3, l'utilisateur peu saisir un numero inexistant parmi les numéro disponible, on sort du scénario 
+
 
 ////////////////////////////////////////////////////////////////////////////////
 Réparer maisons
@@ -96,7 +106,11 @@ messageReparation
 Anniversaire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système positionne les joueurs dans une liste
+2 : Le système enleve 10 euros à tout les joueurs sauf le joueur courant (1er de la liste)
+3 : Le sytème octroie (10 x le nombre de joueur) euros au joueur courant
+
+// uniquement si le joueur courant à tiré une carte chance
 
 ////////////////////////////////////////////////////////////////////////////////
 
