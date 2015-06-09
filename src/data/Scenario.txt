@@ -66,7 +66,13 @@ Construire
 1 : Le système vérifie que le joueur est bien propriétaire de tout les terrains d'un groupe de propriété
 2 : Le système détermine le terrain le moins construit parmi le groupe de propriété possédé
 3 : Le système détermine ensuite si le joueur possède l'argent et/ou le nombre de propriété nécessaire sur tout les terrains du groupe
-4 : 
+4 : le système déterminera le type de propriété à construire
+5 : Une fois déterminé, il enlevera une maison ou hotel à la banque 
+
+secondaire
+1 : Au cours de l'étape 1, si le joueur ne possède pas toutes les propriétés d'un groupe il ne peut pas construire, le système affichera un message d'erreur
+
+2 : 
 
 ////////////////////////////////////////////////////////////////////////////////
 messageChoixConstruction
