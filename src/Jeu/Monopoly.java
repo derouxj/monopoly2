@@ -192,6 +192,10 @@ public class Monopoly {
         }
     }
 
+    /**
+     *
+     * @param nbj, Ordonne les joueurs en fonction du joueur ayant fait le plus gros lancé de dés (il sera positionné en premier) le joueur à sa gauche est le suivant et ainsi de suite
+     */
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
@@ -218,6 +222,9 @@ public class Monopoly {
         }
     }
 
+    /**
+     *Récupère les dés lancés et déplace le joueur
+     */
     public void lancerDesAvancer() {
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
@@ -238,6 +245,10 @@ public class Monopoly {
 
     }
 
+    /**
+     *
+     * @param j, Lance les dés, si le joueur est en prison : appelle faire un tour, sinon lance : lancerDesPrison
+     */
     public void jouerUnCoup(Joueur j) {
         d1 = genDes();
         d2 = genDes();
@@ -249,15 +260,26 @@ public class Monopoly {
         }
     }
 
+    /**
+     * Passe la main au joueur suivant
+     */
     public void joueurSuivant() {
         Joueur j = joueurs.removeFirst();
         joueurs.add(j);
     }
 
+    /**
+     *
+     * @return le joueur courant
+     */
     public Joueur getJoueurCourant() {
         return this.getJoueurs().getFirst();
     }
 
+    /**
+     *
+     * @return la carte chance au sommet de la pile
+     */
     public CarteChance tirerCarteChance() {
         CarteChance carte = pileCC.getFirst();
         pileCC.removeFirst();
@@ -265,6 +287,10 @@ public class Monopoly {
         return carte;
     }
 
+    /**
+     *
+     * @return la carte communaute au sommet de la pile
+     */
     public CarteCaisseCommunaute tirerCarteCaisseCommunaute() {
         CarteCaisseCommunaute carte = pileCDC.getFirst();
         pileCDC.removeFirst();
@@ -272,6 +298,9 @@ public class Monopoly {
         return carte;
     }
 
+    /**
+     *Si le joueur emprisonné fait un double alors il est libéré, s'il possède une carte "libérer de prison" il a le choix de l'utiliser ou non
+     */
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (d1 == d2) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur() + " a fait un double(" + d1 + "," + d2 + ") et a été libéré de prison.");
@@ -311,15 +340,25 @@ public class Monopoly {
         }
     }
 
+    /**
+     *Lance les dés et execute l'action correspondante au carreau
+     */
     public void faireUnTour() {
         lancerDesAvancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
-
+    
+    /**
+     *
+     * @return si c'est la fin du tour
+     */
     public boolean estFini() {
         return this.getJoueurs().size() == 1;
     }
 
+    /**
+     *Demande la saisit du numéro de la case et déplace le joueur à cette case
+     */
     public void triche() {
 
         LinkedList<Joueur> joueurs1 = this.getJoueurs();

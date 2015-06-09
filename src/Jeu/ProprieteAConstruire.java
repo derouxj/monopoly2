@@ -18,6 +18,10 @@ public class ProprieteAConstruire extends CarreauPropriete {
         groupePropriete.ajouterPropriete(this);
     }
 
+    /**
+     *
+     * @param j, si le carreau n'a pas de proprietaire alors on appelle achatPropriete sinon si le joueur n'est pas lui même propriétaire il paie la loyer enfin s'il est propriétaire la méthode construire se lance
+     */
     @Override
     public void action(Joueur j) {
         Joueur jProprio = this.getProprietaire();
@@ -43,6 +47,9 @@ public class ProprieteAConstruire extends CarreauPropriete {
         return groupePropriete;
     }
 
+    /**
+     *Ajoute une maison si la propriété en possède moins de 4 sinon ajoute un hotel
+     */
     public void addConstruction() {
         if (getNbMaisons() < 4) {
             setNbMaisons(getNbMaisons() + 1);
@@ -69,6 +76,10 @@ public class ProprieteAConstruire extends CarreauPropriete {
         return loyers;
     }
 
+    /**
+     *
+     * @return Calcul le loyer à payer
+     */
     @Override
     public int calculLoyer() {
         int loyer = 0;
