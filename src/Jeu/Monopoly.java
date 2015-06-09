@@ -69,7 +69,7 @@ public class Monopoly implements java.io.Serializable{
                 String caseType = data.get(i)[0];
 
                 if (caseType.compareTo("P") == 0) {
-                    System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Propriété :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
 
                     Groupe grp;
                     if (!lesGroupes.containsKey(data.get(i)[3])) {
@@ -85,22 +85,22 @@ public class Monopoly implements java.io.Serializable{
                     carreaux.put(Integer.parseInt(data.get(i)[1]), prop);
 
                 } else if (caseType.compareTo("G") == 0) {
-                    System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Gare :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new Gare(Integer.parseInt(data.get(i)[1]), data.get(i)[2], this));
                 } else if (caseType.compareTo("C") == 0) {
-                    System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Compagnie :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new Compagnie(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                 } else if (caseType.compareTo("CT") == 0) {
-                    System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Case Tirage :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauTirage(Integer.parseInt(data.get(i)[1]), data.get(i)[2], this));
                 } else if (caseType.compareTo("CA") == 0) {
-                    System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Case Argent :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauArgent(Integer.parseInt(data.get(i)[1]), data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                 } else if (caseType.compareTo("CM") == 0) {
-                    System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
+                    //System.out.println("Case Mouvement :\t" + data.get(i)[2] + "\t@ case " + data.get(i)[1]);
                     carreaux.put(Integer.parseInt(data.get(i)[1]), new CarreauMouvement(Integer.parseInt(data.get(i)[1]), data.get(i)[2], this));
                 } else {
-                    System.err.println("[buildGamePleateau()] : Invalid Data type");
+                    //System.err.println("[buildGamePleateau()] : Invalid Data type");
                 }
             }
 
