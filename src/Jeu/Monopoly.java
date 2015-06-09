@@ -148,7 +148,7 @@ public class Monopoly {
                         carteCaisseCommunaute.add(deplacer);
 
                     } else {
-                        System.err.println("[buildGamePleateau()] : Invalid Data type");
+                        System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
                 }
             }
@@ -156,7 +156,7 @@ public class Monopoly {
             
             
             
-             int nbCC = chanceTmp.size()-1;
+            int nbCC = chanceTmp.size()-1;
             int nbCDC= cdcTmp.size()-1;
             
             int rnd;
