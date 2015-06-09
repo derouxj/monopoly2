@@ -17,14 +17,21 @@ public class jeu {
     public static void main(String[] args) {
         boolean fini = false;
         int choix;
-        Monopoly mon = new Monopoly("/users/info/etu-s2/derouxj/m2105/monopoly2/monopoly2/src/data/data.txt","/users/info/etu-s2/derouxj/m2105/monopoly2/monopoly2/src/data/data_Carte.txt");
-
+        
+        //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
+        Monopoly mon = new Monopoly();
+        if(!mon.loadDBScore()) {mon.newDBScore();}
         Scanner sc = new Scanner(System.in);
         do {
-            System.out.println("1. Inscrire les joueurs\n2. Commencer le jeu\n3. Quitter");
+            System.out.println("0. Quitter\n1. Inscrire les joueurs\n2. Commencer le jeu\n3. Test loyer, construction\n4. Test prison\n5. Charger partie\n6. Consulter les scores");
             choix = sc.nextInt();
+            
             switch (choix) {
+                case 0: {
+                    break;
+                }
                 case 1: {
+                    mon.newDBSave();
                     boolean ok = false;
                     while (!ok) {
                         int nbj = 0;
@@ -56,9 +63,13 @@ public class jeu {
                             System.out.println();
                         }
                     }
+                    mon.updateDBSave();
                 }
                 break;
                 case 2: {
+                    if(!mon.loadDBScore()) {mon.newDBScore();}
+                    mon.loadDBSave();
+                
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini()) {
                             int compteDouble = 0;
@@ -73,17 +84,17 @@ public class jeu {
                             if (!mon.estFini()) {
                                 mon.joueurSuivant();
                             }
+                            mon.updateDBSave();
                         }
                         System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
+                        
                     } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
                     break;
                 }
                 case 3: {
-                    break;
-                }
-                case 4: {
+                    if(!mon.loadDBScore()) {mon.newDBScore();}
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
                     
                     Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
@@ -140,12 +151,31 @@ public class jeu {
                     System.out.println(propGare.getPositionCourante().getNomCarreau());
                     propGare.getPositionCourante().action(propGare);
                     mon.interface_9.messageEtatJoueur(propCompagnie);
-                    
+                    break;
                 }
-                case 5: { //envoyer quelqu'un croupir en taule
+                case 4: { //envoyer quelqu'un croupir en taule
+                    if(!mon.loadDBScore()) {mon.newDBScore();}                    
                     mon.getJoueurCourant().envoyerPrison();
                     mon.getJoueurCourant().ajouterCartePrison();
                     mon.jouerUnCoup(mon.getJoueurCourant());
+                break;
+                }
+                case 5: {
+                    if (!mon.loadDBSave()){mon.newDBSave();}
+                    mon.updateDBSave();
+                    break;
+                }
+                
+                case 6: {
+                    mon.loadDBScore();
+                    //mon.getScore().ajouterScore(new Joueur("TestScore",mon));
+                    mon.updateDBScore();
+                    int i=1;
+                    for (Joueur js : mon.getScore().getLesMeilleursJ()) {
+                        System.out.println(i+"° - "+js.getNomJoueur()+" avec "+js.getCash()+"€");
+                    }
+                    break;
+                    
                 }
                 default:
                     break;

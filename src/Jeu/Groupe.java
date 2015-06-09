@@ -2,7 +2,7 @@ package Jeu;
 
 import java.util.ArrayList;
 
-public class Groupe {
+public class Groupe implements java.io.Serializable{
 
     private int prixAchatMaison;
     private int prixAchatHotel;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class ProprieteAConstruire extends CarreauPropriete {
+public class ProprieteAConstruire extends CarreauPropriete implements java.io.Serializable{
 
     private int nbMaisons = 0;
     private int nbHotels = 0;

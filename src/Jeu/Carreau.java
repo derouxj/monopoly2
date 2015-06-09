@@ -1,6 +1,6 @@
 package Jeu;
 
-public abstract class Carreau {
+public abstract class Carreau implements java.io.Serializable{
 
     private int numero;
     private String nomCarreau;
