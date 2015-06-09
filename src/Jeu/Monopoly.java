@@ -15,8 +15,8 @@ public class Monopoly {
     private LinkedList<CarteCaisseCommunaute> pileCDC = new LinkedList<CarteCaisseCommunaute>();
     private ArrayList<CarteChance> carteChance = new ArrayList<CarteChance>();
     private ArrayList<CarteCaisseCommunaute> carteCaisseCommunaute = new ArrayList<CarteCaisseCommunaute>();
-    public Interface interface_9 = new Interface();
     private int d1, d2;
+    public Interface interface_9 = new Interface(this);
 
     public Monopoly(String dataFilename, String dataFilename2) {
         buildGamePlateau(dataFilename);
@@ -153,6 +153,44 @@ public class Monopoly {
                 }
             }
 
+            
+            
+            
+             int nbCC = chanceTmp.size()-1;
+            int nbCDC= cdcTmp.size()-1;
+            
+            int rnd;
+            
+            while (!chanceTmp.isEmpty()) {
+                rnd=rand.nextInt((nbCC - 0 + 1) + 0);
+                getPileCC().add(chanceTmp.get(rnd));
+                chanceTmp.remove(rnd);
+                nbCC--;
+            }
+            
+            while (!cdcTmp.isEmpty()) {
+                rnd=rand.nextInt((nbCDC - 0 + 1) + 0);
+                getPileCDC().add(cdcTmp.get(rnd));
+                cdcTmp.remove(rnd);
+                nbCDC--;
+            }
+            
+            /*for (CarteChance cc : getPileCC()) {
+                System.out.println(cc.getDescription());
+            }
+            System.out.println("\n\n");
+            for (CarteCaisseCommunaute cdc : getPileCDC()) {
+                System.out.println(cdc.getDescription());
+            }*/
+            
+            
+            
+            
+            
+            
+            
+            
+            
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
         } catch (IOException e) {
@@ -339,5 +377,52 @@ public class Monopoly {
     public int getNbHotels() {
         return nbHotels;
     }
+    
+    
+        /**
+     *Ajoute au monopoly des maisons
+     * @param nbMaison nombre de maison a ajouter au monopoly
+     */
+    public void ajouterMaison(int nbMaison) {
+        setNbMaisons(getNbMaisons()+nbMaison);
+    }
+    
+    /**
+     *Enlève au monopoly UNE maison au monopoly
+     */
+    public void enleverMaison() {
+        setNbMaisons(getNbMaisons()-1);
+    }
+    
+    /**
+     *Ajoute au monopoly des hotel
+     * @param nbHotel nombre d'hotel à ajouter au monopoly
+     */
+    public void ajouterHotel(int nbHotel) {
+        setNbHotels(getNbHotels()+nbHotel);
+    }
+    
+    /**
+     *Enlève au monopoly UN hotel au monopoly
+     */
+    public void enleverHotel() {
+        setNbHotels(getNbHotels()-1);
+    }
+
+    /**
+     * @param nbMaisons the nbMaisons to set
+     */
+    public void setNbMaisons(int nbMaisons) {
+        this.nbMaisons = nbMaisons;
+    }
+
+    /**
+     * @param nbHotels the nbHotels to set
+     */
+    public void setNbHotels(int nbHotels) {
+        this.nbHotels = nbHotels;
+    }
+    
+    
 
 }

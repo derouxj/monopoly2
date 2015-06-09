@@ -303,4 +303,7 @@ public class Joueur {
         }
         getMonopoly().getJoueurs().remove(this);
     }
+    
+    
+    
 }
