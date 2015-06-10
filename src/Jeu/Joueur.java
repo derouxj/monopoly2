@@ -36,8 +36,11 @@ public class Joueur implements java.io.Serializable{
      * @param l somme a recevoir
      */
     public void recevoir(int l) {
-        setCash(getCash() + l);
-        getMonopoly().interface_9.messageReceptionCash(this, l);
+        if (l > 0) {
+            setCash(getCash() + l);
+            getMonopoly().interface_9.messageReceptionCash(this, l);
+        }
+
     }
 
     /**
@@ -47,9 +50,8 @@ public class Joueur implements java.io.Serializable{
      */
     public void payer(int l) {
         if (getCash() - l < 0) {
-            System.out.println("PERDU"); //a finir
             this.virer();
-        } else {
+        } else if (l>0) {
             setCash(getCash() - l);
             getMonopoly().interface_9.messagePerteCash(this, l);
         }
@@ -177,7 +179,7 @@ public class Joueur implements java.io.Serializable{
         int numPos = getPositionCourante().getNumero();
 
         if (numPos > numero && numero > 0) {
-            passeDepart();
+            //passeDepart();
         } else if (numPos < numero && numero < 0) {
             passeDepart();
         }
@@ -207,7 +209,7 @@ public class Joueur implements java.io.Serializable{
     private int verifPos(int nbAAvancer) {
         int posFutur = getPositionCourante().getNumero() + nbAAvancer;
         if (posFutur > 40) {
-            return 40 - posFutur;
+            return posFutur-40;
         } else {
             return posFutur;
         }
@@ -280,6 +282,8 @@ public class Joueur implements java.io.Serializable{
             System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
             this.setNbTourPrison(0);
             this.payer(50);
+            this.setPrison(false);
+            getMonopoly().faireUnTour();
         } else {
             System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
             this.setNbTourPrison(this.getNbTourPrison() + 1);
@@ -302,6 +306,7 @@ public class Joueur implements java.io.Serializable{
             pc.definirProprietaire(null);
         }
         getMonopoly().getJoueurs().remove(this);
+        System.out.println("Le joueur "+getNomJoueur()+" a perdu...Toutes ses propriétés ont été remisent en jeu");
     }
     
     

@@ -22,43 +22,43 @@ public class Interface implements java.io.Serializable{
      */
     public void messageEtatJoueur(Joueur leJoueur) {
 
-        System.out.println("Nom du joueur : " + leJoueur.getNomJoueur());
-        System.out.println(" - position : " + leJoueur.getPositionCourante().getNomCarreau());
-        System.out.println(" - solde : " + leJoueur.getCash());
-        System.out.println(" - propriétés : ");
+        System.out.println("\tNom du joueur : " + leJoueur.getNomJoueur());
+        System.out.println("\t  - position : " + leJoueur.getPositionCourante().getNomCarreau());
+        System.out.println("\t  - solde : " + leJoueur.getCash() + "$");
+        System.out.println("\t  - propriétés : ");
         ArrayList<Gare> gares = leJoueur.getGares();
         if (gares.isEmpty()) {
-            System.out.println("\tCe joueur n'a aucune gares.");
+            System.out.println("\t\tCe joueur n'a aucune gares.");
         } else {
-            System.out.println("\tGares de ce joueur : ");
+            System.out.println("\t\tGares de ce joueur : ");
             for (Gare g : gares) {
-                System.out.println("\t- " + g.getNomCarreau());
+                System.out.println("\t\t\t- " + g.getNomCarreau());
             }
         }
         ArrayList<Compagnie> compagnies = leJoueur.getCompagnies();
         if (compagnies.isEmpty()) {
-            System.out.println("\tCe joueur n'a pas de compagnies.");
+            System.out.println("\t\tCe joueur n'a pas de compagnies.");
         } else {
-            System.out.println("\tCompagnies de ce joueur : ");
+            System.out.println("\t\tCompagnies de ce joueur : ");
             for (Compagnie c : compagnies) {
-                System.out.print("      - " + c.getNomCarreau());
+                System.out.println("\t\t\t- " + c.getNomCarreau());
             }
         }
         ArrayList<ProprieteAConstruire> proprietes = leJoueur.getProprietesAConstruire();
         if (proprietes.isEmpty()) {
-            System.out.println("\tCe joueur n'a aucune propriétés à construire.");
+            System.out.println("\t\tCe joueur n'a aucune propriétés à construire.");
         } else {
-            System.out.println("\tPropriétés à construire de ce joueur : ");
+            System.out.println("\t\tPropriétés à construire de ce joueur : ");
             for (ProprieteAConstruire p : proprietes) {
-                System.out.print("\t- " + p.getNomCarreau() + " du groupe " + p.getCouleur());
+                System.out.print("\t\t\t- " + p.getNomCarreau() + " du groupe " + p.getCouleur().toString());
                 int nbhotels = p.getNbHotels();
                 int nbmaisons = p.getNbMaisons();
                 if (nbmaisons == 0 && nbhotels == 0) {
-                    System.out.println("(cette propriété n'a pas d'hotel ni de maisons)");
+                    System.out.println(" (cette propriété n'a pas d'hotel ni de maisons)");
                 } else if (nbhotels == 1) {
-                    System.out.println("(cette propriété a un hôtel)");
+                    System.out.println(" (cette propriété a un hôtel)");
                 } else {
-                    System.out.println("(cette propriétés a " + nbmaisons + " maisons)");
+                    System.out.println(" (cette propriétés a " + nbmaisons + " maisons)");
                 }
             }
         }
@@ -114,6 +114,8 @@ public class Interface implements java.io.Serializable{
             rep = sc.nextLine();
             if (rep.equals("y") || rep.equals("n")) {
                 aRepondu = true;
+            } else {
+                System.out.println("Répondre par y/n\n");
             }
         } while (!aRepondu);
 
@@ -133,24 +135,47 @@ public class Interface implements java.io.Serializable{
      * @return null si il ne veut pas construire, sinon il renvoi la propriété ou le joueur veut construire
      */
     public ProprieteAConstruire messageChoixConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
+        ProprieteAConstruire reponse = null;
         if (lesTerrains.isEmpty()) {
             return null;
         }
-
+        int choix = 0;
         int nbterrain = 0;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Sur quelle terrain voulez vous construire ?" + "\n\t0 - Aucun");
-        for (ProprieteAConstruire pc : lesTerrains) {
-            nbterrain = nbterrain + 1;
-            System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
-        }
-        int choix = sc.nextInt();
+        boolean boucle = true;
 
-        if (choix == 0 || choix > nbterrain) {
-            return null;
-        } else {
-            return lesTerrains.get(choix - 1);
+        while (boucle) {
+            nbterrain=0;
+            boucle=false;
+            try {
+                System.out.println("Sur quel terrain voulez vous construire ?" + "\n\t0 - Aucun");
+                for (ProprieteAConstruire pc : lesTerrains) {
+                    nbterrain = nbterrain + 1;
+                    System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
+                }
+                
+                if (sc.hasNextInt()) {
+                    choix = sc.nextInt();
+                } else {
+                    sc.nextInt();
+                    continue;
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ce n'est pas un entier !\n");
+                nbterrain = 0;
+                sc.next();
+            }
+            if (choix > nbterrain || choix<0) {
+                System.out.println("Le choix n'est pas correct\n");
+                boucle=true;
+            } else if(choix==0) {
+                reponse=null;
+            } else {
+                reponse = lesTerrains.get(choix - 1);
+            }
+
         }
+        return reponse;
     }
 
     /**

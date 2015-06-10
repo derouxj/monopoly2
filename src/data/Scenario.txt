@@ -8,43 +8,43 @@ Lancer les dés et avancer :
 ////////////////////////////////////////////////////////////////////////////////
 
 1 : le système affiche les informations relatives au joueur avant déplacement
-3 : le système déplace le joueur selon le montant des deux dés
+2 : le système déplace le joueur selon le montant des deux dés
 3 : le système affiche les nouvelles informations relatives au joueur après déplacement
-
+4 : le système affiche les informations relatives à tout les joueurs 
 ////////////////////////////////////////////////////////////////////////////////
 Aller en prison
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système envoie le joueur en prison
 
 ////////////////////////////////////////////////////////////////////////////////
 Vous etes libéré de prison
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système ajoute la carte "Vous êtes libéré de prison" au joueur
 
 ////////////////////////////////////////////////////////////////////////////////
 Calcul Loyer Gare
 ////////////////////////////////////////////////////////////////////////////////
-
-1 : 
+1 : Le système range les gares possédées par le joueur 
+2 : Le système comptabilise le nombre de gare du joueur
+3 : Le système calcul le montant du loyer en fonction du prix du loyer des gares et le nombre de gare possédé
+4 : Le système retourne ce montant 
 
 ////////////////////////////////////////////////////////////////////////////////
-Jouer un coup propriété
+Jouer un coup propriété à construire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : le joueur commence un tour et lance les dés
-2 : le système gènére aléatoirement les dés
-3 : le joueur se deplace en fonction des dés 
-4 : le joueur tombe sur une propriété (propriétés, gares, compagnies)
-5 : le système vérifie que la propriété est sans propriétaire
-6 : le joueur peut acheter la propriété.
+1 : le joueur commence un tour et avance
+2 : le joueur tombe sur une propriété à construire 
+3 : le système vérifie que la propriété est sans propriétaire
+4 : le joueur peut acheter la propriété.
 
 
 secondaire
-1 : Au cours de l'étape 5, si le joueur tombe sur une propriété d'un autre joueur, il devra lui payer un loyer.
+1 : Au cours de l'étape 4, si le joueur tombe sur une propriété d'un autre joueur, il devra lui payer un loyer, on sort du scénario.
 
-2: Au cours de l'étapr 5, si le joueur tombe sur une propriété dont il possède tout les terrains, il pourra construire.
+2 : Au cours de l'étape 4, si le joueur tombe sur une propriété, il pourra peut-être construire, on sort du scénario.
 
 ////////////////////////////////////////////////////////////////////////////////
 Achat propriete
@@ -54,7 +54,7 @@ Achat propriete
 2 : Le système détermine si le joueur à suffisamment d'argent pour acheter la propriété 
 3 : Le système demande la confirmation de l'achat du carreau propriété 
 4 : Le joueur confirme l'achat 
-5 : Le système soustrait le prix d'achat de l'argent du joueur et ajoute la nouvelle propriété aux joueurs 
+5 : Le système soustrait le prix d'achat de l'argent du joueur et ajoute la nouvelle propriété au joueur
 
 secondaires 
 1 : Au cours de l'étape 2, si le joueur n'a pas suffisamment d'argent le système sort du scénario achat propriété
@@ -65,31 +65,59 @@ secondaires
 Construire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système vérifie que le joueur est bien propriétaire de tout les terrains du groupe de propriété
+2 : Le système détermine le terrain le moins construit parmi du groupe de propriété possédé
+3 : Le système détermine ensuite si le joueur possède l'argent nécessaire sur tout les terrains du groupe
+4 : Le systeme donnera au joueur un choix du lieu de construction 
+5 : le système déterminera le type de propriété à construire
+6 : Une fois déterminé, il enlevera une maison ou hotel à la banque
+7 : Le système ajoutera une maison ou hotel sur l'emplacement. 
+
+secondaire
+1 : Au cours de l'étape 1, si le joueur ne possède pas toutes les propriétés d'un groupe il ne peut pas construire, le système affichera un message d'erreur
+
+2 : Au cours de l'étape 3, si le joueur ne possède pas l'argent, on annule la construction et le système sort du scénario 
 
 ////////////////////////////////////////////////////////////////////////////////
 messageChoixConstruction
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : l'interface demande à l'utilisateur sur quel terrain il veut construire
+2 : l'interface informe l'utilisateur quels sont ses terrains constructibles ainsi que les numéros qu'ils leurs sont associés
+3 : l'utilisateur saisie ensuite le numero du terrain à construire
+
+secondaire 
+1 : Au cours de l'étape 3, l'utilisateur peut choisir de ne rien construire, on sort du scénario
+
+2 : Au cours de l'étape 3, l'utilisateur peu saisir un numero inexistant parmi les numéro disponible, on sort du scénario 
+
 
 ////////////////////////////////////////////////////////////////////////////////
-Réparer maisons
+Réparation
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système collecte les propriétés constructibles du joueur
+2 : Le système compte le nombre de maison et/ou hotel sur chaque terrain et les additionnent
+3 : Le système calcul en suite le montant à payer (graĉe au prix de réparation des maisons et hotels donné dans la data)
+4 : Le système fait payer l'utilisateur le montantt
+5 : Le système avertit l'utilisateur du montant qu'il a eu à payer ainsi que le nombre de maison et/ou d'hotel réparé
+
 
 ////////////////////////////////////////////////////////////////////////////////
 messageReparation
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : // fait dans reparation.
 
 ////////////////////////////////////////////////////////////////////////////////
 Anniversaire
 ////////////////////////////////////////////////////////////////////////////////
 
-1 : 
+1 : Le système positionne les joueurs dans une liste
+2 : Le système enleve 10 euros à tout les joueurs sauf le joueur courant (1er de la liste)
+3 : Le sytème octroie (10 x le nombre de joueur) euros au joueur courant
+
+// uniquement si le joueur courant à tiré une carte chance
 
 ////////////////////////////////////////////////////////////////////////////////
 

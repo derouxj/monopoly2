@@ -18,7 +18,7 @@ CDC,L,Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à 
 CDC,A,Payer une amende de 10€,-10
 CDC,N,C'est votre anniversaire chaque joueur vous doit 10€
 CDC,A,Erreur de la banque en votre faveur recevez 200€,200
-CDC,P,Retournez à Belleville,2
+CDC,T,Retournez à Belleville,2
 CDC,A,Payer la note du medecin : 50€,-50
 CDC,A,Les contribuitions vous rapportent la somme de 20€,20
 CDC,A,Payer à l'Hôpital 100€,-100

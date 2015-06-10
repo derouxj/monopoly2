@@ -18,6 +18,10 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
         groupePropriete.ajouterPropriete(this);
     }
 
+    /**
+     *
+     * @param j, si le carreau n'a pas de proprietaire alors on appelle achatPropriete sinon si le joueur n'est pas lui même propriétaire il paie la loyer enfin s'il est propriétaire la méthode construire se lance
+     */
     @Override
     public void action(Joueur j) {
         Joueur jProprio = this.getProprietaire();
@@ -43,6 +47,9 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
         return groupePropriete;
     }
 
+    /**
+     *Ajoute une maison si la propriété en possède moins de 4 sinon ajoute un hotel
+     */
     public void addConstruction() {
         if (getNbMaisons() < 4) {
             setNbMaisons(getNbMaisons() + 1);
@@ -69,29 +76,36 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
         return loyers;
     }
 
+    /**
+     *
+     * @return Calcul le loyer à payer
+     */
     @Override
     public int calculLoyer() {
-        int loyer = 0;
+        int aPayer;
         int i = 0;
-        Boolean superprop = false;
+        Boolean superprop = true;
+        Joueur proprio=this.getProprietaire();
         ArrayList<ProprieteAConstruire> groupeprop = getGroupePropriete().getProprietes();
         if (getNbHotels() == 1) {
-            loyer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
+            aPayer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
         } else if (getNbMaisons() == 0) {
             for (ProprieteAConstruire prop : groupeprop) {
-                while (prop.getProprietaire() == this.getProprietaire()) {
-                    i = i + 1;
+                if (prop.getProprietaire()!=proprio) {
+                    superprop=false;
                 }
             }
-            if (i == getGroupePropriete().getProprietes().size() - 1) {
-                superprop = true;
-                loyer = 2 * loyer;
+            if (superprop) {
+                System.out.println("Comme"+getProprietaire().getNomJoueur()+" a tous les terrains de cette couleur, le loyer est doublé");
+                aPayer=getLoyers()[0]*2;
+            } else {
+                aPayer=getLoyers()[0];
             }
         } else {
-            loyer = getLoyers()[getNbMaisons()];
+            aPayer = getLoyers()[getNbMaisons()];
         }
 
-        return loyer;
+        return aPayer;
     }
 
     public CouleurPropriete getCouleur() {
