@@ -186,15 +186,8 @@ public class jeu {
 
                         break;
                     }
-                    case 4: { //envoyer quelqu'un croupir en taule
-                        if (!mon.loadDBScore()) {
-                            mon.newDBScore();
-                        }
-                        mon.getJoueurCourant().envoyerPrison();
-                        mon.getJoueurCourant().ajouterCartePrison();
-                        mon.jouerUnCoup(mon.getJoueurCourant());
-                        break;
-                    }
+                
+                    
                     case 5: {
                         if (!mon.loadDBSave()) {
                             mon.newDBSave();
@@ -202,6 +195,7 @@ public class jeu {
                         mon.updateDBSave();
                         break;
                     }
+
 
                     case 6: {       //OK
                         if (!mon.loadDBSave()) {
@@ -224,7 +218,6 @@ public class jeu {
                             i++;
                         }
                         break;
-
                     }
                     case 11: {//il doit payer double car le prop a tous le groupe    OK
                         mon.newDBSave();
@@ -283,6 +276,7 @@ public class jeu {
                         break;
                     }
                     default:
+                        System.out.println("Pas dans l'intervalle de valeurs\n");
                         break;
                 }
             } catch (java.util.InputMismatchException e) {
