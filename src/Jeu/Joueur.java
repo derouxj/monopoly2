@@ -76,6 +76,11 @@ public class Joueur implements java.io.Serializable{
      * si c'est une propriété à construire, on ajoute cette propriété à "priprietesAConstruire" en vérifiant qu'il n'en possède pas plus de 28 (pour etre conforme au diagramme de classe)
      */
     public void addPropriete(CarreauPropriete c) {
+        
+        int tailleProp = this.getProprietesAConstruire().size();
+        int i = 0;
+        boolean plusPetit = false;
+        
         if (c.getClass().getSimpleName().equals("Gare")) {
             if (getGares().size()<4) {
                 getGares().add((Gare)c);
@@ -86,7 +91,24 @@ public class Joueur implements java.io.Serializable{
             }
         } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
             if (getProprietesAConstruire().size()<28) {
-                getProprietesAConstruire().add((ProprieteAConstruire) c);
+                if(tailleProp == 0){
+                  getProprietesAConstruire().add((ProprieteAConstruire) c);  
+                }
+                else{
+                    while(i<tailleProp && !plusPetit){
+                        if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
+                            getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
+                            plusPetit = true;
+                        }
+                        else{
+                            i++;
+                        }
+                    }
+                    if (i == tailleProp) {
+                getProprietesAConstruire().add((ProprieteAConstruire)c);
+            }
+                }
+                
             }
         }
         c.definirProprietaire(this);

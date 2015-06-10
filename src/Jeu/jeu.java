@@ -117,6 +117,7 @@ public class jeu {
                    
                             
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(7));
+                    propBleuC.addPropriete((CarreauPropriete)plateau.get(40));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(9));
                     propBleuC.addPropriete((CarreauPropriete)plateau.get(10));
                     for (int i=0;i<2;i++) {
@@ -126,6 +127,7 @@ public class jeu {
                         propBleuC.getProprietesAConstruire().get(1).addConstruction();
                     }
                     propBleuC.getProprietesAConstruire().get(2).addConstruction();
+                    mon.interface_9.messageEtatJoueur(propBleuC);
                     
                     propBleuC.envoyerCase(7);
                     System.out.println(propBleuC.getPositionCourante().getNomCarreau());
