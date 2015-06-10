@@ -16,6 +16,7 @@
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/Monopoly.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/Groupe.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/data/data.txt</file>
+            <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/UI/FenetreUI.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/ProprieteAConstruire.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/jeu.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/UI/Interface.java</file>
@@ -23,6 +24,8 @@
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/Gare.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/CarteCaisseCommunaute.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/data/data_Carte.txt</file>
+            <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/UI/MonopolyUI.java</file>
+            <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/UI/CarreauUI.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/Joueur.java</file>
             <file>file:/users/info/etu-s2/baiyantm/java/monopoly2/src/Jeu/CouleurPropriete.java</file>
         </group>

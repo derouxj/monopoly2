@@ -5,8 +5,19 @@
  */
 package Jeu;
 
+import UI.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,8 +25,8 @@ import java.util.Scanner;
  */
 public class jeu {
 
+    public static JFrame window;
     public static void main(String[] args) {
-        boolean fini = false;
         int choix;
         
         //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
@@ -162,8 +173,6 @@ public class jeu {
                 }
                 default:
                     break;
-                                 
-
             }
         } while (choix != 0);
     }
