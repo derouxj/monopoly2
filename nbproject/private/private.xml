@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Groupe.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/ProprieteAConstruire.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Carreau.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarreauAction.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarreauArgent.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarteCaisseCommunaute.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/jeu.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CouleurPropriete.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/UI/FenetrePlateau.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarteChance.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/data/data.txt</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Score.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/UI/Interface.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Monopoly.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/UI/FenetrePrincipale.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarreauMouvement.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/UI/GraphicUI.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/UI/FenetreInscription.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Carte.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarreauPropriete.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/data/Scenario.txt</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/data/data_Carte.txt</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/CarreauTirage.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Gare.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Joueur.java</file>
+            <file>file:/users/info/etu-s2/carrejer/monopoly2/src/Jeu/Compagnie.java</file>
+        </group>
+    </open-files>
+</project-private>

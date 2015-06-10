@@ -2,8 +2,8 @@ package Jeu;
 
 import java.util.ArrayList;
 
-public class Joueur implements java.io.Serializable{
-
+public abstract class Joueur implements java.io.Serializable {
+    private boolean estReel;
     private String nomJoueur;
     private int cash = 1500;
     private Monopoly monopoly;
@@ -15,9 +15,10 @@ public class Joueur implements java.io.Serializable{
     private boolean prison;
     private int cartePrison;
 
-    public Joueur(String n, Monopoly m) {
+    public Joueur(boolean estJoueurReel,String n, Monopoly m) {
         this.setNomJoueur(n);
         this.setMonopoly(m);
+        this.setEstJoueurReel(estJoueurReel);
         compagnies = new ArrayList<Compagnie>();
         gares = new ArrayList<Gare>();
         proprietesAConstruire = new ArrayList<ProprieteAConstruire>();
@@ -32,7 +33,8 @@ public class Joueur implements java.io.Serializable{
     }
 
     /**
-     *Ajoute la somme en paramètre au cash du joueur.
+     * Ajoute la somme en paramètre au cash du joueur.
+     *
      * @param l somme a recevoir
      */
     public void recevoir(int l) {
@@ -42,10 +44,21 @@ public class Joueur implements java.io.Serializable{
         }
 
     }
+    
+    
+     public boolean estReel (){
+        return estReel;
+    }
+     
+    public void setEstJoueurReel(boolean estReel){
+        this.estReel = estReel;
+    } 
+    
 
     /**
-     *Enlève la somme en paramètre au cash du joueur.
-     * si il n'a pas assez de cash, il a perdu et est supprimé de la liste des joueurs.
+     * Enlève la somme en paramètre au cash du joueur. si il n'a pas assez de
+     * cash, il a perdu et est supprimé de la liste des joueurs.
+     *
      * @param l somme à enlever
      */
     public void payer(int l) {
@@ -70,10 +83,14 @@ public class Joueur implements java.io.Serializable{
     }
 
     /**
-     *on ajoute la propriété donné en paramètre.
-     * si c'est une gare, on ajoute cette gare à l'arraylist "gares" en vérifiant qu'il n'en possède pas plus de 4 (pour etre conforme au diagramme de classe)
-     * si c'est une compagnie, on ajoute cette compagnie à l'arraylist "compagnies" en vérifiant qu'il n'en possède pas plus de 2 (pour etre conforme au diagramme de classe)
-     * si c'est une propriété à construire, on ajoute cette propriété à "priprietesAConstruire" en vérifiant qu'il n'en possède pas plus de 28 (pour etre conforme au diagramme de classe)
+     * on ajoute la propriété donné en paramètre. si c'est une gare, on ajoute
+     * cette gare à l'arraylist "gares" en vérifiant qu'il n'en possède pas plus
+     * de 4 (pour etre conforme au diagramme de classe) si c'est une compagnie,
+     * on ajoute cette compagnie à l'arraylist "compagnies" en vérifiant qu'il
+     * n'en possède pas plus de 2 (pour etre conforme au diagramme de classe) si
+     * c'est une propriété à construire, on ajoute cette propriété à
+     * "priprietesAConstruire" en vérifiant qu'il n'en possède pas plus de 28
+     * (pour etre conforme au diagramme de classe)
      */
     public void addPropriete(CarreauPropriete c) {
         if (c.getClass().getSimpleName().equals("Gare")) {
@@ -160,22 +177,22 @@ public class Joueur implements java.io.Serializable{
     }
 
     /**
-     *Change la position du joueur par celle de la prison (case n°11)
-     *Change la variable prison du joueur à true.
-     *envoie le joueur en prison
+     * Change la position du joueur par celle de la prison (case n°11) Change la
+     * variable prison du joueur à true. envoie le joueur en prison
      */
     public void envoyerPrison() {
         this.setPositionCourante(getMonopoly().getCarreaux().get(11));
         this.setPrison(true);
         this.getMonopoly().interface_9.messagePrison(this);
     }
-   
+
     /**
-     *Change la position du joueur par celle du numero en paramètre.
-     * Si il passe par la case départ il recoit 200€
+     * Change la position du joueur par celle du numero en paramètre. Si il
+     * passe par la case départ il recoit 200€
+     *
      * @param numero numero de la case d'arrivé
      */
-    public void envoyerCase(int numero){
+    public void envoyerCase(int numero) {
         int numPos = getPositionCourante().getNumero();
 
         if (numPos > numero && numero > 0) {
@@ -185,25 +202,27 @@ public class Joueur implements java.io.Serializable{
         }
         setPositionCourante(getMonopoly().getCarreaux().get(numero));
     }
-    
+
     /**
-     *Est déclenché si la joueur passe par la case départ, il recoit donc 200€
+     * Est déclenché si la joueur passe par la case départ, il recoit donc 200€
      */
     private void passeDepart() {
         this.recevoir(200);
     }
 
     /**
-     * deplace le joueur du nombre de case inscrit en paramètre. Vérifie également si il est passé par la case départ.
-     * 
+     * deplace le joueur du nombre de case inscrit en paramètre. Vérifie
+     * également si il est passé par la case départ.
+     *
      * @param nbCaseADeplacer avance le joueur de ce nombre
      */
     public void deplacer(int nbCaseADeplacer) {
         envoyerCase(verifPos(nbCaseADeplacer));
     }
-    
+
     /**
-     *Vérifie si le joueur est arrivé à la fin du plateau ou pas
+     * Vérifie si le joueur est arrivé à la fin du plateau ou pas
+     *
      * @param nbAAvancer nombre de case à avancer
      */
     private int verifPos(int nbAAvancer) {
@@ -259,12 +278,12 @@ public class Joueur implements java.io.Serializable{
 
     public void ajouterCartePrison() {
 
-        this.setCartePrison(getCartePrison()+1);
+        this.setCartePrison(getCartePrison() + 1);
         this.getMonopoly().interface_9.messageCartePrison(true);
     }
 
     public void retirerCartePrison() {
-        this.setCartePrison(getCartePrison()-1);
+        this.setCartePrison(getCartePrison() - 1);
         this.getMonopoly().interface_9.messageCartePrison(false);
     }
 
@@ -273,9 +292,9 @@ public class Joueur implements java.io.Serializable{
     }
 
     /**
-     *Vérifie le nombre de tour passé en prison par le joueur et applique la règle:
-     * si il a passé moins de deux tours, il rejoue
-     * sinon il doit payer 50
+     * Vérifie le nombre de tour passé en prison par le joueur et applique la
+     * règle: si il a passé moins de deux tours, il rejoue sinon il doit payer
+     * 50
      */
     public void tourPrison() {
         if (this.getNbTourPrison() > 2) {
@@ -289,9 +308,10 @@ public class Joueur implements java.io.Serializable{
             this.setNbTourPrison(this.getNbTourPrison() + 1);
         }
     }
-    
+
     /**
-     *Supprime le joueur du monopoly, rend toutes ses maisons et hotels à la banque et rend tous ses terrains achetable.
+     * Supprime le joueur du monopoly, rend toutes ses maisons et hotels à la
+     * banque et rend tous ses terrains achetable.
      */
     public void virer() {
         for (Gare g : getGares()) {
@@ -308,7 +328,5 @@ public class Joueur implements java.io.Serializable{
         getMonopoly().getJoueurs().remove(this);
         System.out.println("Le joueur "+getNomJoueur()+" a perdu...Toutes ses propriétés ont été remisent en jeu");
     }
-    
-    
-    
+
 }

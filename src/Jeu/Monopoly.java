@@ -118,18 +118,18 @@ public class Monopoly implements java.io.Serializable{
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("B") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
 
                     } else if (caseType2.compareTo("M") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4])));
                     } else if (caseType2.compareTo("A") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("T") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("P") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else {
                         System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
@@ -138,15 +138,15 @@ public class Monopoly implements java.io.Serializable{
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("A") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("N") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("P") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("T") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else {
                         System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
@@ -195,8 +195,17 @@ public class Monopoly implements java.io.Serializable{
         LinkedList<Joueur> js = new LinkedList<Joueur>();
         getJoueurs().clear();
         for (int i = 0; i < nbj; i++) {
+             String type = interface_9.AffecterTypeJoueur();           
             String nom = interface_9.nouveauJoueur();
-            js.add(new Joueur(nom, this));
+
+            
+            
+            if (type.equals("reel")){
+                js.add(new JoueurReel(nom,this));
+            } else if (type.equals("robot")) {
+                js.add(new Robot(nom,this));
+            }
+            
             int nb = genDes() + genDes();
             lesLances.add(nb);
             System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a obtenu " + nb);
