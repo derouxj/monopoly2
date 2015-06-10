@@ -49,8 +49,26 @@ public class Interface implements java.io.Serializable {
             System.out.println("\t\tCe joueur n'a aucune propriétés à construire.");
         } else {
             System.out.println("\t\tPropriétés à construire de ce joueur : ");
+            String grpTmp="";
+            String grpActuel;
             for (ProprieteAConstruire p : proprietes) {
-                System.out.print("\t\t\t- " + p.getNomCarreau() + " du groupe " + p.getCouleur().toString());
+                grpActuel=p.getGroupePropriete().getCouleur().toString();
+                if (!grpTmp.equals(grpActuel)) {
+                    grpTmp=grpActuel;
+                    System.out.print("\t\t\t"+grpTmp);
+                    int i =0;
+                    int nbmax = p.getGroupePropriete().getProprietes().size();
+                    for(ProprieteAConstruire pa : p.getGroupePropriete().getProprietes()) {
+                        if(leJoueur== pa.getProprietaire()){
+                            i++;
+                        }
+                    }
+                   System.out.println("il vous manque "+(nbmax-i)+" propriété(s) de ce groupe pour pouvoir construire");    
+                }
+                
+                
+                
+                System.out.print("\t\t\t\t- " + p.getNomCarreau() );
                 int nbhotels = p.getNbHotels();
                 int nbmaisons = p.getNbMaisons();
                 if (nbmaisons == 0 && nbhotels == 0) {
@@ -93,32 +111,55 @@ public class Interface implements java.io.Serializable {
      *
      * @return le nom du joueur a inscrire
      */
-    public String nouveauJoueur() {
-        System.out.println("\nNom du joueur : ");
+    public String nouveauJoueur(boolean reel) {
+        if (reel) {
+            System.out.println("\nNom du joueur : ");
+        } else {
+
+            System.out.println("\nNom du robot : ");
+        }
         String nom = sc.next();
-        System.out.println(nom);
         return nom;
     }
 
-    public String AffecterTypeJoueur() {
-        int choix;
-
-        System.out.println("0. Joueur réel\n1. Robot");
-        choix = sc.nextInt();
-        switch (choix) {
- 
-            case 0: {
-                return "reel";
+    public boolean affecterTypeJoueur() {
+        boolean boucle = true;
+        int choix = 0;
+        boolean reel = true;
+        while (boucle) {
+            try {
+                System.out.println("Choisir un type de joueur : ");
+                System.out.println("1. Joueur réel\n2. Robot");
+                System.out.println();
+                if (sc.hasNextInt()) {
+                    choix = sc.nextInt();
+                } else {
+                    sc.nextInt();
+                    continue;
+                }
+                switch (choix) {
+                    case 1: {
+                        reel = true;
+                        boucle = false;
+                        break;
+                    }
+                    case 2: {
+                        reel = false;
+                        boucle = false;
+                        break;
+                    }
+                    default:
+                        System.out.println("1 ou 2, pas autre chose !\n");
+                        break;
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ce n'est même pas un entier !\n");
+                sc.next();
+                boucle = true;
             }
-
-            case 1: {
-                return "robot";
-
-            }
-            default:
-                return null;
         }
-    } 
+        return reel;
+    }
 
     /**
      * Message affichant la propriété ansi que ses infos(nom,prix) concerné par
@@ -133,7 +174,6 @@ public class Interface implements java.io.Serializable {
         Scanner sc = new Scanner(System.in);
         boolean aRepondu = false;
         String rep;
-
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) j;
             boolean decision = rb.decisionAchatPropriete(prix);

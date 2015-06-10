@@ -1,6 +1,7 @@
 package Jeu;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Groupe implements java.io.Serializable{
 
@@ -14,6 +15,28 @@ public class Groupe implements java.io.Serializable{
         setPrixAchatMaison(prixAchatMaison);
         setPrixAchatHotel(prixAchatHotel);
         setCouleur(couleur);
+    }
+    
+    public boolean estProprietaireGroupe(Joueur j){
+        int i=0;
+        boolean estProprio = true;
+        ArrayList<ProprieteAConstruire> lesProp = this.getProprietes();
+        LinkedList<ProprieteAConstruire> proprieteConstructible = new LinkedList<ProprieteAConstruire>();
+        int mini=5; //initialise mini à 5, le maximum de construction qu'une propriété peut avoir
+        
+        while (estProprio && i<lesProp.size()) { // a la sortie, si estProprio=true, le joueur est proprietaire de toutes les prop du groupe
+            if (lesProp.get(i).getProprietaire()!=j) {
+                estProprio = false;
+            }
+            
+            proprieteConstructible.add(lesProp.get(i)); // on commence a créer une liste au cas ou il est bien propriete de tous les terrains
+            if (mini>lesProp.get(i).getConstruction()) { //  on vas prendre le nombre de construction qu'a le terrain le moins construit
+                mini=lesProp.get(i).getConstruction();
+            }
+            i++;
+        }
+        i=0; 
+        return estProprio;
     }
 
     private void setPrixAchatMaison(int numero) {

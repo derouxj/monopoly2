@@ -93,6 +93,11 @@ public abstract class Joueur implements java.io.Serializable {
      * (pour etre conforme au diagramme de classe)
      */
     public void addPropriete(CarreauPropriete c) {
+        
+        int tailleProp = this.getProprietesAConstruire().size();
+        int i = 0;
+        boolean plusPetit = false;
+        
         if (c.getClass().getSimpleName().equals("Gare")) {
             if (getGares().size()<=4) {
                 getGares().add((Gare)c);
@@ -102,8 +107,24 @@ public abstract class Joueur implements java.io.Serializable {
                 getCompagnies().add((Compagnie)c);
             }
         } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
-            if (getProprietesAConstruire().size()<=28) {
-                getProprietesAConstruire().add((ProprieteAConstruire) c);
+            if (getProprietesAConstruire().size()<28) {
+                if(tailleProp == 0){
+                  getProprietesAConstruire().add((ProprieteAConstruire) c);  
+                }
+                else{
+                    while(i<tailleProp && !plusPetit){
+                        if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
+                            getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
+                            plusPetit = true;
+                        }
+                        else{
+                            i++;
+                        }
+                    }
+                    if (i == tailleProp) {
+                getProprietesAConstruire().add((ProprieteAConstruire)c);
+            }
+                }
             }
         }
         c.definirProprietaire(this);
