@@ -196,11 +196,18 @@ public class Monopoly implements java.io.Serializable{
         boolean conflit = false;
         joueurs.clear();
         for (int i = 0; i < nbj; i++) {
-            String nom = interface_9.nouveauJoueur();
-            js.add(new JoueurReel(nom, this));
+            boolean reel = interface_9.affecterTypeJoueur();
+            String nom = interface_9.nouveauJoueur(reel);
+            if(reel) {
+                js.add(new JoueurReel(nom, this));
+            }
+            else {
+                js.add(new Robot(nom, this));
+            }
             int nb = genDes() + genDes();
             lesLances.add(nb);
-            System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a obtenu " + nb);
+            System.out.println("Le " + js.get(i).getClass().getSimpleName() + " " + js.get(i).getNomJoueur() + " a obtenu " + nb);
+            System.out.println();
         }
         int max = 0;
         for (int i = 0; i < lesLances.size(); i++) {

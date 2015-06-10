@@ -43,14 +43,11 @@ public abstract class Joueur implements java.io.Serializable {
             getMonopoly().interface_9.messageReceptionCash(this, l);
         }
 
-<<<<<<< HEAD
-=======
     }
     
     
      public boolean estReel (){
         return estReel;
->>>>>>> cd37ed3ded2b9aaea0f4a764ddb2f1bba64822ea
     }
      
     public void setEstJoueurReel(boolean estReel){
