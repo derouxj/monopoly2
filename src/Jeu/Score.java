@@ -28,24 +28,41 @@ public class Score implements java.io.Serializable{
     
     public void ajouterScore(Joueur j) {
         int taille = getLesMeilleursJ().size();
-        int i=0;
-        boolean trouve=false;
-        if (getLesMeilleursJ().size()==0) {
+        int i = 0;
+        boolean trouve = false;
+        if (getLesMeilleursJ().size() == 0) {
             getLesMeilleursJ().add(j);
         } else {
-            while (i<taille && !trouve) {
-                if (getLesMeilleursJ().get(i).getCash()<j.getCash()) {
+            while (i < taille && !trouve) {
+                if (getLesMeilleursJ().get(i).getCash() < j.getCash()) {
                     getLesMeilleursJ().add(i, j);
-                    trouve=true;
+                    trouve = true;
+                } else if (getLesMeilleursJ().get(i).getCash()==j.getCash()){
+                    String nomCourant = getLesMeilleursJ().get(i).getNomJoueur();
+                    int lNc=nomCourant.length();
+                    int nc=0;
+                    String nomNouveau = getLesMeilleursJ().get(i).getNomJoueur();
+                    int lNn=nomNouveau.length();
+                    int nn=0;
+                    boolean ordreA=false;
+                    while (nc < lNc && nn<lNn && !ordreA) {
+                            if (nomCourant.compareTo(nomNouveau)<0) {
+                                getLesMeilleursJ().add(i, j);
+                                ordreA=true;
+                            } else {
+                                nc++;
+                                nn++;
+                            }
+                    }
                 } else {
                     i++;
                 }
             }
-            if (i==taille) {
+            if (i == taille) {
                 getLesMeilleursJ().add(j);
             }
         }
-        
+
     }
     /**
      * @return the lesMeilleursJ
