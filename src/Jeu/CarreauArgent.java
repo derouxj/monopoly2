@@ -15,8 +15,10 @@ public class CarreauArgent extends CarreauAction implements java.io.Serializable
         int somme=getMontant();
         if (somme>0) {
             j.recevoir(somme);
+        } else if(somme<0) {
+            j.payer(somme*-1);
         } else {
-            j.payer(somme);
+            
         }
     }
 

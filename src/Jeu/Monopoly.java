@@ -118,53 +118,35 @@ public class Monopoly implements java.io.Serializable{
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        CarteChance liberer = new CarteChance(data.get(i)[1], data.get(i)[2], this);
-                        chanceTmp.add(liberer);
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], this));
                     } else if (caseType2.compareTo("B") == 0) {
-                        CarteChance reculer = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        chanceTmp.add(reculer);
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
 
                     } else if (caseType2.compareTo("M") == 0) {
-                        CarteChance reparation = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4]), this);
-                        chanceTmp.add(reparation);
-
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4]), this));
                     } else if (caseType2.compareTo("A") == 0) {
-                        CarteChance amende = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        chanceTmp.add(amende);
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                     } else if (caseType2.compareTo("T") == 0) {
-                        CarteChance deplacer = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        chanceTmp.add(deplacer);
-
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                     } else if (caseType2.compareTo("P") == 0) {
-                        CarteChance prison = new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        chanceTmp.add(prison);
-
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                    } else {
+                        System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
 
                 } else if (caseType.compareTo("CDC") == 0) {
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-
-                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
-                        cdcTmp.add(liberer);
-
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
                     } else if (caseType2.compareTo("A") == 0) {
-                        CarteCaisseCommunaute amende = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        cdcTmp.add(amende);
-
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                     } else if (caseType2.compareTo("N") == 0) {
-                        CarteCaisseCommunaute liberer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this);
-                        cdcTmp.add(liberer);
-
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
                     } else if (caseType2.compareTo("P") == 0) {
-                        CarteCaisseCommunaute prison = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        cdcTmp.add(prison);
-
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                     } else if (caseType2.compareTo("T") == 0) {
-                        CarteCaisseCommunaute deplacer = new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this);
-                        cdcTmp.add(deplacer);
-
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
                     } else {
                         System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
@@ -241,8 +223,6 @@ public class Monopoly implements java.io.Serializable{
         //Carreau pos = getJoueurCourant().getPositionCourante();
         //int num = pos.getNumero();
         Joueur j = getJoueurCourant();
-        System.out.println(j.getPositionCourante().getNomCarreau());
-        HashMap<Integer, Carreau> collectCarreau = getCarreaux();
         int total = getD1() + getD2();
         j.deplacer(total);
 
@@ -265,7 +245,7 @@ public class Monopoly implements java.io.Serializable{
     public void jouerUnCoup(Joueur j) {
         setD1(genDes());
         setD2(genDes());
-        System.out.println(j.getNomJoueur() + " a lancé les dés et a obtenu " + getD1() + " et " + getD2());
+        System.out.println("\n"+j.getNomJoueur() + " a lancé les dés et a obtenu " + getD1() + " et " + getD2());
         if (!j.isPrison()) {
             faireUnTour();
         } else {
@@ -317,7 +297,7 @@ public class Monopoly implements java.io.Serializable{
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (getD1() == getD2()) { //le joueur fait un double
             System.out.println(getJoueurCourant().getNomJoueur() + " a fait un double(" + getD1() + "," + getD2() + ") et a été libéré de prison.");
-            getJoueurCourant().setPrison(true);
+            getJoueurCourant().setPrison(false);
             getJoueurCourant().setNbTourPrison(0);
             faireUnTour();
         } else { //pas de chance
