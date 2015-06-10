@@ -5,7 +5,9 @@
  */
 package Jeu;
 
+import java.util.HashMap;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,8 +15,7 @@ import java.util.Scanner;
  */
 public class jeu {
 
-    public static void main(String[] args) {
-        boolean fini = false;
+    public static void main(String[] args) throws InterruptedException {
         int choix;
         
         //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
@@ -70,42 +71,60 @@ public class jeu {
                 case 2: {
                     if(!mon.loadDBScore()) {mon.newDBScore();}
                     mon.loadDBSave();
+                    boolean quitter=false;
                 
                     if (!mon.getJoueurs().isEmpty()) {
-                        while (!mon.estFini()) {
-                            int compteDouble = 0;
-                            mon.jouerUnCoup(mon.getJoueurCourant());
-                            while (mon.getD1() == mon.getD2() && compteDouble < 3) {
-                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
-                                compteDouble++;
+                        while (!mon.estFini() && !quitter) {
+                            System.out.println("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
+                            choix = sc.nextInt();
+                            switch (choix) {
+                                case 1: {
+                                    int compteDouble = 0;
+                                    mon.jouerUnCoup(mon.getJoueurCourant());
+                                    while (mon.getD1() == mon.getD2() && compteDouble < 3) {
+                                        mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                                        compteDouble++;
+                                    }
+                                    if (compteDouble == 3) {
+                                        mon.getJoueurs().getFirst().envoyerPrison();
+                                    }
+                                    if (!mon.estFini()) {
+                                        mon.joueurSuivant();
+                                    }
+                                    mon.updateDBSave();
+                                    break;
+                                }
+                                case 2: {
+                                    quitter=true;
+                                    break;
+                                }
+                                default : {
+                                    
+                                }
                             }
-                            if (compteDouble == 3) {
-                                mon.getJoueurs().getFirst().envoyerPrison();
-                            }
-                            if (!mon.estFini()) {
-                                mon.joueurSuivant();
-                            }
-                            mon.updateDBSave();
+
                         }
-                        System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
+                        if (!quitter) {
+                            System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
                         mon.getScore().ajouterScore(mon.getJoueurCourant());
                         mon.updateDBScore();
+                        }
                     } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
                     break;
                 }
-           /*     case 3: { // test des construction ect ...
+                case 3: { // test des construction ect ...
                     if(!mon.loadDBScore()) {mon.newDBScore();}
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
                     
-                   Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
+                   Joueur propBleuC = new JoueurReel("ProprioBleuCiel",mon);
                     mon.getJoueurs().add(propBleuC);//ajout du joueur ProprioBleuCiel
                     
-                    Joueur propGare = new Joueur("ProprioGare",mon);
+                    Joueur propGare = new JoueurReel("ProprioGare",mon);
                     mon.getJoueurs().add(propGare);//ajout du joueur ProprioGare (toutes les gares)
                     
-                    Joueur propCompagnie = new Joueur("ProprioCompagnie",mon);
+                    Joueur propCompagnie = new JoueurReel("ProprioCompagnie",mon);
                     mon.getJoueurs().add(propCompagnie);  //ajout du joueur ProprioCompagnie (test avec une seule compagnie)
                     
                     mon.setD1(5);
@@ -177,10 +196,13 @@ public class jeu {
                 case 6: {       //OK
                     if (!mon.loadDBSave()) {mon.newDBSave();}
                     if (!mon.loadDBScore()) {mon.newDBScore();}
-                    mon.getScore().ajouterScore(new Joueur("TestScore",mon));
-                    Joueur deux = new Joueur("Deuxieme",mon);
-                    //deux.payer(1000);
+                    mon.getScore().ajouterScore(new JoueurReel("TestScore",mon));
+                    Joueur deux = new JoueurReel("Deuxieme",mon);
+                    deux.payer(1000);
                     mon.getScore().ajouterScore(deux);
+                    Joueur deuxeq= new JoueurReel("Aeuxeq",mon);
+                    deuxeq.payer(1000);
+                    mon.getScore().ajouterScore(deuxeq);
                     mon.updateDBScore();
                     int i=1;
                     for (Joueur js : mon.getScore().getLesMeilleursJ()) {
@@ -193,8 +215,8 @@ public class jeu {
                 case 11: {//il doit payer double car le prop a tous le groupe    OK
                     mon.newDBSave();
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
-                    Joueur leProp = new Joueur("leProp",mon);
-                    Joueur lePayeur = new Joueur("LePayeur",mon);
+                    Joueur leProp = new JoueurReel("leProp",mon);
+                    Joueur lePayeur = new JoueurReel("LePayeur",mon);
                     mon.getJoueurs().add(leProp);
                     mon.getJoueurs().add(lePayeur);
                     
@@ -208,9 +230,9 @@ public class jeu {
                 case 12: {//carte chance, CDC              OK
                     mon.newDBSave();
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
-                    Joueur laniv = new Joueur("Laniv",mon);
-                    Joueur lePayeur1 = new Joueur("LePayeur1",mon);
-                    Joueur lePayeur2 = new Joueur("LePayeur2",mon);
+                    Joueur laniv = new JoueurReel("Laniv",mon);
+                    Joueur lePayeur1 = new JoueurReel("LePayeur1",mon);
+                    Joueur lePayeur2 = new JoueurReel("LePayeur2",mon);
                     mon.getJoueurs().add(laniv);
                     mon.getJoueurs().add(lePayeur1);
                     mon.getJoueurs().add(lePayeur2);
@@ -230,7 +252,7 @@ public class jeu {
                                 laniv.getProprietesAConstruire().get(3).addConstruction();
                             }
                     
-                    mon.getPileCDC().addFirst(new CarteCaisseCommunaute("N","annivesaire",mon));
+                    mon.getPileCDC().addFirst(new CarteCaisseCommunaute("N","annivesaire"));
                     laniv.envoyerCase(3);
                     for (int i=0;i<17;i++) {
                         laniv.envoyerCase(3);
@@ -243,11 +265,9 @@ public class jeu {
                         laniv.getPositionCourante().action(laniv);
                         System.out.println(laniv.getPositionCourante().getNomCarreau());
                     }
-                }*/
+                }
                 default:
                     break;
-                                 
-
             }
         } while (choix != 0);
     }

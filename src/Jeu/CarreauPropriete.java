@@ -33,6 +33,21 @@ public abstract class CarreauPropriete extends Carreau implements java.io.Serial
         }
     }
     
+    @Override
+    public void action(Joueur j) {
+        Joueur jProprio = this.getProprietaire();
+        if (jProprio == null) {
+            achatPropriete(j);
+        } else {
+            if (jProprio != j) {
+                int l = this.calculLoyer();
+                jProprio.recevoir(l);
+                j.payer(l);
+
+            }
+        }
+    }
+    
     /**
      *Défini le joueur j comme etant le propriétaire de cette propriété
      * @param j futur propriétaire

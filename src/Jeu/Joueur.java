@@ -99,12 +99,12 @@ public abstract class Joueur implements java.io.Serializable {
         boolean plusPetit = false;
         
         if (c.getClass().getSimpleName().equals("Gare")) {
-            if (getGares().size() < 4) {
-                getGares().add((Gare) c);
+            if (getGares().size()<=4) {
+                getGares().add((Gare)c);
             }
         } else if (c.getClass().getSimpleName().equals("Compagnie")) {
-            if (getCompagnies().size() < 2) {
-                getCompagnies().add((Compagnie) c);
+            if (getCompagnies().size()<=2) {
+                getCompagnies().add((Compagnie)c);
             }
         } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
             if (getProprietesAConstruire().size()<28) {
