@@ -32,7 +32,11 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
             this.anniversaire();
         } else if (monType.equals("A")) {
             System.out.println(ct.getDescription());
-            super.getMonopoly().getJoueurCourant().recevoir(ct.getNombreAction());
+            if (ct.getNombreAction()>0) {
+                super.getMonopoly().getJoueurCourant().recevoir(ct.getNombreAction());
+            } else {
+                super.getMonopoly().getJoueurCourant().payer(ct.getNombreAction()*-1);
+            }
         } else if (monType.equals("B")) {
             System.out.println(ct.getDescription());
             super.getMonopoly().getJoueurCourant().deplacer(ct.getNombreAction());
@@ -48,10 +52,11 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
     } 
     
     public void anniversaire() {
-        LinkedList<Joueur> collectJoueurs = super.getMonopoly().getJoueurs();
+        LinkedList<Joueur> collectJoueurs = new LinkedList<Joueur>(super.getMonopoly().getJoueurs());
+        //collectJoueurs=super.getMonopoly().getJoueurs();
         collectJoueurs.removeFirst();
         for (Joueur j : collectJoueurs) {
-            j.setCash(j.getCash()-10);
+            j.payer(10);
         }
         super.getMonopoly().getJoueurCourant().recevoir(10*collectJoueurs.size());
     }

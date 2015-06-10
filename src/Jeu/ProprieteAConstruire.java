@@ -82,27 +82,30 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
      */
     @Override
     public int calculLoyer() {
-        int loyer = 0;
+        int aPayer;
         int i = 0;
-        Boolean superprop = false;
+        Boolean superprop = true;
+        Joueur proprio=this.getProprietaire();
         ArrayList<ProprieteAConstruire> groupeprop = getGroupePropriete().getProprietes();
         if (getNbHotels() == 1) {
-            loyer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
+            aPayer = getLoyers()[5];//5 est le loyer d'un hotel (0 terrain nu, 4=4maisons, 5=1hotel)
         } else if (getNbMaisons() == 0) {
             for (ProprieteAConstruire prop : groupeprop) {
-                while (prop.getProprietaire() == this.getProprietaire()) {
-                    i = i + 1;
+                if (prop.getProprietaire()!=proprio) {
+                    superprop=false;
                 }
             }
-            if (i == getGroupePropriete().getProprietes().size() - 1) {
-                superprop = true;
-                loyer = 2 * loyer;
+            if (superprop) {
+                System.out.println("Comme"+getProprietaire().getNomJoueur()+" a tous les terrains de cette couleur, le loyer est doublé");
+                aPayer=getLoyers()[0]*2;
+            } else {
+                aPayer=getLoyers()[0];
             }
         } else {
-            loyer = getLoyers()[getNbMaisons()];
+            aPayer = getLoyers()[getNbMaisons()];
         }
 
-        return loyer;
+        return aPayer;
     }
 
     public CouleurPropriete getCouleur() {

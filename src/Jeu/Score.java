@@ -36,7 +36,13 @@ public class Score implements java.io.Serializable{
             while (i<taille && !trouve) {
                 if (getLesMeilleursJ().get(i).getCash()<j.getCash()) {
                     getLesMeilleursJ().add(i, j);
+                    trouve=true;
+                } else {
+                    i++;
                 }
+            }
+            if (i==taille) {
+                getLesMeilleursJ().add(j);
             }
         }
         

@@ -25,7 +25,7 @@ public abstract class CarreauPropriete extends Carreau implements java.io.Serial
             String nomC = this.getNomCarreau();
             Boolean rep = super.getMonopoly().interface_9.messageAchatPropriete(nomC, prix);
             if (rep == true) {
-                j.setCash(cash - prix);
+                j.payer(prix);
                 j.addPropriete(this);
             }
         } else {
