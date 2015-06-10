@@ -51,7 +51,7 @@ public class Robot extends Joueur {
      */
     public ProprieteAConstruire decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains,int nbterrain) {
                Random rand = new Random(); 
-       int rnd = rand.nextInt((nbterrain - 0 + 1) + 0);
+       int rnd = rand.nextInt((nbterrain - 1 + 1) + 1);
         
 
         return lesTerrains.get(rnd);
