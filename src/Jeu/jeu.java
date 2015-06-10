@@ -16,8 +16,7 @@ import java.util.Scanner;
  */
 public class jeu {
 
-    public static void main(String[] args) {
-        boolean fini = false;
+    public static void main(String[] args) throws InterruptedException {
         int choix;
         
         //Monopoly mon = new Monopoly("src/data/data.txt","src/data/data_Carte.txt");
@@ -73,26 +72,44 @@ public class jeu {
                 case 2: {
                     if(!mon.loadDBScore()) {mon.newDBScore();}
                     mon.loadDBSave();
+                    boolean quitter=false;
                 
                     if (!mon.getJoueurs().isEmpty()) {
-                        while (!mon.estFini()) {
-                            int compteDouble = 0;
-                            mon.jouerUnCoup(mon.getJoueurCourant());
-                            while (mon.getD1() == mon.getD2() && compteDouble < 3) {
-                                mon.jouerUnCoup(mon.getJoueurs().getFirst());
-                                compteDouble++;
+                        while (!mon.estFini() && !quitter) {
+                            System.out.println("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
+                            choix = sc.nextInt();
+                            switch (choix) {
+                                case 1: {
+                                    int compteDouble = 0;
+                                    mon.jouerUnCoup(mon.getJoueurCourant());
+                                    while (mon.getD1() == mon.getD2() && compteDouble < 3) {
+                                        mon.jouerUnCoup(mon.getJoueurs().getFirst());
+                                        compteDouble++;
+                                    }
+                                    if (compteDouble == 3) {
+                                        mon.getJoueurs().getFirst().envoyerPrison();
+                                    }
+                                    if (!mon.estFini()) {
+                                        mon.joueurSuivant();
+                                    }
+                                    mon.updateDBSave();
+                                    break;
+                                }
+                                case 2: {
+                                    quitter=true;
+                                    break;
+                                }
+                                default : {
+                                    
+                                }
                             }
-                            if (compteDouble == 3) {
-                                mon.getJoueurs().getFirst().envoyerPrison();
-                            }
-                            if (!mon.estFini()) {
-                                mon.joueurSuivant();
-                            }
-                            mon.updateDBSave();
+
                         }
-                        System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
+                        if (!quitter) {
+                            System.out.println("Le joueur " + mon.getJoueurs().getFirst().getNomJoueur() + " a gagné, gg");
                         mon.getScore().ajouterScore(mon.getJoueurCourant());
                         mon.updateDBScore();
+                        }
                     } else {
                         System.out.println("Vous n'avez pas inscrit de joueurs !");
                     }
@@ -180,8 +197,11 @@ public class jeu {
                     if (!mon.loadDBScore()) {mon.newDBScore();}
                     mon.getScore().ajouterScore(new Joueur("TestScore",mon));
                     Joueur deux = new Joueur("Deuxieme",mon);
-                    //deux.payer(1000);
+                    deux.payer(1000);
                     mon.getScore().ajouterScore(deux);
+                    Joueur deuxeq= new Joueur("Aeuxeq",mon);
+                    deuxeq.payer(1000);
+                    mon.getScore().ajouterScore(deuxeq);
                     mon.updateDBScore();
                     int i=1;
                     for (Joueur js : mon.getScore().getLesMeilleursJ()) {
