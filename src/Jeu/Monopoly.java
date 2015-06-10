@@ -195,17 +195,15 @@ public class Monopoly implements java.io.Serializable{
         LinkedList<Joueur> js = new LinkedList<Joueur>();
         getJoueurs().clear();
         for (int i = 0; i < nbj; i++) {
-             String type = interface_9.AffecterTypeJoueur();           
+            String type = interface_9.affecterTypeJoueur();
             String nom = interface_9.nouveauJoueur();
 
-            
-            
-            if (type.equals("reel")){
-                js.add(new JoueurReel(nom,this));
+            if (type.equals("reel")) {
+                js.add(new JoueurReel(nom, this));
             } else if (type.equals("robot")) {
-                js.add(new Robot(nom,this));
+                js.add(new Robot(nom, this));
             }
-            
+
             int nb = genDes() + genDes();
             lesLances.add(nb);
             System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a obtenu " + nb);
@@ -314,16 +312,37 @@ public class Monopoly implements java.io.Serializable{
                 getJoueurCourant().tourPrison();
             } else {
                 System.out.println(getJoueurCourant().getNomJoueur() + " possède " + getJoueurCourant().getCartePrison() + " carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
-                Scanner sc = new Scanner(System.in);
-                String rep;
-                boolean ok = false;
-                while (!ok) {
-                    if (sc.hasNextLine()) {
-                        rep = sc.nextLine();
+
+                if (!this.getJoueurCourant().estReel()) {
+                    Robot rb = (Robot) getJoueurCourant();
+                    boolean decision = rb.decisionCarteLiberePrison();
+                    if (decision) {
+                        System.out.println("oui");
                     } else {
-                        sc.next();
-                        continue;
+                        System.out.println("non");
+
                     }
+                    String rep;
+                    if (decision) {
+                        rep = "oui";
+                    } else {
+                        rep = "non";
+                    }
+                } else {
+
+                    Scanner sc = new Scanner(System.in);
+                    String rep = null;
+                    boolean ok = false;
+                    while (!ok) {
+                        if (sc.hasNextLine()) {
+                            rep = sc.nextLine();
+                        } else {
+                            sc.next();
+                            continue;
+                        }
+
+                    }
+
                     if (rep.equals("oui")) {
                         ok = true;
                         getJoueurCourant().retirerCartePrison();

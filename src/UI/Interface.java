@@ -100,7 +100,7 @@ public class Interface implements java.io.Serializable {
         return nom;
     }
 
-    public String AffecterTypeJoueur() {
+    public String affecterTypeJoueur() {
         int choix;
 
         System.out.println("0. Joueur réel\n1. Robot");
@@ -128,7 +128,7 @@ public class Interface implements java.io.Serializable {
      * @param prix prix d'achat de la propriété
      * @return
      */
-    public Boolean messageAchatPropriete(String nomC, int prix) {
+    public Boolean messageAchatPropriete(CarreauPropriete prop, int prix) {
         Joueur j = monopoly.getJoueurCourant();
         Scanner sc = new Scanner(System.in);
         boolean aRepondu = false;
@@ -136,16 +136,16 @@ public class Interface implements java.io.Serializable {
 
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) j;
-            boolean decision = rb.decisionAchatPropriete(prix);
-           
+            boolean decision = true;//rb.decisionAchatPropriete(prop,prix);
+           System.out.println(prop.getClass().getSimpleName());
              if (decision){
-                 System.out.println(j.getNomJoueur()+" a acheté la propriété "+nomC);
-            }else{System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);}
+                 System.out.println(j.getNomJoueur()+" a acheté la propriété "+prop.getNomCarreau());
+            }else{System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+prop.getNomCarreau());}
              return decision;
         } else {
 
             do {
-                System.out.println("Acheter " + nomC + " pour " + prix + " ? (y/n)");
+                System.out.println("Acheter " + prop.getNomCarreau() + " pour " + prix + " ? (y/n)");
                 rep = sc.nextLine();
                 if (rep.equals("y") || rep.equals("n")) {
                     aRepondu = true;
@@ -155,10 +155,10 @@ public class Interface implements java.io.Serializable {
             } while (!aRepondu);
 
             if (rep.equals("y")) {
-                System.out.println("confirmation de l'achat de " + nomC + " par " + j.getNomJoueur());
+                System.out.println("confirmation de l'achat de " + prop.getNomCarreau() + " par " + j.getNomJoueur());
                 return true;
             } else {
-                System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);
+                System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+prop.getNomCarreau());
                 return false;
             }
         }
@@ -177,25 +177,32 @@ public class Interface implements java.io.Serializable {
         if (lesTerrains.isEmpty()) {
             return null;
         }
+
+        int nbterrain = 0;
+
+        nbterrain = 0;
+
+        for (ProprieteAConstruire pc : lesTerrains) {
+            nbterrain = nbterrain + 1;
+            System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
+        }
+
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) monopoly.getJoueurCourant();
-            return rb.decisionConstruction(lesTerrains);
+            System.out.println("Je construit sur le terrain"+rb.decisionConstruction(lesTerrains, nbterrain).getNomCarreau());
+            return rb.decisionConstruction(lesTerrains, nbterrain);
         } else {
 
             int choix = 0;
-            int nbterrain = 0;
+
             Scanner sc = new Scanner(System.in);
             boolean boucle = true;
 
             while (boucle) {
-                nbterrain = 0;
+
                 boucle = false;
                 try {
                     System.out.println("Sur quel terrain voulez vous construire ?" + "\n\t0 - Aucun");
-                    for (ProprieteAConstruire pc : lesTerrains) {
-                        nbterrain = nbterrain + 1;
-                        System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
-                    }
 
                     if (sc.hasNextInt()) {
                         choix = sc.nextInt();
