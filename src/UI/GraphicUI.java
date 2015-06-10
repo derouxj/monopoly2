@@ -52,15 +52,13 @@ public class GraphicUI extends Frame {
 
         JPanel panel = new JPanel();
 
-        panel.add(new JLabel(new ImageIcon("/users/info/etu-s2/derouxj/m2105/monopoly2/monopoly2/plateau.jpg")));
+        panel.add(new JLabel(new ImageIcon("src/plateau.jpg")));
+        //panel.add(new JLabel(new ImageIcon("/src/plateau.jpg")));
 
         cadre.add(panel);
         cadre.setVisible(true);
         cadre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cadre.setSize(1300, 700);
 
-        for (Carreau c : monopoly.getCarreaux().values()) {
-
-        }
     }
 }

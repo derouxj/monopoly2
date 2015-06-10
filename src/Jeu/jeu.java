@@ -74,8 +74,9 @@ public class jeu {
                 
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini() && !quitter) {
-                            System.out.println("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
-                            choix = sc.nextInt();
+                            //System.out.println("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
+                            //choix = sc.nextInt();
+                            choix=1;
                             switch (choix) {
                                 case 1: {
                                     int compteDouble = 0;
