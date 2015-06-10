@@ -2,8 +2,8 @@ package Jeu;
 
 import java.util.ArrayList;
 
-public class Joueur implements java.io.Serializable {
-
+public abstract class Joueur implements java.io.Serializable {
+    private boolean estJoueurReel;
     private String nomJoueur;
     private int cash = 1500;
     private Monopoly monopoly;
@@ -15,9 +15,10 @@ public class Joueur implements java.io.Serializable {
     private boolean prison;
     private int cartePrison;
 
-    public Joueur(String n, Monopoly m) {
+    public Joueur(boolean estJoueurReel,String n, Monopoly m) {
         this.setNomJoueur(n);
         this.setMonopoly(m);
+        this.setEstJoueurReel(estJoueurReel);
         compagnies = new ArrayList<Compagnie>();
         gares = new ArrayList<Gare>();
         proprietesAConstruire = new ArrayList<ProprieteAConstruire>();
@@ -43,6 +44,16 @@ public class Joueur implements java.io.Serializable {
         }
 
     }
+    
+    
+     public boolean estJoueurReel (){
+        return estJoueurReel;
+    }
+     
+    public void setEstJoueurReel(boolean estJoueurReel){
+        this.estJoueurReel = estJoueurReel;
+    } 
+    
 
     /**
      * Enlève la somme en paramètre au cash du joueur. si il n'a pas assez de

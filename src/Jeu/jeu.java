@@ -5,9 +5,6 @@
  */
 package Jeu;
 
-import UI.*;
-import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -98,11 +95,11 @@ public class jeu {
                     }
                     break;
                 }
-                case 3: { // test des construction ect ...
+           /*     case 3: { // test des construction ect ...
                     if(!mon.loadDBScore()) {mon.newDBScore();}
                     HashMap<Integer, Carreau> plateau = mon.getCarreaux();
                     
-                    Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
+                   Joueur propBleuC = new Joueur("ProprioBleuCiel",mon);
                     mon.getJoueurs().add(propBleuC);//ajout du joueur ProprioBleuCiel
                     
                     Joueur propGare = new Joueur("ProprioGare",mon);
@@ -244,7 +241,7 @@ public class jeu {
                         laniv.getPositionCourante().action(laniv);
                         System.out.println(laniv.getPositionCourante().getNomCarreau());
                     }
-                }
+                }*/
                 default:
                     break;
                                  
