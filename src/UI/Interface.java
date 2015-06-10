@@ -134,9 +134,14 @@ public class Interface implements java.io.Serializable {
         boolean aRepondu = false;
         String rep;
 
-        if (!monopoly.getJoueurCourant().estJoueurReel()) {
+        if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) j;
-            return rb.decisionAchatPropriete(prix);
+            boolean decision = rb.decisionAchatPropriete(prix);
+           
+             if (decision){
+                 System.out.println(j.getNomJoueur()+" a acheté la propriété "+nomC);
+            }else{System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);}
+             return decision;
         } else {
 
             do {
@@ -153,7 +158,7 @@ public class Interface implements java.io.Serializable {
                 System.out.println("confirmation de l'achat de " + nomC + " par " + j.getNomJoueur());
                 return true;
             } else {
-                System.out.println("Le joueur n'a pas voulu acheter la propriété.");
+                System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);
                 return false;
             }
         }
@@ -172,7 +177,7 @@ public class Interface implements java.io.Serializable {
         if (lesTerrains.isEmpty()) {
             return null;
         }
-        if (!monopoly.getJoueurCourant().estJoueurReel()) {
+        if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) monopoly.getJoueurCourant();
             return rb.decisionConstruction(lesTerrains);
         } else {

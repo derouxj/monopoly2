@@ -3,7 +3,7 @@ package Jeu;
 import java.util.ArrayList;
 
 public abstract class Joueur implements java.io.Serializable {
-    private boolean estJoueurReel;
+    private boolean estReel;
     private String nomJoueur;
     private int cash = 1500;
     private Monopoly monopoly;
@@ -46,12 +46,12 @@ public abstract class Joueur implements java.io.Serializable {
     }
     
     
-     public boolean estJoueurReel (){
-        return estJoueurReel;
+     public boolean estReel (){
+        return estReel;
     }
      
-    public void setEstJoueurReel(boolean estJoueurReel){
-        this.estJoueurReel = estJoueurReel;
+    public void setEstJoueurReel(boolean estReel){
+        this.estReel = estReel;
     } 
     
 
