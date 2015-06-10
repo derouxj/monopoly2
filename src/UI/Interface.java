@@ -5,13 +5,13 @@ import Jeu.*;
 import java.util.Scanner;
 import java.util.*;
 
-public class Interface implements java.io.Serializable{
+public class Interface implements java.io.Serializable {
 
     public Monopoly monopoly;
     transient Scanner sc = new Scanner(System.in);
 
     public Interface(Monopoly mono) {
-        monopoly=mono;
+        monopoly = mono;
     }
 
     /**
@@ -79,7 +79,8 @@ public class Interface implements java.io.Serializable{
     }
 
     /**
-     *Message affichant le joueur ainsi que la somme qu'il a perdu
+     * Message affichant le joueur ainsi que la somme qu'il a perdu
+     *
      * @param j joueur perdant
      * @param somme somme perdu
      */
@@ -88,27 +89,51 @@ public class Interface implements java.io.Serializable{
     }
 
     /**
-     *Demande le nom au joueur.
+     * Demande le nom au joueur.
+     *
      * @return le nom du joueur a inscrire
      */
     public String nouveauJoueur() {
         System.out.println("\nNom du joueur : ");
-        String nom = sc.nextLine();
+        String nom = sc.next();
+        System.out.println(nom);
         return nom;
     }
 
+    public String AffecterTypeJoueur() {
+        int choix;
+
+        System.out.println("0. Joueur réel\n1. Robot");
+        choix = sc.nextInt();
+        switch (choix) {
+ 
+            case 0: {
+                return "reel";
+            }
+
+            case 1: {
+                return "robot";
+
+            }
+            default:
+                return null;
+        }
+    } 
+
     /**
-     *Message affichant la propriété ansi que ses infos(nom,prix) concerné par l'achat potentiel.
-     * Il demande une confirmation au joueur.
+     * Message affichant la propriété ansi que ses infos(nom,prix) concerné par
+     * l'achat potentiel. Il demande une confirmation au joueur.
+     *
      * @param nomC nom de la propriété
      * @param prix prix d'achat de la propriété
      * @return
      */
     public Boolean messageAchatPropriete(String nomC, int prix) {
-        Joueur j=monopoly.getJoueurCourant();
+        Joueur j = monopoly.getJoueurCourant();
         Scanner sc = new Scanner(System.in);
         boolean aRepondu = false;
         String rep;
+<<<<<<< HEAD
         do {
             System.out.println("Acheter " + nomC + " pour " + prix + " ? (y/n)");
             rep = sc.nextLine();
@@ -118,27 +143,53 @@ public class Interface implements java.io.Serializable{
                 System.out.println("Répondre par y/n\n");
             }
         } while (!aRepondu);
+=======
+>>>>>>> cd37ed3ded2b9aaea0f4a764ddb2f1bba64822ea
 
-        if (rep.equals("y")) {
-            System.out.println("confirmation de l'achat de " + nomC + " par " + j.getNomJoueur());
-            return true;
+        if (!monopoly.getJoueurCourant().estReel()) {
+            Robot rb = (Robot) j;
+            boolean decision = rb.decisionAchatPropriete(prix);
+           
+             if (decision){
+                 System.out.println(j.getNomJoueur()+" a acheté la propriété "+nomC);
+            }else{System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);}
+             return decision;
         } else {
-            System.out.println("Le joueur n'a pas voulu acheter la propriété.");
-            return false;
+
+            do {
+                System.out.println("Acheter " + nomC + " pour " + prix + " ? (y/n)");
+                rep = sc.nextLine();
+                if (rep.equals("y") || rep.equals("n")) {
+                    aRepondu = true;
+                } else {
+                    System.out.println("Répondre par y/n\n");
+                }
+            } while (!aRepondu);
+
+            if (rep.equals("y")) {
+                System.out.println("confirmation de l'achat de " + nomC + " par " + j.getNomJoueur());
+                return true;
+            } else {
+                System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+nomC);
+                return false;
+            }
         }
     }
 
     /**
-     *Affiche toutes les propriété contenu dans la liste donnée en paramètre.
+     * Affiche toutes les propriété contenu dans la liste donnée en paramètre.
      * Demande au joueur sur quel terrain il veut construire.
+     *
      * @param lesTerrains liste des terrains constructible
-     * @return null si il ne veut pas construire, sinon il renvoi la propriété ou le joueur veut construire
+     * @return null si il ne veut pas construire, sinon il renvoi la propriété
+     * ou le joueur veut construire
      */
     public ProprieteAConstruire messageChoixConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
         ProprieteAConstruire reponse = null;
         if (lesTerrains.isEmpty()) {
             return null;
         }
+<<<<<<< HEAD
         int choix = 0;
         int nbterrain = 0;
         Scanner sc = new Scanner(System.in);
@@ -174,12 +225,57 @@ public class Interface implements java.io.Serializable{
                 reponse = lesTerrains.get(choix - 1);
             }
 
+=======
+        if (!monopoly.getJoueurCourant().estReel()) {
+            Robot rb = (Robot) monopoly.getJoueurCourant();
+            return rb.decisionConstruction(lesTerrains);
+        } else {
+
+            int choix = 0;
+            int nbterrain = 0;
+            Scanner sc = new Scanner(System.in);
+            boolean boucle = true;
+
+            while (boucle) {
+                nbterrain = 0;
+                boucle = false;
+                try {
+                    System.out.println("Sur quel terrain voulez vous construire ?" + "\n\t0 - Aucun");
+                    for (ProprieteAConstruire pc : lesTerrains) {
+                        nbterrain = nbterrain + 1;
+                        System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
+                    }
+
+                    if (sc.hasNextInt()) {
+                        choix = sc.nextInt();
+                    } else {
+                        sc.nextInt();
+                        continue;
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Ce n'est pas un entier !\n");
+                    nbterrain = 0;
+                    sc.next();
+                }
+                if (choix > nbterrain || choix < 0) {
+                    System.out.println("Le choix n'est pas correct\n");
+                    boucle = true;
+                } else if (choix == 0) {
+                    reponse = null;
+                } else {
+                    reponse = lesTerrains.get(choix - 1);
+                }
+
+            }
+            return reponse;
+>>>>>>> cd37ed3ded2b9aaea0f4a764ddb2f1bba64822ea
         }
         return reponse;
     }
 
     /**
-     *indique que le joueur est envoyé en prison
+     * indique que le joueur est envoyé en prison
+     *
      * @param j joueur a bannir
      */
     public void messagePrison(Joueur j) {
@@ -187,7 +283,9 @@ public class Interface implements java.io.Serializable{
     }
 
     /**
-     *Message indiquant si le joueur a gagné ou perdu une carte sortie de prison
+     * Message indiquant si le joueur a gagné ou perdu une carte sortie de
+     * prison
+     *
      * @param yn vrai si il gagne une carte
      * @param j joueur concerné par cette modification
      */
