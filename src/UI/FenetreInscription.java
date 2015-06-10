@@ -171,7 +171,7 @@ public class FenetreInscription extends javax.swing.JFrame {
     
     private void ajouterJoueur(String nom) {
         if (nom!=null || !nom.contains(" ")) {
-                listJoueurs.add(new Joueur(nom, mono));
+        //        listJoueurs.add(new Joueur(nom, mono));
                 int nb = mono.genDes() + mono.genDes();
                 lesLances.add(nb);
         }
