@@ -10,20 +10,7 @@ public class Gare extends CarreauPropriete implements java.io.Serializable{
         //    numéro de la case, son nom, le prix de l'achat (toujours 200)
     }
 
-    @Override
-    public void action(Joueur j) {
-        Joueur jProprio = this.getProprietaire();
-        if (jProprio == null) {
-            super.achatPropriete(j);
-        } else {
-            if (jProprio != j) {
-                int l = this.calculLoyer();
-                jProprio.recevoir(l);
-                j.payer(l);
-
-            }
-        }
-    }
+    
 
     /**
      *Calcul le loyer en fonction du nombre de gare du propriétaire de cette dernière

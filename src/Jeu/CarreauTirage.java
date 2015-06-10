@@ -45,7 +45,7 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
             super.getMonopoly().getJoueurCourant().envoyerPrison();
         } else if (monType.equals("M")) {
             System.out.println(ct.getDescription());
-            this.reparation(ct, j);
+            this.reparation(ct);
         } else {
             System.out.println("ERREUR, type non reconnu");
         }
@@ -61,7 +61,8 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         super.getMonopoly().getJoueurCourant().recevoir(10*collectJoueurs.size());
     }
     
-    public void reparation(Carte ct,Joueur j) {
+    public void reparation(Carte ct) {
+        Joueur j = getMonopoly().getJoueurCourant();
         int nbM = 0;
         int nbH = 0;
         int prixR;
