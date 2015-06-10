@@ -118,18 +118,18 @@ public class Monopoly implements java.io.Serializable{
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("B") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
 
                     } else if (caseType2.compareTo("M") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), Integer.parseInt(data.get(i)[4])));
                     } else if (caseType2.compareTo("A") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("T") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("P") == 0) {
-                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        chanceTmp.add(new CarteChance(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else {
                         System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
@@ -138,15 +138,15 @@ public class Monopoly implements java.io.Serializable{
                     String caseType2 = data.get(i)[1];
 
                     if (caseType2.compareTo("L") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("A") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("N") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2]));
                     } else if (caseType2.compareTo("P") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else if (caseType2.compareTo("T") == 0) {
-                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3]), this));
+                        cdcTmp.add(new CarteCaisseCommunaute(data.get(i)[1], data.get(i)[2], Integer.parseInt(data.get(i)[3])));
                     } else {
                         System.err.println("[buildGameCarte()] : Invalid Data type");
                     }
@@ -193,7 +193,8 @@ public class Monopoly implements java.io.Serializable{
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
         LinkedList<Joueur> js = new LinkedList<Joueur>();
-        getJoueurs().clear();
+        boolean conflit = false;
+        joueurs.clear();
         for (int i = 0; i < nbj; i++) {
             String type = interface_9.affecterTypeJoueur();
             String nom = interface_9.nouveauJoueur();
@@ -210,15 +211,38 @@ public class Monopoly implements java.io.Serializable{
         }
         int max = 0;
         for (int i = 0; i < lesLances.size(); i++) {
+            if (lesLances.get(i) == max) {
+                conflit = true;
+            }
             if (max < lesLances.get(i)) {
                 max = lesLances.get(i);
             }
         }
+        while (conflit) { //conflit si deux joueurs ont obtenu le même score
+            System.out.println("CONFLIT entre deux joueurs !");
+            for (int i = 0; i < nbj; i++) {
+                if (lesLances.get(i) == max) {
+                    int nb = genDes() + genDes();
+                    lesLances.set(i, lesLances.get(i) + nb);
+                    System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a relancé et obtenu " + nb);
+                }
+            }
+            for (int i = 0; i < lesLances.size(); i++) {
+                if (lesLances.get(i) == max) {
+                    conflit = true;
+                }
+                if (max < lesLances.get(i)) {
+                    max = lesLances.get(i);
+                } else {
+                    conflit = false;
+                }
+            }
+        }
         int laPos = lesLances.indexOf(max);
-        getJoueurs().add(js.get(laPos));
+        joueurs.add(js.get(laPos));
         js.remove(js.get(laPos));
         while (!js.isEmpty()) {
-            getJoueurs().add(js.getFirst());
+            joueurs.add(js.getFirst());
             js.remove(js.getFirst());
         }
     }

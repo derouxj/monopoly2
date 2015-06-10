@@ -11,28 +11,24 @@ package Jeu;
  * @author carrejer
  */
 public abstract class Carte implements java.io.Serializable{
-    private Monopoly monopoly;
     private String description,type;
     private int reparationMaison,reparationHotel,nombreAction;
     
-    public Carte(String type,String pDesc,Monopoly monopoly) {
+    public Carte(String type,String pDesc) {
         setType(type);
         setDescription(pDesc);
-        setMonopoly(monopoly);
     }
-    public Carte(String type,String description,int nombreAction,Monopoly monopoly) {
+    public Carte(String type,String description,int nombreAction) {
         setType(type);
         setDescription(description);
         setNombreAction(nombreAction);
-        setMonopoly(monopoly);
     }
     
-    public Carte(String type,String description,int reparationMaison,int reparationHotel,Monopoly monopoly) {
+    public Carte(String type,String description,int reparationMaison,int reparationHotel) {
         setType(type);
         setDescription(description);
         setReparationMaison(reparationMaison);
         setReparationHotel(reparationHotel);
-        setMonopoly(monopoly);
     }
     
     /**
@@ -103,19 +99,5 @@ public abstract class Carte implements java.io.Serializable{
      */
     private void setNombreAction(int nombreAction) {
         this.nombreAction = nombreAction;
-    }
-
-    /**
-     * @return the monopoly
-     */
-    public Monopoly getMonopoly() {
-        return monopoly;
-    }
-
-    /**
-     * @param monopoly the monopoly to set
-     */
-    private void setMonopoly(Monopoly monopoly) {
-        this.monopoly = monopoly;
     }
 }

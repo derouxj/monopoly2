@@ -37,28 +37,17 @@ public class Score implements java.io.Serializable{
                 if (getLesMeilleursJ().get(i).getCash() < j.getCash()) {
                     getLesMeilleursJ().add(i, j);
                     trouve = true;
-                } else if (getLesMeilleursJ().get(i).getCash()==j.getCash()){
-                    String nomCourant = getLesMeilleursJ().get(i).getNomJoueur();
-                    int lNc=nomCourant.length();
-                    int nc=0;
-                    String nomNouveau = getLesMeilleursJ().get(i).getNomJoueur();
-                    int lNn=nomNouveau.length();
-                    int nn=0;
-                    boolean ordreA=false;
-                    while (nc < lNc && nn<lNn && !ordreA) {
-                            if (nomCourant.compareTo(nomNouveau)<0) {
-                                getLesMeilleursJ().add(i, j);
-                                ordreA=true;
-                            } else {
-                                nc++;
-                                nn++;
-                            }
+                } else if (getLesMeilleursJ().get(i).getCash() == j.getCash()) {
+                    String nomCourant= getLesMeilleursJ().get(i).getNomJoueur();
+                    String nomNouveau = j.getNomJoueur();
+                    if (nomCourant.compareTo(nomNouveau) > 0) {
+                        getLesMeilleursJ().add(i, j);
+                        trouve = true;
                     }
-                } else {
-                    i++;
                 }
+                i++;
             }
-            if (i == taille) {
+            if (i == taille && !trouve) {
                 getLesMeilleursJ().add(j);
             }
         }
