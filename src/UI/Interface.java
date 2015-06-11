@@ -49,8 +49,26 @@ public class Interface implements java.io.Serializable {
             System.out.println("\t\tCe joueur n'a aucune propriétés à construire.");
         } else {
             System.out.println("\t\tPropriétés à construire de ce joueur : ");
+            String grpTmp="";
+            String grpActuel;
             for (ProprieteAConstruire p : proprietes) {
-                System.out.print("\t\t\t- " + p.getNomCarreau() + " du groupe " + p.getCouleur().toString());
+                grpActuel=p.getGroupePropriete().getCouleur().toString();
+                if (!grpTmp.equals(grpActuel)) {
+                    grpTmp=grpActuel;
+                    System.out.print("\t\t\t"+grpTmp);
+                    int i =0;
+                    int nbmax = p.getGroupePropriete().getProprietes().size();
+                    for(ProprieteAConstruire pa : p.getGroupePropriete().getProprietes()) {
+                        if(leJoueur== pa.getProprietaire()){
+                            i++;
+                        }
+                    }
+                   System.out.println("il vous manque "+(nbmax-i)+" propriété(s) de ce groupe pour pouvoir construire");    
+                }
+                
+                
+                
+                System.out.print("\t\t\t\t- " + p.getNomCarreau() );
                 int nbhotels = p.getNbHotels();
                 int nbmaisons = p.getNbMaisons();
                 if (nbmaisons == 0 && nbhotels == 0) {
