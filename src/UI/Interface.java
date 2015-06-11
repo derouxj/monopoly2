@@ -300,8 +300,142 @@ public class Interface implements java.io.Serializable {
         this.monopoly = monopoly;
     }
     
-    public void pasEntier() {
+    public void messageErreurScan(boolean b) {
+        if (b) {
+            System.out.println("Ce n'est pas un entier !\n");
+        }
+        else {
+            System.out.println("Pas dans l'intervalle de valeurs\n");
+        }
+    }
+
+    public void affichageOrdre(LinkedList<Joueur> js) {
+        System.out.println("Ordre : ");
+        for (int i = 0; i < js.size(); i++) {
+            System.out.println((i + 1) + "e " + js.get(i).getClass().getSimpleName() + " " + js.get(i).getNomJoueur());
+        }
         System.out.println();
     }
 
+    public void affichageScore(ArrayList<Joueur> lesJ) {
+        int i=1;
+        for (Joueur j : lesJ) {
+            System.out.println(i + "° - " + j.getNomJoueur() + " avec " + j.getCash() + "€");
+            i++;
+        }
+    }
+    
+    public void affichageConstruire(String s, boolean oui) {
+        if(oui) {
+            System.out.println("Comme"+s+" a tous les terrains de cette couleur, le loyer est doublé");
+        } else {
+            System.out.println("Vous ne possedez pas toutes les propriétés de ce groupe");
+        }
+    }
+
+    public void affichageAutreNom() {
+        System.out.println("Un joueur porte déjà ce nom, vous devez choisir un autre nom");
+    }
+
+    public void affichageLancerInscrire(Joueur j, int nb, boolean relance) {
+        if (!relance) {
+            System.out.println("Le " + j.getClass().getSimpleName() + " " + j.getNomJoueur() + " a obtenu " + nb);
+            System.out.println();
+        } else {
+            System.out.println("Le " + j.getClass().getSimpleName() + " " + j.getNomJoueur() + " a relancé et obtenu " + nb);
+        }
+    }
+    
+    public void affichageConflit() {
+        System.out.println("CONFLIT entre deux joueurs !");
+    }
+    
+    public void affichageAvancer(Joueur j, int total) {
+        System.out.println("le joueur " + j.getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + j.getPositionCourante().getNomCarreau());
+    }
+
+    public void affichageJouerUnCoup(String nomJoueur, int d1, int d2) {
+        System.out.println("\n"+nomJoueur + " a lancé les dés et a obtenu " + d1 + " et " + d2);
+    }
+
+    public void affichageLancerDesPrison(String nomJoueur, int d1, int d2) {
+        System.out.println(nomJoueur + " a fait un double(" + d1 + "," + d2 + ") et a été libéré de prison.");
+    }
+
+    public void messageData(boolean crea, boolean score) {
+        if(crea) {
+            if(score) {
+                System.out.println("Creation data score");
+            } else {
+                System.out.println("Creation data save");
+            }
+        } else {
+            if (score) {
+                System.out.println("Chargement data score");
+            } else {
+                System.out.println("Chargement data save");
+            }
+        }
+    }
+    
+    public int choisirAvecContexte(String s) {
+        boolean boucle = true;
+        int nb = 0;
+
+        while (boucle) {
+            try {
+                System.out.println(s);
+                System.out.println();
+                if (sc.hasNextInt()) {
+                    nb = sc.nextInt();
+                } else {
+                    sc.nextInt();
+                    continue;
+                }
+                boucle = false;
+            } catch (java.util.InputMismatchException e) {
+                this.messageErreurScan(true);
+                sc.next();
+            }
+        }
+        return nb;
+    }
+    
+    public void affichageVirer(Joueur j) {
+        System.out.println("Le "+j.getClass().getSimpleName() +" "+j.getNomJoueur()+" a perdu...Toutes ses propriétés ont été remises en jeu");
+    }
+    
+    public void affichageTourPrison(String s, boolean bool) {
+        if (bool) {
+            System.out.println(s + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
+        }
+        else {
+            System.out.println(s + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
+        }
+    }
+
+    public void affichageReparation(int nbM, int nbH, int prixR) {
+        System.out.println("Les réparations ont été faites sur " + nbM +" maisons et " + nbH + " hotels pour le prix de "+ prixR + "$.");
+    }
+
+    public void affichageDescriptionCarte(String description, boolean error) {
+        if(!error) {
+            System.out.println(description);
+        }
+        else {
+            System.out.println("Erreur, type non reconnu :/");
+        }
+    }
+
+    public void affichageTropPauvre(Joueur j) {
+        System.out.println(j.getClass().getSimpleName() + " "+j.getNomJoueur() + " n'a pas assez d'argent pour acheter cette propriété !");
+    }
+
+    public void affichageJoueurSt(String nomJoueur, boolean bool) {
+        if(bool) {
+            System.out.println("Vous n'avez pas inscrit de joueurs !");
+        } else {
+            System.out.println("Le joueur " + nomJoueur + " a gagné, gg");
+        }
+    }
 }
