@@ -111,32 +111,55 @@ public class Interface implements java.io.Serializable {
      *
      * @return le nom du joueur a inscrire
      */
-    public String nouveauJoueur() {
-        System.out.println("\nNom du joueur : ");
+    public String nouveauJoueur(boolean reel) {
+        if (reel) {
+            System.out.println("\nNom du joueur : ");
+        } else {
+            System.out.println("\nNom du robot : ");
+        }
         String nom = sc.next();
-        System.out.println(nom);
         return nom;
     }
 
-    public String affecterTypeJoueur() {
-        int choix;
 
-        System.out.println("0. Joueur réel\n1. Robot");
-        choix = sc.nextInt();
-        switch (choix) {
- 
-            case 0: {
-                return "reel";
+    public boolean affecterTypeJoueur() {
+        boolean boucle = true;
+        int choix = 0;
+        boolean reel = true;
+        while (boucle) {
+            try {
+                System.out.println("Choisir un type de joueur : ");
+                System.out.println("1. Joueur réel\n2. Robot");
+                System.out.println();
+                if (sc.hasNextInt()) {
+                    choix = sc.nextInt();
+                } else {
+                    sc.nextInt();
+                    continue;
+                }
+                switch (choix) {
+                    case 1: {
+                        reel = true;
+                        boucle = false;
+                        break;
+                    }
+                    case 2: {
+                        reel = false;
+                        boucle = false;
+                        break;
+                    }
+                    default:
+                        System.out.println("1 ou 2, pas autre chose !\n");
+                        break;
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ce n'est même pas un entier !\n");
+                sc.next();
+                boucle = true;
             }
-
-            case 1: {
-                return "robot";
-
-            }
-            default:
-                return null;
         }
-    } 
+        return reel;
+    }
 
     /**
      * Message affichant la propriété ansi que ses infos(nom,prix) concerné par
@@ -151,10 +174,9 @@ public class Interface implements java.io.Serializable {
         Scanner sc = new Scanner(System.in);
         boolean aRepondu = false;
         String rep;
-
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) j;
-            boolean decision = true;//rb.decisionAchatPropriete(prop,prix);
+            boolean decision = rb.decisionAchatPropriete(prop,prix);
            System.out.println(prop.getClass().getSimpleName());
              if (decision){
                  System.out.println(j.getNomJoueur()+" a acheté la propriété "+prop.getNomCarreau());

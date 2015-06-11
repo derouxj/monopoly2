@@ -5,7 +5,7 @@ import UI.Interface;
 import java.io.*;
 import java.util.*;
 
-public class Monopoly implements java.io.Serializable{
+public class Monopoly implements java.io.Serializable {
 
     private int nbMaisons = 32;
     private int nbHotels = 12;
@@ -16,7 +16,7 @@ public class Monopoly implements java.io.Serializable{
     private int d1, d2;
     private Score score;
     public Interface interface_9 = new Interface(this);
-    
+
     private static String SAVE = "save.db";
     private static String SCORE = "score.db";
 
@@ -24,11 +24,11 @@ public class Monopoly implements java.io.Serializable{
         buildGamePlateau(dataFilename);
         buildGameCarte(dataFilename2);
     }
+
     public Monopoly() {
         setScore(new Score());
     }
              // Fichier de sérialisation
-	
 
     /**
      * @return the DB_FILE
@@ -37,7 +37,6 @@ public class Monopoly implements java.io.Serializable{
         return SAVE;
     }
 
-    
     private ArrayList<String[]> readDataFile(String filename, String token) throws FileNotFoundException, IOException {
         ArrayList<String[]> data = new ArrayList<String[]>();
 
@@ -103,7 +102,7 @@ public class Monopoly implements java.io.Serializable{
         }
     }
 
-     private void buildGameCarte(String dataFilename) {
+    private void buildGameCarte(String dataFilename) {
         LinkedList<CarteChance> chanceTmp = new LinkedList<CarteChance>();
         LinkedList<CarteCaisseCommunaute> cdcTmp = new LinkedList<CarteCaisseCommunaute>();
         Random rand = new Random();
@@ -152,33 +151,32 @@ public class Monopoly implements java.io.Serializable{
                     }
                 }
             }
-            int nbCC = chanceTmp.size()-1;
-            int nbCDC= cdcTmp.size()-1;
-            
+            int nbCC = chanceTmp.size() - 1;
+            int nbCDC = cdcTmp.size() - 1;
+
             int rnd;
-            
+
             while (!chanceTmp.isEmpty()) {
-                rnd=rand.nextInt((nbCC - 0 + 1) + 0);
+                rnd = rand.nextInt((nbCC - 0 + 1) + 0);
                 getPileCC().add(chanceTmp.get(rnd));
                 chanceTmp.remove(rnd);
                 nbCC--;
             }
-            
+
             while (!cdcTmp.isEmpty()) {
-                rnd=rand.nextInt((nbCDC - 0 + 1) + 0);
+                rnd = rand.nextInt((nbCDC - 0 + 1) + 0);
                 getPileCDC().add(cdcTmp.get(rnd));
                 cdcTmp.remove(rnd);
                 nbCDC--;
             }
-            
+
             /*for (CarteChance cc : getPileCC()) {
-                System.out.println(cc.getDescription());
-            }
-            System.out.println("\n\n");
-            for (CarteCaisseCommunaute cdc : getPileCDC()) {
-                System.out.println(cdc.getDescription());
-            }*/
-            
+             System.out.println(cc.getDescription());
+             }
+             System.out.println("\n\n");
+             for (CarteCaisseCommunaute cdc : getPileCDC()) {
+             System.out.println(cdc.getDescription());
+             }*/
         } catch (FileNotFoundException e) {
             System.err.println("[buildGameCarte()] : File is not found!");
         } catch (IOException e) {
@@ -188,7 +186,9 @@ public class Monopoly implements java.io.Serializable{
 
     /**
      *
-     * @param nbj, Ordonne les joueurs en fonction du joueur ayant fait le plus gros lancé de dés (il sera positionné en premier) le joueur à sa gauche est le suivant et ainsi de suite
+     * @param nbj, Ordonne les joueurs en fonction du joueur ayant fait le plus
+     * gros lancé de dés (il sera positionné en premier) le joueur à sa gauche
+     * est le suivant et ainsi de suite
      */
     public void inscrireJoueurs(int nbj) {
         ArrayList<Integer> lesLances = new ArrayList<Integer>();
@@ -196,18 +196,33 @@ public class Monopoly implements java.io.Serializable{
         boolean conflit = false;
         joueurs.clear();
         for (int i = 0; i < nbj; i++) {
-            String type = interface_9.affecterTypeJoueur();
-            String nom = interface_9.nouveauJoueur();
-
-            if (type.equals("reel")) {
+            boolean reel = interface_9.affecterTypeJoueur();
+            boolean dejaUtilisé = false;
+            String nom = null;
+            while (!dejaUtilisé) {
+                boolean trouve = false;
+                int j = 0;
+                nom = interface_9.nouveauJoueur(reel);
+                while (j < js.size() && !trouve && js.size() > 0) {
+                    if (js.get(j).getNomJoueur().equals(nom)) {
+                        trouve = true;
+                        System.out.println("Un joueur porte déjà ce nom, vous devez choisir un autre nom");
+                    }
+                    j++;
+                }
+                if (!trouve) {
+                    dejaUtilisé = true;
+                }
+            }
+            if (reel) {
                 js.add(new JoueurReel(nom, this));
-            } else if (type.equals("robot")) {
+            } else {
                 js.add(new Robot(nom, this));
             }
-
             int nb = genDes() + genDes();
             lesLances.add(nb);
-            System.out.println("Le joueur " + js.get(i).getNomJoueur() + " a obtenu " + nb);
+            System.out.println("Le " + js.get(i).getClass().getSimpleName() + " " + js.get(i).getNomJoueur() + " a obtenu " + nb);
+            System.out.println();
         }
         int max = 0;
         for (int i = 0; i < lesLances.size(); i++) {
@@ -248,16 +263,12 @@ public class Monopoly implements java.io.Serializable{
     }
 
     /**
-     *Récupère les dés lancés et déplace le joueur
+     * Récupère les dés lancés et déplace le joueur
      */
-    public void lancerDesAvancer() {
-        //Carreau pos = getJoueurCourant().getPositionCourante();
-        //int num = pos.getNumero();
+    public void avancer() {
         Joueur j = getJoueurCourant();
         int total = getD1() + getD2();
         j.deplacer(total);
-
-        
 
         System.out.println("le joueur " + j.getNomJoueur() + " a lancé les dés faisant un score de " + total + " sa nouvelle position est la case " + j.getPositionCourante().getNomCarreau());
 
@@ -271,12 +282,13 @@ public class Monopoly implements java.io.Serializable{
 
     /**
      *
-     * @param j, Lance les dés, si le joueur est en prison : appelle faire un tour, sinon lance : lancerDesPrison
+     * @param j, Lance les dés, si le joueur est en prison : appelle faire un
+     * tour, sinon lance : lancerDesPrison
      */
     public void jouerUnCoup(Joueur j) {
         setD1(genDes());
         setD2(genDes());
-        System.out.println("\n"+j.getNomJoueur() + " a lancé les dés et a obtenu " + getD1() + " et " + getD2());
+        System.out.println("\n" + j.getNomJoueur() + " a lancé les dés et a obtenu " + getD1() + " et " + getD2());
         if (!j.isPrison()) {
             faireUnTour();
         } else {
@@ -323,7 +335,8 @@ public class Monopoly implements java.io.Serializable{
     }
 
     /**
-     *Si le joueur emprisonné fait un double alors il est libéré, s'il possède une carte "libérer de prison" il a le choix de l'utiliser ou non
+     * Si le joueur emprisonné fait un double alors il est libéré, s'il possède
+     * une carte "libérer de prison" il a le choix de l'utiliser ou non
      */
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (getD1() == getD2()) { //le joueur fait un double
@@ -337,25 +350,22 @@ public class Monopoly implements java.io.Serializable{
             } else {
                 System.out.println(getJoueurCourant().getNomJoueur() + " possède " + getJoueurCourant().getCartePrison() + " carte(s) pour se libérer de prison, en utiliser une ?(oui/non)");
 
-                if (!this.getJoueurCourant().estReel()) {
+                if (!getJoueurCourant().estReel()) {
                     Robot rb = (Robot) getJoueurCourant();
                     boolean decision = rb.decisionCarteLiberePrison();
                     if (decision) {
                         System.out.println("oui");
+                        getJoueurCourant().retirerCartePrison();
+                        getJoueurCourant().setPrison(false);
+                        getJoueurCourant().setNbTourPrison(0);
+                        faireUnTour();
                     } else {
                         System.out.println("non");
-
-                    }
-                    String rep;
-                    if (decision) {
-                        rep = "oui";
-                    } else {
-                        rep = "non";
+                        getJoueurCourant().tourPrison();
                     }
                 } else {
-
                     Scanner sc = new Scanner(System.in);
-                    String rep = null;
+                    String rep;
                     boolean ok = false;
                     while (!ok) {
                         if (sc.hasNextLine()) {
@@ -364,21 +374,19 @@ public class Monopoly implements java.io.Serializable{
                             sc.next();
                             continue;
                         }
-
-                    }
-
-                    if (rep.equals("oui")) {
-                        ok = true;
-                        getJoueurCourant().retirerCartePrison();
-                        getJoueurCourant().setPrison(false);
-                        getJoueurCourant().setNbTourPrison(0);
-                        faireUnTour();
-                    } else if (rep.equals("non")) {
-                        ok = true;
-                        getJoueurCourant().tourPrison();
-                    } else {
-                        System.out.println("Veuillez répondre correctement !");
-                        ok = false;
+                        if (rep.equals("oui")) {
+                            ok = true;
+                            getJoueurCourant().retirerCartePrison();
+                            getJoueurCourant().setPrison(false);
+                            getJoueurCourant().setNbTourPrison(0);
+                            faireUnTour();
+                        } else if (rep.equals("non")) {
+                            ok = true;
+                            getJoueurCourant().tourPrison();
+                        } else {
+                            System.out.println("Veuillez répondre correctement !");
+                            ok = false;
+                        }
                     }
                 }
             }
@@ -386,13 +394,13 @@ public class Monopoly implements java.io.Serializable{
     }
 
     /**
-     *Lance les dés et execute l'action correspondante au carreau
+     * Lance les dés et execute l'action correspondante au carreau
      */
     public void faireUnTour() {
-        lancerDesAvancer();
+        avancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
-    
+
     /**
      *
      * @return si c'est la fin du tour
@@ -402,7 +410,7 @@ public class Monopoly implements java.io.Serializable{
     }
 
     /**
-     *Demande la saisit du numéro de la case et déplace le joueur à cette case
+     * Demande la saisit du numéro de la case et déplace le joueur à cette case
      */
     public void triche() {
 
@@ -418,8 +426,8 @@ public class Monopoly implements java.io.Serializable{
         }
 
     }
-    
-        /**
+
+    /**
      * @return the pileCC
      */
     public LinkedList<CarteChance> getPileCC() {
@@ -432,7 +440,6 @@ public class Monopoly implements java.io.Serializable{
     public LinkedList<CarteCaisseCommunaute> getPileCDC() {
         return pileCDC;
     }
-    
 
     public int genDes() {
         Random rand = new Random();
@@ -471,37 +478,36 @@ public class Monopoly implements java.io.Serializable{
         return nbHotels;
     }
 
-
-    
-    
     /**
-     *Ajoute au monopoly des maisons
+     * Ajoute au monopoly des maisons
+     *
      * @param nbMaison nombre de maison a ajouter au monopoly
      */
     public void ajouterMaison(int nbMaison) {
-        setNbMaisons(getNbMaisons()+nbMaison);
+        setNbMaisons(getNbMaisons() + nbMaison);
     }
-    
+
     /**
-     *Enlève au monopoly UNE maison au monopoly
+     * Enlève au monopoly UNE maison au monopoly
      */
     public void enleverMaison() {
-        setNbMaisons(getNbMaisons()-1);
+        setNbMaisons(getNbMaisons() - 1);
     }
-    
+
     /**
-     *Ajoute au monopoly des hotel
+     * Ajoute au monopoly des hotel
+     *
      * @param nbHotel nombre d'hotel à ajouter au monopoly
      */
     public void ajouterHotel(int nbHotel) {
-        setNbHotels(getNbHotels()+nbHotel);
+        setNbHotels(getNbHotels() + nbHotel);
     }
-    
+
     /**
-     *Enlève au monopoly UN hotel au monopoly
+     * Enlève au monopoly UN hotel au monopoly
      */
     public void enleverHotel() {
-        setNbHotels(getNbHotels()-1);
+        setNbHotels(getNbHotels() - 1);
     }
 
     /**
@@ -517,8 +523,8 @@ public class Monopoly implements java.io.Serializable{
     public void setNbHotels(int nbHotels) {
         this.nbHotels = nbHotels;
     }
-    
-        /**
+
+    /**
      * Met à jour du fichier de sérialisation
      */
     public boolean updateDBSave() {
@@ -530,29 +536,28 @@ public class Monopoly implements java.io.Serializable{
      */
     public void newDBSave() {
         System.out.println("Creation data save");
-	this.setCarreaux(new HashMap<Integer, Carreau>());
-	this.setJoueurs(new LinkedList<Joueur>());
+        this.setCarreaux(new HashMap<Integer, Carreau>());
+        this.setJoueurs(new LinkedList<Joueur>());
         this.setPileCC(new LinkedList<CarteChance>());
         this.setPileCDC(new LinkedList<CarteCaisseCommunaute>());
         this.buildGamePlateau("src/data/data.txt");
         this.buildGameCarte("src/data/data_Carte.txt");
     }
-    
-   /**
-    * Sauvegarde du fichier de sérialisation
-    */
-	
+
+    /**
+     * Sauvegarde du fichier de sérialisation
+     */
     private boolean saveDBSave() {
         File file;
         boolean success = true;
         FileOutputStream fos = null;
-        ObjectOutputStream oos = null;            
-        
+        ObjectOutputStream oos = null;
+
         file = new File(SAVE);
         try {
             fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
-            
+
             oos.writeInt(getNbMaisons());
             oos.writeInt(getNbHotels());
             oos.writeObject(getCarreaux());
@@ -561,26 +566,29 @@ public class Monopoly implements java.io.Serializable{
             oos.writeObject(getPileCDC());
             oos.writeInt(getD1());
             oos.writeInt(getD2());
-            
-        }
-        catch (Exception e) {
+
+        } catch (Exception e) {
             System.out.println("SAVE" + e);
             success = false;
-        }
-        finally {
-                if (oos != null) { 
-                    try { oos.close(); }
-                    catch(IOException e) {}
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
                 }
-                
-                if (fos != null) { 
-                    try { fos.close(); }
-                    catch(IOException e) {}
+            }
+
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
                 }
-            
+            }
+
         }
         return success;
     }
+
     /**
      * Chargement des données à partir d'un fichier de sérialisation
      */
@@ -588,15 +596,15 @@ public class Monopoly implements java.io.Serializable{
         System.out.println("Chargement save");
         boolean success = true;
         File file = new File(SAVE);
-        
+
         if (file.exists()) {
             FileInputStream fis = null;
-            ObjectInputStream ois = null;            
+            ObjectInputStream ois = null;
 
             try {
                 fis = new FileInputStream(file);
                 ois = new ObjectInputStream(fis);
-                
+
                 setNbMaisons(ois.readInt());
                 setNbHotels(ois.readInt());
                 setCarreaux((HashMap<Integer, Carreau>) ois.readObject());
@@ -605,23 +613,27 @@ public class Monopoly implements java.io.Serializable{
                 setPileCDC((LinkedList<CarteCaisseCommunaute>) ois.readObject());
                 setD1(ois.readInt());
                 setD2(ois.readInt());
-            }             
-            catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("LOAD" + e);
                 success = false;
-            }
-            finally {
-                if (ois != null) { 
-                    try { ois.close(); }
-                    catch(IOException e) {}
+            } finally {
+                if (ois != null) {
+                    try {
+                        ois.close();
+                    } catch (IOException e) {
+                    }
                 }
-                
-                if (fis != null) { 
-                    try { fis.close(); }
-                    catch(IOException e) {}
+
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                    }
                 }
             }
-        } else { success = false; }
+        } else {
+            success = false;
+        }
         return success;
     }
 
@@ -652,7 +664,7 @@ public class Monopoly implements java.io.Serializable{
     public void setPileCDC(LinkedList<CarteCaisseCommunaute> pileCDC) {
         this.pileCDC = pileCDC;
     }
-    
+
     /**
      * Met à jour du fichier de sérialisation
      */
@@ -665,46 +677,48 @@ public class Monopoly implements java.io.Serializable{
      */
     public void newDBScore() {
         System.out.println("Creation data score");
-	setScore(new Score());
+        setScore(new Score());
         getScore().setLesMeilleursJ(new ArrayList<Joueur>());
     }
-    
-   /**
-    * Sauvegarde du fichier de sérialisation
-    */
-	
+
+    /**
+     * Sauvegarde du fichier de sérialisation
+     */
     private boolean saveDBScore() {
         File file;
         boolean success = true;
         FileOutputStream fos = null;
-        ObjectOutputStream oos = null;            
-        
+        ObjectOutputStream oos = null;
+
         file = new File(getSCORE());
         try {
             fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
 
             oos.writeObject(getScore().getLesMeilleursJ());
-            
-        }
-        catch (Exception e) {
+
+        } catch (Exception e) {
             System.out.println("SAVE" + e);
             success = false;
-        }
-        finally {
-                if (oos != null) { 
-                    try { oos.close(); }
-                    catch(IOException e) {}
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
                 }
-                
-                if (fos != null) { 
-                    try { fos.close(); }
-                    catch(IOException e) {}
+            }
+
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
                 }
-            
+            }
+
         }
         return success;
     }
+
     /**
      * Chargement des données à partir d'un fichier de sérialisation
      */
@@ -712,34 +726,38 @@ public class Monopoly implements java.io.Serializable{
         System.out.println("Chargement score");
         boolean success = true;
         File file = new File(getSCORE());
-        
+
         if (file.exists()) {
             FileInputStream fis = null;
-            ObjectInputStream ois = null;            
+            ObjectInputStream ois = null;
 
             try {
                 fis = new FileInputStream(file);
                 ois = new ObjectInputStream(fis);
 
                 getScore().setLesMeilleursJ((ArrayList<Joueur>) ois.readObject());
-                
-            }             
-            catch(Exception e) {
+
+            } catch (Exception e) {
                 System.out.println("LOAD" + e);
                 success = false;
-            }
-            finally {
-                if (ois != null) { 
-                    try { ois.close(); }
-                    catch(IOException e) {}
+            } finally {
+                if (ois != null) {
+                    try {
+                        ois.close();
+                    } catch (IOException e) {
+                    }
                 }
-                
-                if (fis != null) { 
-                    try { fis.close(); }
-                    catch(IOException e) {}
+
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                    }
                 }
             }
-        } else { success = false; }
+        } else {
+            success = false;
+        }
         return success;
     }
 
@@ -756,7 +774,8 @@ public class Monopoly implements java.io.Serializable{
     private void setScore(Score score) {
         this.score = score;
     }
-        /**
+
+    /**
      * @return the SCORE
      */
     public static String getSCORE() {
