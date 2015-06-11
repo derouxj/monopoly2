@@ -99,34 +99,35 @@ public abstract class Joueur implements java.io.Serializable {
         int i = 0;
         boolean plusPetit = false;
         
-        if (c.getClass().getSimpleName().equals("Gare")) {
-            if (getGares().size()<=4) {
-                getGares().add((Gare)c);
-            }
-        } else if (c.getClass().getSimpleName().equals("Compagnie")) {
-            if (getCompagnies().size()<=2) {
-                getCompagnies().add((Compagnie)c);
-            }
-        } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
-            if (getProprietesAConstruire().size()<28) {
-                if(tailleProp == 0){
-                  getProprietesAConstruire().add((ProprieteAConstruire) c);  
-                }
-                else{
-                    while(i<tailleProp && !plusPetit){
-                        if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
-                            getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
-                            plusPetit = true;
+        switch (c.getClass().getSimpleName()) {
+            case "Gare":
+                if (getGares().size()<=4) {
+                    getGares().add((Gare)c);
+                }   break;
+            case "Compagnie":
+                if (getCompagnies().size()<=2) {
+                    getCompagnies().add((Compagnie)c);
+                }   break;
+            case "ProprieteAConstruire":
+                if (getProprietesAConstruire().size()<28) {
+                    if(tailleProp == 0){
+                        getProprietesAConstruire().add((ProprieteAConstruire) c);
+                    }
+                    else{
+                        while(i<tailleProp && !plusPetit){
+                            if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
+                                getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
+                                plusPetit = true;
+                            }
+                            else{
+                                i++;
+                            }
                         }
-                        else{
-                            i++;
+                        if (i == tailleProp) {
+                            getProprietesAConstruire().add((ProprieteAConstruire)c);
                         }
                     }
-                    if (i == tailleProp) {
-                getProprietesAConstruire().add((ProprieteAConstruire)c);
-            }
-                }
-            }
+                }   break;
         }
         c.definirProprietaire(this);
     }

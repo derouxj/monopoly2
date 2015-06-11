@@ -61,7 +61,6 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         }
         j.recevoir(10*collectJoueurs.size());
     }
-    
     public void reparation(Joueur j,Carte ct) {
         int nbM = 0;
         int nbH = 0;
