@@ -63,7 +63,7 @@ public class Interface implements java.io.Serializable {
                             i++;
                         }
                     }
-                   System.out.println("il vous manque "+(nbmax-i)+" propriété(s) de ce groupe pour pouvoir construire");    
+                   System.out.println(" il vous manque "+(nbmax-i)+" propriété(s) de ce groupe pour pouvoir construire");    
                 }
                 
                 
@@ -115,7 +115,6 @@ public class Interface implements java.io.Serializable {
         if (reel) {
             System.out.println("\nNom du joueur : ");
         } else {
-
             System.out.println("\nNom du robot : ");
         }
         String nom = sc.next();

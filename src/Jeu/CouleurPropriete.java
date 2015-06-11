@@ -47,6 +47,6 @@ public enum CouleurPropriete implements java.io.Serializable{
         } else {
             System.err.println("NON RECONNU");
         }
-        return "\033[" + couleur + "m" + getCouleur();
+        return "\033[" + couleur + "m" + getCouleur()+"\033[0m";
     }
 }

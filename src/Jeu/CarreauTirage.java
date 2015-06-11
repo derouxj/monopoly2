@@ -23,46 +23,47 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         String monType=ct.getType();
         if (monType.equals("L")) {
             System.out.println(ct.getDescription());
-            super.getMonopoly().getJoueurCourant().ajouterCartePrison();
+            j.ajouterCartePrison();
         } else if (monType.equals("T")) {
             System.out.println(ct.getDescription());
-            super.getMonopoly().getJoueurCourant().envoyerCase(ct.getNombreAction());
+            j.envoyerCase(ct.getNombreAction());
+            j.getPositionCourante().action(j);
         } else if (monType.equals("N")) {
             System.out.println(ct.getDescription());
-            this.anniversaire();
+            this.anniversaire(j);
         } else if (monType.equals("A")) {
             System.out.println(ct.getDescription());
             if (ct.getNombreAction()>0) {
-                super.getMonopoly().getJoueurCourant().recevoir(ct.getNombreAction());
+                j.recevoir(ct.getNombreAction());
             } else {
-                super.getMonopoly().getJoueurCourant().payer(ct.getNombreAction()*-1);
+                j.payer(ct.getNombreAction()*-1);
             }
         } else if (monType.equals("B")) {
             System.out.println(ct.getDescription());
-            super.getMonopoly().getJoueurCourant().deplacer(ct.getNombreAction());
+            j.deplacer(ct.getNombreAction());
+            j.getPositionCourante().action(j);
         } else if (monType.equals("P")) {
             System.out.println(ct.getDescription());
-            super.getMonopoly().getJoueurCourant().envoyerPrison();
+            j.envoyerPrison();
         } else if (monType.equals("M")) {
             System.out.println(ct.getDescription());
-            this.reparation(ct);
+            this.reparation(j,ct);
         } else {
             System.out.println("ERREUR, type non reconnu");
         }
     } 
     
-    public void anniversaire() {
+    public void anniversaire(Joueur j) {
         LinkedList<Joueur> collectJoueurs = new LinkedList<Joueur>(super.getMonopoly().getJoueurs());
         //collectJoueurs=super.getMonopoly().getJoueurs();
         collectJoueurs.removeFirst();
-        for (Joueur j : collectJoueurs) {
-            j.payer(10);
+        for (Joueur js : collectJoueurs) {
+            js.payer(10);
         }
-        super.getMonopoly().getJoueurCourant().recevoir(10*collectJoueurs.size());
+        j.recevoir(10*collectJoueurs.size());
     }
     
-    public void reparation(Carte ct) {
-        Joueur j = getMonopoly().getJoueurCourant();
+    public void reparation(Joueur j,Carte ct) {
         int nbM = 0;
         int nbH = 0;
         int prixR;
