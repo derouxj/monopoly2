@@ -40,7 +40,19 @@ public class Robot extends Joueur {
 
             }
         }
-        return (((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60))||((getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0)<70))));
+       return ((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60)||(getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0)<70)));
+/*if ((getCash() - prix) > seuil) {
+            if (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60) {
+                return true;
+            }else {return false;}
+        } else if (getCash() - prix > seuil2) {
+            if (rand.nextInt((100 - 0 + 1) + 0) < 70) {
+                return true;
+            }else {return false;}
+
+        } else {
+            return false;
+        }*/
 
     }
 
