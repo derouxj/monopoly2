@@ -300,5 +300,9 @@ public class Interface implements java.io.Serializable {
     public void setMonopoly(Monopoly monopoly) {
         this.monopoly = monopoly;
     }
+    
+    public void pasEntier() {
+        System.out.println();
+    }
 
 }
