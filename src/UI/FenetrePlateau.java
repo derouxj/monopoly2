@@ -6,6 +6,11 @@
 package UI;
 
 import Jeu.*;
+import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -68,9 +73,11 @@ public class FenetrePlateau extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(1245, 750));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -125,13 +132,34 @@ public class FenetrePlateau extends javax.swing.JFrame {
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Instruction");
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(700, 0));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(738, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 718, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -178,38 +206,42 @@ public class FenetrePlateau extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(40, 40, 40)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jButton2)))
-                .addContainerGap(151, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8))
+                                .addGap(40, 40, 40)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton3)
+                                    .addComponent(jButton4)
+                                    .addComponent(jButton5)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(jButton2)))
+                        .addGap(0, 205, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -222,15 +254,16 @@ public class FenetrePlateau extends javax.swing.JFrame {
     private void setContent() {
         int i=0;
         int nbJoueurs = mono.getJoueurs().size();
-        Object [] [] lesJoueurs = new Object [nbJoueurs] [nbJoueurs+1]; //[nbJoueurs+2];
+        Object [] [] lesJoueurs = new Object [nbJoueurs] [nbJoueurs+1];// [nbJoueurs+2];
         for (Joueur js : mono.getJoueurs()) {
             lesJoueurs[i][0]= js.getNomJoueur();
             lesJoueurs[i][1]= js.getPositionCourante().getNomCarreau();
             lesJoueurs[i][2]= js.getCash();
             i++;
         }
-        
         mesJoueurs.setDataVector(lesJoueurs, new String [] {"Joueur", "Position", "Cash"} );
+        
+        jLabel9.setIcon(new ImageIcon("src/plateau.jpg"));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -247,7 +280,9 @@ public class FenetrePlateau extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

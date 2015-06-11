@@ -62,6 +62,7 @@ public class FenetreInscription extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +74,7 @@ public class FenetreInscription extends javax.swing.JFrame {
 
         jLabel2.setText("Nom :");
 
-        jButton1.setText("Ajouter");
+        jButton1.setText("Ajouter joueur");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -81,12 +82,23 @@ public class FenetreInscription extends javax.swing.JFrame {
         });
 
         jButton2.setText("Supprimer");
-        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Jouer");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Ajouter robot");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -104,10 +116,11 @@ public class FenetreInscription extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -123,17 +136,21 @@ public class FenetreInscription extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
                         .addComponent(jButton1)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButton2)))
-                .addGap(20, 20, 20)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(105, 105, 105)))
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -142,7 +159,7 @@ public class FenetreInscription extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ajouterJoueur(jTextField1.getText());
+        ajouterJoueurReel(jTextField1.getText());
         setContent();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -156,6 +173,17 @@ public class FenetreInscription extends javax.swing.JFrame {
         principale.fPlat.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ajouterRobot(jTextField1.getText());
+        setContent();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (selectionParticipant()) {
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void setContent() {
         int i=0;
         int nbJoueurs = listJoueurs.size();
@@ -165,13 +193,26 @@ public class FenetreInscription extends javax.swing.JFrame {
             lesJoueurs[i][1]= lesLances.get(i);
             i++;
         }
-        
         mesJoueurs.setDataVector(lesJoueurs, new String [] {"Nom", "Dé obtenus"} );
+        
+        if (selectionParticipant()) {
+            jButton2.setEnabled(true);
+        } else {
+            jButton2.setEnabled(false);
+        }
     }
     
-    private void ajouterJoueur(String nom) {
+    private void ajouterJoueurReel(String nom) {
         if (nom!=null || !nom.contains(" ")) {
-        //        listJoueurs.add(new Joueur(nom, mono));
+                listJoueurs.add(new JoueurReel(nom, mono));
+                int nb = mono.genDes() + mono.genDes();
+                lesLances.add(nb);
+        }
+    }
+    
+    private void ajouterRobot(String nom) {
+        if (nom!=null || !nom.contains(" ")) {
+                listJoueurs.add(new Robot(nom, mono));
                 int nb = mono.genDes() + mono.genDes();
                 lesLances.add(nb);
         }
@@ -194,6 +235,17 @@ public class FenetreInscription extends javax.swing.JFrame {
         }
         return mono.getJoueurs();
     }   
+    
+    private boolean selectionParticipant() {
+        if (jTable1.getRowCount()==0) {return false;}
+        boolean selection = false;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            if (jTable1.isRowSelected(i)) {
+                selection = true;
+            }
+        }
+        return selection;
+    }
     /**
      * @param args the command line arguments
      */
@@ -202,10 +254,12 @@ public class FenetreInscription extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }

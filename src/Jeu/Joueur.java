@@ -217,19 +217,13 @@ public abstract class Joueur implements java.io.Serializable {
         int numPos = getPositionCourante().getNumero();
 
         if (numPos > numero && numero > 0) {
-            //passeDepart();
+            recevoir(200);
         } else if (numPos < numero && numero < 0) {
-            passeDepart();
+            //recevoir(200);
         }
         setPositionCourante(getMonopoly().getCarreaux().get(numero));
     }
 
-    /**
-     * Est déclenché si la joueur passe par la case départ, il recoit donc 200€
-     */
-    private void passeDepart() {
-        this.recevoir(200);
-    }
 
     /**
      * deplace le joueur du nombre de case inscrit en paramètre. Vérifie

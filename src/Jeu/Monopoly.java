@@ -197,7 +197,23 @@ public class Monopoly implements java.io.Serializable{
         joueurs.clear();
         for (int i = 0; i < nbj; i++) {
             boolean reel = interface_9.affecterTypeJoueur();
-            String nom = interface_9.nouveauJoueur(reel);
+            boolean dejaUtilisé=false;
+            String nom=null;
+            while (!dejaUtilisé) {
+                boolean trouve=false;
+                int j=0;
+                nom = interface_9.nouveauJoueur(reel);
+                while (j<js.size() && !trouve && js.size()>0) {
+                    if (js.get(j).getNomJoueur().equals(nom)) {
+                        trouve=true;
+                        System.out.println("Un joueur porte déjà ce nom, vous devez choisir un autre nom");
+                    }
+                    j++;
+                }
+                if (!trouve) {
+                    dejaUtilisé=true;
+                }
+            }
             if(reel) {
                 js.add(new JoueurReel(nom, this));
             }
@@ -250,9 +266,7 @@ public class Monopoly implements java.io.Serializable{
     /**
      *Récupère les dés lancés et déplace le joueur
      */
-    public void lancerDesAvancer() {
-        //Carreau pos = getJoueurCourant().getPositionCourante();
-        //int num = pos.getNumero();
+    public void avancer() {
         Joueur j = getJoueurCourant();
         int total = getD1() + getD2();
         j.deplacer(total);
@@ -368,7 +382,7 @@ public class Monopoly implements java.io.Serializable{
      *Lance les dés et execute l'action correspondante au carreau
      */
     public void faireUnTour() {
-        lancerDesAvancer();
+        avancer();
         getJoueurCourant().getPositionCourante().action(getJoueurCourant());
     }
     
