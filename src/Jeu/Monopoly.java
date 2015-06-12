@@ -16,6 +16,7 @@ public class Monopoly implements java.io.Serializable{
     private int d1, d2;
     private Score score;
     public Interface interface_9 = new Interface(this);
+    int compteDouble;
     
     private static String SAVE = "save.db";
     private static String SCORE = "score.db";
@@ -286,11 +287,31 @@ public class Monopoly implements java.io.Serializable{
     public void jouerUnCoup(Joueur j) {
         setD1(genDes());
         setD2(genDes());
-        interface_9.affichageJouerUnCoup(j.getNomJoueur(),getD1(),getD2());
+        interface_9.affichageJouerUnCoup(j.getNomJoueur(), getD1(), getD2());
         if (!j.isPrison()) {
             faireUnTour();
         } else {
             lancerDesPrison();
+
+            boolean boucler = true;
+            while (boucler) {
+                int compteDouble = 0;
+                jouerUnCoup(getJoueurCourant());
+                while (getD1() == getD2() && compteDouble < 3) {
+                    jouerUnCoup(getJoueurs().getFirst());
+                    compteDouble++;
+                }
+                if (compteDouble == 3) {
+                    getJoueurs().getFirst().envoyerPrison();
+                }
+                if (!estFini()) {
+                    joueurSuivant();
+                }
+                updateDBSave();
+                boucler = false;
+
+            }
+
         }
     }
 
