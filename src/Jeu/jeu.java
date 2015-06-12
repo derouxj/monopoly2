@@ -29,7 +29,7 @@ public class jeu {
         }
         Scanner sc = new Scanner(System.in);
         while (boucle) {
-            choix = mon.interface_9.choisirAvecContexte("0. Quitter\n1. Inscrire les joueurs\n2. Commencer le jeu\n3. Test loyer, construction\n4. Test prison\n5. Charger partie\n6. Consulter les scores\n7 Demo");
+            choix = mon.interface_9.choisirAvecContexte("0. Quitter\n1. Inscrire les joueurs\n2. Commencer le jeu\n5. Charger partie\n6. Consulter les scores\n7 Demo");
 
             switch (choix) {
                 case 0: {
@@ -63,9 +63,10 @@ public class jeu {
 
                     if (!mon.getJoueurs().isEmpty()) {
                         while (!mon.estFini() && !quitter) {
-                            int choisir = mon.interface_9.choisirAvecContexte("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
+                            
                             boolean boucler = true;
                             while (boucler) {
+                                int choisir = mon.interface_9.choisirAvecContexte("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
                                 switch (choisir) {
                                     case 1: {
                                         int compteDouble = 0;
@@ -91,7 +92,7 @@ public class jeu {
                                     }
                                     default: {
                                         mon.interface_9.messageErreurScan(false);
-                                        break;
+                                        
                                     }
                                 }
                             }
@@ -107,7 +108,7 @@ public class jeu {
                     }
                     break;
                 }
-                case 3: { // test des construction ect ...
+                /*case 3: { // test des construction ect ...
                     if (!mon.loadDBScore()) {
                         mon.newDBScore();
                     }
@@ -164,7 +165,7 @@ public class jeu {
                     propGare.getPositionCourante().action(propGare);
 
                     break;
-                }
+                }*/
 
                 case 5: {
                     if (!mon.loadDBSave()) {
