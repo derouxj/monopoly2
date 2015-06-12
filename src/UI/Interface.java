@@ -451,4 +451,8 @@ public class Interface implements java.io.Serializable {
             System.out.println("Le joueur " + nomJoueur + " a gagné, gg");
         }
     }
+
+    public void messageManqueCash() {
+        System.out.println("Vous n'avez pas assez d'argent pour construire");
+    }
 }

@@ -163,6 +163,7 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
                     ProprieteAConstruire ct = proprieteConstructible.get(i);
                     if ((mini == 4 && cash < prixHotel) || (mini < 4 && cash < prixMaison)) {
                         //message interface
+                        getMonopoly().interface_9.messageManqueCash();
                         proprieteConstructible.clear();
                     } else if (ct.getConstruction() > mini || ct.getConstruction() > 4) {
                         proprieteConstructible.remove(ct);
