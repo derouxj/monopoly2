@@ -6,6 +6,7 @@
 package Jeu;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -13,18 +14,59 @@ import java.util.LinkedList;
  */
 public class Robot extends Joueur {
 
+    private int seuil = 200;
+    private int seuil2 = 1000;
     public Robot(String n, Monopoly m) {
         super(false, n, m);
     }
 
-    public boolean decisionAchatPropriete(int prix) {
-        return (super.getCash() - prix > 1200);
+    /**
+     *
+     * @param nomC
+     * @param prix
+     * @return la décision quant à l'achat d'une propriete
+     */
+    public boolean decisionAchatPropriete(CarreauPropriete carreauP, int prix) {
+        int carreauMemeGroupe = 0;
+        Random rand = new Random();
+
+        if (carreauP.getClass().getSimpleName() == "ProprieteAConstruire") {
+            ProprieteAConstruire p = (ProprieteAConstruire) carreauP;
+            p.getGroupePropriete();
+            for (ProprieteAConstruire pAC : getProprietesAConstruire()) {
+                if (pAC.getGroupePropriete() == p.getGroupePropriete()) {
+                    carreauMemeGroupe++;
+                }
+
+            }
+        }
+        return (((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60))||((getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0)<70))));
+
     }
 
-    public ProprieteAConstruire decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains) {
-        int choix = 1;
+    /**
+     *
+     * @param lesTerrains
+     * @return la décision quant à la construction de maisons sur les terrains
+     */
+    public ProprieteAConstruire decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains,int nbterrain) {
+               Random rand = new Random(); 
+       int rnd = rand.nextInt((nbterrain - 1 + 1) + 1);
+        
 
-        return lesTerrains.get(choix - 1);
+        return lesTerrains.get(rnd);
+
+    }
+
+    /**
+     *
+     * @return la décision quant à l'utilisation d'une carte "libere de prison"
+     */
+    public boolean decisionCarteLiberePrison() {
+
+        Random rand = new Random();
+        rand.nextInt((100 - 0 + 1) + 0);
+        return ((getNbTourPrison() > 0 && rand.nextInt((100 - 0 + 1) + 0) < 40) || (getCartePrison() > 1 && rand.nextInt((100 - 0 + 1) + 0) < 80));
 
     }
 

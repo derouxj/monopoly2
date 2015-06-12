@@ -1,5 +1,6 @@
 package Jeu;
 
+import UI.Interface;
 import java.util.ArrayList;
 
 public abstract class Joueur implements java.io.Serializable {
@@ -98,34 +99,35 @@ public abstract class Joueur implements java.io.Serializable {
         int i = 0;
         boolean plusPetit = false;
         
-        if (c.getClass().getSimpleName().equals("Gare")) {
-            if (getGares().size()<=4) {
-                getGares().add((Gare)c);
-            }
-        } else if (c.getClass().getSimpleName().equals("Compagnie")) {
-            if (getCompagnies().size()<=2) {
-                getCompagnies().add((Compagnie)c);
-            }
-        } else if (c.getClass().getSimpleName().equals("ProprieteAConstruire")) {
-            if (getProprietesAConstruire().size()<28) {
-                if(tailleProp == 0){
-                  getProprietesAConstruire().add((ProprieteAConstruire) c);  
-                }
-                else{
-                    while(i<tailleProp && !plusPetit){
-                        if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
-                            getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
-                            plusPetit = true;
+        switch (c.getClass().getSimpleName()) {
+            case "Gare":
+                if (getGares().size()<=4) {
+                    getGares().add((Gare)c);
+                }   break;
+            case "Compagnie":
+                if (getCompagnies().size()<=2) {
+                    getCompagnies().add((Compagnie)c);
+                }   break;
+            case "ProprieteAConstruire":
+                if (getProprietesAConstruire().size()<28) {
+                    if(tailleProp == 0){
+                        getProprietesAConstruire().add((ProprieteAConstruire) c);
+                    }
+                    else{
+                        while(i<tailleProp && !plusPetit){
+                            if(getProprietesAConstruire().get(i).getNumero()>c.getNumero()){
+                                getProprietesAConstruire().add(i,(ProprieteAConstruire) c );
+                                plusPetit = true;
+                            }
+                            else{
+                                i++;
+                            }
                         }
-                        else{
-                            i++;
+                        if (i == tailleProp) {
+                            getProprietesAConstruire().add((ProprieteAConstruire)c);
                         }
                     }
-                    if (i == tailleProp) {
-                getProprietesAConstruire().add((ProprieteAConstruire)c);
-            }
-                }
-            }
+                }   break;
         }
         c.definirProprietaire(this);
     }
@@ -313,13 +315,13 @@ public abstract class Joueur implements java.io.Serializable {
      */
     public void tourPrison() {
         if (this.getNbTourPrison() > 2) {
-            System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
+            getMonopoly().interface_9.affichageTourPrison(this.getNomJoueur(), true);
             this.setNbTourPrison(0);
             this.payer(50);
             this.setPrison(false);
             getMonopoly().faireUnTour();
         } else {
-            System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
+            getMonopoly().interface_9.affichageTourPrison(this.getNomJoueur(), false);
             this.setNbTourPrison(this.getNbTourPrison() + 1);
         }
     }
@@ -341,7 +343,7 @@ public abstract class Joueur implements java.io.Serializable {
             pc.definirProprietaire(null);
         }
         getMonopoly().getJoueurs().remove(this);
-        System.out.println("Le joueur "+getNomJoueur()+" a perdu...Toutes ses propriétés ont été remisent en jeu");
+        getMonopoly().interface_9.affichageVirer(this);
     }
 
 }

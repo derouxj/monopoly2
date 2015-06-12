@@ -1,5 +1,6 @@
 package Jeu;
 
+import UI.Interface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -96,7 +97,7 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
                 }
             }
             if (superprop) {
-                System.out.println("Comme"+getProprietaire().getNomJoueur()+" a tous les terrains de cette couleur, le loyer est doublé");
+                super.getMonopoly().interface_9.affichageConstruire(getProprietaire().getNomJoueur(),true);
                 aPayer=getLoyers()[0]*2;
             } else {
                 aPayer=getLoyers()[0];
@@ -190,9 +191,8 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
                 }
 
             } else {
-                System.out.println("Vous ne possedez pas toutes les propriétés de ce groupe");
+                super.getMonopoly().interface_9.affichageConstruire(getProprietaire().getNomJoueur(), false);
             }
         } while (pAConstruire != null);
-
     }
 }
