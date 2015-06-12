@@ -270,9 +270,6 @@ public class Monopoly implements java.io.Serializable{
         Joueur j = getJoueurCourant();
         int total = getD1() + getD2();
         j.deplacer(total);
-
-        
-
         interface_9.affichageAvancer(j, total);
 
         LinkedList<Joueur> collectJoueurs = getJoueurs();

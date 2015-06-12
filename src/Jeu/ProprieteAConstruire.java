@@ -122,69 +122,77 @@ public class ProprieteAConstruire extends CarreauPropriete implements java.io.Se
     }
     
     public int getConstruction() {
-        return getNbMaisons()+getNbHotels();
+        if (getNbHotels()==1) {
+            return 5;
+        } else {
+            return getNbMaisons();
+        }
     }
 
     private void construire() {
-        int i=0;
-        boolean estProprio = true;
-        Joueur proprio=super.getProprietaire();
-        Groupe grp = this.getGroupePropriete();
-        ArrayList<ProprieteAConstruire> lesProp = grp.getProprietes();
-        LinkedList<ProprieteAConstruire> proprieteConstructible = new LinkedList<ProprieteAConstruire>();
-        int mini=5; //initialise mini à 5, le maximum de construction qu'une propriété peut avoir
-        
-        while (estProprio && i<lesProp.size()) { // a la sortie, si estProprio=true, le joueur est proprietaire de toutes les prop du groupe
-            if (lesProp.get(i).getProprietaire()!=proprio) {
-                estProprio = false;
-            }
-            
-            proprieteConstructible.add(lesProp.get(i)); // on commence a créer une liste au cas ou il est bien propriete de tous les terrains
-            if (mini>lesProp.get(i).getConstruction()) { //  on vas prendre le nombre de construction qu'a le terrain le moins construit
-                mini=lesProp.get(i).getConstruction();
-            }
-            i++;
-        }
-        i=0;
-        
-        //On va regarder la répartition
-        if (estProprio) {
-            int cash=proprio.getCash();
-            int prixHotel = grp.getPrixAchatHotel();
-            int prixMaison = grp.getPrixAchatMaison();
-            
-            while (i<proprieteConstructible.size()) {
-                ProprieteAConstruire ct = proprieteConstructible.get(i);
-                if ( (mini==4 && cash<prixHotel) || (mini<4 && cash<prixMaison)) {
-                    //message interface
-                    proprieteConstructible.clear();
-                } else if (ct.getConstruction()>mini || ct.getConstruction()>4) {
-                    proprieteConstructible.remove(ct);
-                } else {
-                    i++;
+        ProprieteAConstruire pAConstruire=null;
+        do {
+            int i = 0;
+            boolean estProprio = true;
+            Joueur proprio = super.getProprietaire();
+            Groupe grp = this.getGroupePropriete();
+            ArrayList<ProprieteAConstruire> lesProp = grp.getProprietes();
+            LinkedList<ProprieteAConstruire> proprieteConstructible = new LinkedList<ProprieteAConstruire>();
+            int mini = 5; //initialise mini à 5, le maximum de construction qu'une propriété peut avoir
+
+            while (estProprio && i < lesProp.size()) { // a la sortie, si estProprio=true, le joueur est proprietaire de toutes les prop du groupe
+                if (lesProp.get(i).getProprietaire() != proprio) {
+                    estProprio = false;
                 }
+
+                proprieteConstructible.add(lesProp.get(i)); // on commence a créer une liste au cas ou il est bien propriete de tous les terrains
+                if (mini > lesProp.get(i).getConstruction()) { //  on vas prendre le nombre de construction qu'a le terrain le moins construit
+                    mini = lesProp.get(i).getConstruction();
+                }
+                i++;
             }
-            
-            ProprieteAConstruire pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
-            if (pAConstruire!=null) {
-                int nbMaisonsMonopoly = super.getMonopoly().getNbMaisons();
-                int nbHotelsMonopoly = super.getMonopoly().getNbHotels();
-                if (mini==4) {//construction d'hotel
-                    if (nbHotelsMonopoly>0){
-                        proprio.payer(prixHotel);
-                        super.getMonopoly().enleverHotel();
-                    }
-                } else {
-                    if (nbMaisonsMonopoly>0) {
-                        proprio.payer(prixMaison);
-                         super.getMonopoly().enleverMaison();
+            i = 0;
+
+            //On va regarder la répartition
+            if (estProprio) {
+                int cash = proprio.getCash();
+                int prixHotel = grp.getPrixAchatHotel();
+                int prixMaison = grp.getPrixAchatMaison();
+
+                while (i < proprieteConstructible.size()) {
+                    ProprieteAConstruire ct = proprieteConstructible.get(i);
+                    if ((mini == 4 && cash < prixHotel) || (mini < 4 && cash < prixMaison)) {
+                        //message interface
+                        proprieteConstructible.clear();
+                    } else if (ct.getConstruction() > mini || ct.getConstruction() > 4) {
+                        proprieteConstructible.remove(ct);
+                    } else {
+                        i++;
                     }
                 }
-                pAConstruire.addConstruction();
+
+                pAConstruire = super.getMonopoly().interface_9.messageChoixConstruction(proprieteConstructible);
+                if (pAConstruire != null) {
+                    int nbMaisonsMonopoly = super.getMonopoly().getNbMaisons();
+                    int nbHotelsMonopoly = super.getMonopoly().getNbHotels();
+                    if (mini == 4) {//construction d'hotel
+                        if (nbHotelsMonopoly > 0) {
+                            proprio.payer(prixHotel);
+                            super.getMonopoly().enleverHotel();
+                        }
+                    } else {
+                        if (nbMaisonsMonopoly > 0) {
+                            proprio.payer(prixMaison);
+                            super.getMonopoly().enleverMaison();
+                        }
+                    }
+                    pAConstruire.addConstruction();
+                    getMonopoly().interface_9.messageEtatJoueur(proprio);
+                }
+
+            } else {
+                super.getMonopoly().interface_9.affichageConstruire(getProprietaire().getNomJoueur(), false);
             }
-            
-        } else {
-            super.getMonopoly().interface_9.affichageConstruire(getProprietaire().getNomJoueur(), false);
-        }
+        } while (pAConstruire != null);
     }
 }
