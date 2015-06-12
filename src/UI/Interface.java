@@ -169,7 +169,8 @@ public class Interface implements java.io.Serializable {
      * @param prix prix d'achat de la propriété
      * @return
      */
-    public Boolean messageAchatPropriete(CarreauPropriete prop, int prix) {
+    public Boolean messageAchatPropriete(CarreauPropriete prop) {
+        int prix = prop.getPrixAchat();
         Joueur j = monopoly.getJoueurCourant();
         Scanner sc = new Scanner(System.in);
         boolean aRepondu = false;
