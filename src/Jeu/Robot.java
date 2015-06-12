@@ -11,6 +11,7 @@ public class Robot extends Joueur {
 
     private int seuil = 200;
     private int seuil2 = 1000;
+
     public Robot(String n, Monopoly m) {
         super(false, n, m);
     }
@@ -35,19 +36,7 @@ public class Robot extends Joueur {
 
             }
         }
-       return ((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60)||(getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0)<70)));
-/*if ((getCash() - prix) > seuil) {
-            if (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60) {
-                return true;
-            }else {return false;}
-        } else if (getCash() - prix > seuil2) {
-            if (rand.nextInt((100 - 0 + 1) + 0) < 70) {
-                return true;
-            }else {return false;}
-
-        } else {
-            return false;
-        }*/
+        return ((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60) || (getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0) < 70)));
 
     }
 
@@ -56,12 +45,26 @@ public class Robot extends Joueur {
      * @param lesTerrains
      * @return la décision quant à la construction d'une maison sur un terrain
      */
-    public ProprieteAConstruire decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains,int nbterrain) {
-               Random rand = new Random(); 
-       int rnd = rand.nextInt((nbterrain - 1 + 1) + 1);
-        
+    public int decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains, int nbterrain) {
+        Random rand = new Random();
+        int rnd = rand.nextInt((nbterrain - 1 + 1) + 1);
+        boolean sortir = false;
 
-        return lesTerrains.get(rnd);
+        if (rnd != 0) {
+            if (lesTerrains.get(rnd - 1).getNbMaisons() < 4) {
+                if (getCash() - lesTerrains.get(rnd - 1).getGroupePropriete().getPrixAchatMaison() > seuil) {
+                    return rnd;
+                } else {
+                    return 0;
+                }
+            } else if (getCash() - lesTerrains.get(rnd - 1).getGroupePropriete().getPrixAchatHotel() > seuil) {
+                return rnd;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
 
     }
 
