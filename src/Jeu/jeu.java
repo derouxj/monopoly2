@@ -29,7 +29,7 @@ public class jeu {
         }
         Scanner sc = new Scanner(System.in);
         while (boucle) {
-            choix = mon.interface_9.choisirAvecContexte("0. Quitter\n1. Inscrire les joueurs\n2. Commencer le jeu\n5. Charger partie\n6. Consulter les scores\n7 Demo");
+            choix = mon.interface_9.choisirAvecContexte("0. Quitter\n1. Inscrire les joueurs\n2. Commencer le jeu\n5. Charger partie\n6. Consulter les scores\n7. Demo");
 
             switch (choix) {
                 case 0: {
@@ -252,6 +252,7 @@ public class jeu {
                                  //on met le solde de joueur2 a 10
                                  joueur2.setCash(20);
                                  System.out.println((char) 27 + "[1m Nous réduisons le solde du joueur2 à 20€");
+                                 mon.interface_9.messageEtatJoueur(joueur2);
                                  //on déplace joueur2 sur le groupe de joueur1
                                  System.out.println((char) 27 + "[1m Nous déplaçons le joueur2 sur l'une des propriétés de joueur1");
                                  joueur2.envoyerCase(12);
