@@ -227,9 +227,15 @@ public class Interface implements java.io.Serializable {
 
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) monopoly.getJoueurCourant();
-            System.out.println("test test test"); 
-            System.out.println("Je construit sur le terrain");//+rb.decisionConstruction(lesTerrains, nbterrain).getNomCarreau());
-            return rb.decisionConstruction(lesTerrains, nbterrain);
+            System.out.println("test test test");
+            int reponseRobot = rb.decisionConstruction(lesTerrains, nbterrain);
+
+            if (reponseRobot == 0) {
+                return null;
+            } else {
+                System.out.println("Je construit sur le terrain " + lesTerrains.get(reponseRobot - 1).getNomCarreau());
+                return lesTerrains.get(reponseRobot - 1);
+            }
         } else {
 
             int choix = 0;
