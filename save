@@ -1,0 +1,61 @@
+case 7: {
+                    if (!mon.loadDBSave()) {
+                        mon.newDBSave();
+                    }
+                              
+                                 HashMap<Integer, Carreau> plateau = mon.getCarreaux();
+                                 Joueur joueur1 = new JoueurReel("joueur1", mon);
+                                 Joueur joueur2 = new JoueurReel("joueur2", mon);
+                                 mon.getJoueurs().add(joueur1);
+                                 mon.getJoueurs().add(joueur2);
+
+                                 joueur1.addPropriete((CarreauPropriete) plateau.get(12));
+                                 joueur1.addPropriete((CarreauPropriete) plateau.get(14));
+                                 System.out.println((char)27 +"[1m Nous avons au préalable ajouter les propriétés Bd de la Villette et Rue de Paradis du même groupe : violet au joueur1");
+                                 //joueur 1 sur carreau dont groupe incomplet
+                                 mon.interface_9.messageEtatJoueur(joueur1);
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur l'une de ses propriétés");
+                                 joueur1.envoyerCase(12);
+                                 //impossibilité de construction
+                                 joueur1.getPositionCourante().action(joueur1);
+                                 //joueur 1 sur dernier carreau du même groupe
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur la propriété manquante au groupe");
+                                 joueur1.envoyerCase(15);
+                                 //proposer l'achat [nous acceptons]
+                                 joueur1.getPositionCourante().action(joueur1);
+                                 //joueur2 sur le groupe vierge de joueur1
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur2 sur une des propriétés de joueur1");
+                                 joueur2.envoyerCase(14);
+                                 //loyer doublé
+                                 joueur2.getPositionCourante().action(joueur2);
+                                 //joueur 1 sur l'un des carreaux du groupe violet
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur l'une de ses propriétés");
+                                 joueur1.envoyerCase(14);
+                                 //proposition de construction [nous acceptons]
+                                 joueur1.getPositionCourante().action(joueur1);
+                                 //joueur2 tombe sur un carreau chance et obtient une carte libérer de prison                                 
+                                 mon.getPileCC().addFirst(new CarteChance("L", "Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée."));
+                                 joueur2.envoyerCase(37);
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur2 sur un carreau chance");
+                                 //joueur2 fait 3 doubles de suite et se retrouve en prison
+                                 //!\\
+                                 //!\\
+                                 //!\\
+                                 //on propose d'utiliser la carte chance
+                                 joueur2.getPositionCourante().action(joueur2);
+
+                                 //joueur2 tombe sur un carreau caisse de communauté et obtient carte anniversaire
+                                 mon.getPileCDC().addFirst(new CarteCaisseCommunaute("N", "C'est votre anniversaire chaque joueur vous doit 10€"));
+                                 joueur2.envoyerCase(34);
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur un carreau caisse de communaute");
+                                 //joueur1 tombe sur un carreau caisse de communauté et obtient carte réparation
+                                 mon.getPileCC().addFirst(new CarteChance("M", "Faites des réparations dans toutes vos maisons : versez pour chaque maison 25€ et pour chaque hôtel 100€", 25, 100));
+                                 joueur1.envoyerCase(18);
+                                 System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur un carreau chance");
+                                 //on met le solde de joueur2 a 10
+                                 joueur2.setCash(20);
+                                 System.out.println((char)27 +"[1m Nous réduisons le solde du joueur2 à 20€");
+                                 //on déplace joueur2 sur le groupe de joueur1
+                                 System.out.println((char)27 +"[1m Nous déplçons le joueur2 sur l'une des propriétés de joueur1");
+                                 joueur2.envoyerCase(12);
+                                 //joueur1 gagne

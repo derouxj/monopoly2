@@ -358,7 +358,7 @@ public class Monopoly implements java.io.Serializable{
      */
     public void lancerDesPrison() { //lancé si le joueur est emprisonné
         if (getD1() == getD2()) { //le joueur fait un double
-            interface_9.affichageLancerDesPrison(getJoueurCourant().getNomJoueur(),getD1(),getD2());
+            interface_9.affichageLancerDesPrison(getJoueurCourant().getNomJoueur(), getD1(), getD2());
             getJoueurCourant().setPrison(false);
             getJoueurCourant().setNbTourPrison(0);
             faireUnTour();
@@ -366,32 +366,46 @@ public class Monopoly implements java.io.Serializable{
             if (getJoueurCourant().getCartePrison() == 0) {
                 getJoueurCourant().tourPrison();
             } else {
-                boolean boucle = true;
-                while (boucle) {
-                    int choix = interface_9.choisirAvecContexte(getJoueurCourant().getNomJoueur() + " possède " + getJoueurCourant().getCartePrison() + " carte(s) pour se libérer de prison, en utiliser une ?\n1. Oui\n2. Non");
-                    switch (choix) {
-                        case 1: {
-                            getJoueurCourant().retirerCartePrison();
-                            getJoueurCourant().setPrison(false);
-                            getJoueurCourant().setNbTourPrison(0);
-                            faireUnTour();
-                            boucle = false;
-                            break;
+
+                if (!getJoueurCourant().estReel()) {
+                    Robot rb = (Robot) getJoueurCourant();
+                    if (rb.decisionCarteLiberePrison()) {
+                        getJoueurCourant().retirerCartePrison();
+                        getJoueurCourant().setPrison(false);
+                        getJoueurCourant().setNbTourPrison(0);
+                        faireUnTour();
+                    } else {
+                        getJoueurCourant().tourPrison();
+                    }
+                } else {
+
+                    boolean boucle = true;
+                    while (boucle) {
+                        int choix = interface_9.choisirAvecContexte(getJoueurCourant().getNomJoueur() + " possède " + getJoueurCourant().getCartePrison() + " carte(s) pour se libérer de prison, en utiliser une ?\n1. Oui\n2. Non");
+                        switch (choix) {
+                            case 1: {
+                                getJoueurCourant().retirerCartePrison();
+                                getJoueurCourant().setPrison(false);
+                                getJoueurCourant().setNbTourPrison(0);
+                                faireUnTour();
+                                boucle = false;
+                                break;
+                            }
+                            case 2: {
+                                getJoueurCourant().tourPrison();
+                                boucle = false;
+                                break;
+                            }
+                            default:
+                                interface_9.messageErreurScan(false);
+                                break;
                         }
-                        case 2: {
-                            getJoueurCourant().tourPrison();
-                            boucle = false;
-                            break;
-                        }
-                        default:
-                            interface_9.messageErreurScan(false);
-                            break;
                     }
                 }
             }
         }
     }
-
+        
     /**
      *Lance les dés et execute l'action correspondante au carreau
      */
