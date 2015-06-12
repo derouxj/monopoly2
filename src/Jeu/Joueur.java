@@ -1,5 +1,6 @@
 package Jeu;
 
+import UI.Interface;
 import java.util.ArrayList;
 
 public abstract class Joueur implements java.io.Serializable {
@@ -314,13 +315,13 @@ public abstract class Joueur implements java.io.Serializable {
      */
     public void tourPrison() {
         if (this.getNbTourPrison() > 2) {
-            System.out.println(this.getNomJoueur() + " ayant passé trop de tours en prison, a été libéré de prison et doit payer 50€ d'amende.");
+            getMonopoly().interface_9.affichageTourPrison(this.getNomJoueur(), true);
             this.setNbTourPrison(0);
             this.payer(50);
             this.setPrison(false);
             getMonopoly().faireUnTour();
         } else {
-            System.out.println(this.getNomJoueur() + " n'a pas obtenu de double et passe donc un tour en prison, pas de chance !");
+            getMonopoly().interface_9.affichageTourPrison(this.getNomJoueur(), false);
             this.setNbTourPrison(this.getNbTourPrison() + 1);
         }
     }
@@ -342,7 +343,7 @@ public abstract class Joueur implements java.io.Serializable {
             pc.definirProprietaire(null);
         }
         getMonopoly().getJoueurs().remove(this);
-        System.out.println("Le joueur "+getNomJoueur()+" a perdu...Toutes ses propriétés ont été remisent en jeu");
+        getMonopoly().interface_9.affichageVirer(this);
     }
 
 }

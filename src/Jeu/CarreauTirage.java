@@ -1,5 +1,6 @@
 package Jeu;
 
+import UI.Interface;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -20,34 +21,35 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
 
         String monType = ct.getType();
         if (monType.equals("L")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             j.ajouterCartePrison();
         } else if (monType.equals("T")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             j.envoyerCase(ct.getNombreAction());
             j.getPositionCourante().action(j);
         } else if (monType.equals("N")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             this.anniversaire(j);
         } else if (monType.equals("A")) {
-            System.out.println(ct.getDescription());
+
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             if (ct.getNombreAction() > 0) {
                 j.recevoir(ct.getNombreAction());
             } else {
                 j.payer(ct.getNombreAction() * -1);
             }
         } else if (monType.equals("B")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             j.deplacer(ct.getNombreAction());
             j.getPositionCourante().action(j);
         } else if (monType.equals("P")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             j.envoyerPrison();
         } else if (monType.equals("M")) {
-            System.out.println(ct.getDescription());
+            super.getMonopoly().interface_9.affichageDescriptionCarte(ct.getDescription(), false);
             this.reparation(j, ct);
         } else {
-            System.out.println("ERREUR, type non reconnu");
+            super.getMonopoly().interface_9.affichageDescriptionCarte(null, true);
         }
     }
 
@@ -74,7 +76,7 @@ public class CarreauTirage extends CarreauAction implements java.io.Serializable
         prixR = nbH * ct.getReparationHotel() + nbM * ct.getReparationMaison();
         j.payer(prixR);
 
-        System.out.println("Les réparations ont été faites sur " + nbM + " maisons et " + nbH + " hotels pour le prix de " + prixR + "$.");
+        super.getMonopoly().interface_9.affichageReparation(nbM, nbH, prixR);
     }
 
 }

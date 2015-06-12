@@ -29,7 +29,7 @@ public abstract class CarreauPropriete extends Carreau implements java.io.Serial
                 j.addPropriete(this);
             }
         } else {
-            System.out.println("Ce joueur n'a pas assez d'argent pour acheter cette propriété !");
+            super.getMonopoly().interface_9.affichageTropPauvre(j);
         }
     }
     
