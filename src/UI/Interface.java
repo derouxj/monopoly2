@@ -63,7 +63,7 @@ public class Interface implements java.io.Serializable {
                             i++;
                         }
                     }
-                    System.out.println("il vous manque " + (nbmax - i) + " propriété(s) de ce groupe pour pouvoir construire");
+                    System.out.println(" il vous manque " + (nbmax - i) + " propriété(s) de ce groupe pour pouvoir construire");
                 }
 
                 System.out.print("\t\t\t\t- " + p.getNomCarreau());
@@ -220,12 +220,10 @@ public class Interface implements java.io.Serializable {
 
         int nbterrain = 0;
 
-        for (ProprieteAConstruire pc : lesTerrains) {
-            nbterrain++;
-            System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
-        }
-
         if (!monopoly.getJoueurCourant().estReel()) {
+            for (ProprieteAConstruire pc : lesTerrains) {
+                    nbterrain++;
+                }
             Robot rb = (Robot) monopoly.getJoueurCourant();
             int reponseRobot = rb.decisionConstruction(lesTerrains, nbterrain);
 
@@ -247,7 +245,12 @@ public class Interface implements java.io.Serializable {
 
                 boucle = false;
                 try {
+                    nbterrain=0;
                     System.out.println("Sur quel terrain voulez vous construire ?" + "\n\t0 - Aucun");
+                    for (ProprieteAConstruire pc : lesTerrains) {
+                        nbterrain++;
+                        System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
+                    }
 
                     if (sc.hasNextInt()) {
                         choix = sc.nextInt();
@@ -340,7 +343,7 @@ public class Interface implements java.io.Serializable {
     
     public void affichageConstruire(String s, boolean oui) {
         if(oui) {
-            System.out.println("Comme"+s+" a tous les terrains de cette couleur, le loyer est doublé");
+            System.out.println(s+" a tous les terrains de cette couleur, le loyer est doublé");
         } else {
             System.out.println("Vous ne possedez pas toutes les propriétés de ce groupe");
         }
@@ -450,5 +453,9 @@ public class Interface implements java.io.Serializable {
         } else {
             System.out.println("Le joueur " + nomJoueur + " a gagné, gg");
         }
+    }
+
+    public void messageManqueCash() {
+        System.out.println("Vous n'avez pas assez d'argent pour construire");
     }
 }
