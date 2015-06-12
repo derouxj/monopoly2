@@ -49,26 +49,24 @@ public class Interface implements java.io.Serializable {
             System.out.println("\t\tCe joueur n'a aucune propriétés à construire.");
         } else {
             System.out.println("\t\tPropriétés à construire de ce joueur : ");
-            String grpTmp="";
+            String grpTmp = "";
             String grpActuel;
             for (ProprieteAConstruire p : proprietes) {
-                grpActuel=p.getGroupePropriete().getCouleur().toString();
+                grpActuel = p.getGroupePropriete().getCouleur().toString();
                 if (!grpTmp.equals(grpActuel)) {
-                    grpTmp=grpActuel;
-                    System.out.print("\t\t\t"+grpTmp);
-                    int i =0;
+                    grpTmp = grpActuel;
+                    System.out.print("\t\t\t" + grpTmp);
+                    int i = 0;
                     int nbmax = p.getGroupePropriete().getProprietes().size();
-                    for(ProprieteAConstruire pa : p.getGroupePropriete().getProprietes()) {
-                        if(leJoueur== pa.getProprietaire()){
+                    for (ProprieteAConstruire pa : p.getGroupePropriete().getProprietes()) {
+                        if (leJoueur == pa.getProprietaire()) {
                             i++;
                         }
                     }
-                   System.out.println("il vous manque "+(nbmax-i)+" propriété(s) de ce groupe pour pouvoir construire");    
+                    System.out.println("il vous manque " + (nbmax - i) + " propriété(s) de ce groupe pour pouvoir construire");
                 }
-                
-                
-                
-                System.out.print("\t\t\t\t- " + p.getNomCarreau() );
+
+                System.out.print("\t\t\t\t- " + p.getNomCarreau());
                 int nbhotels = p.getNbHotels();
                 int nbmaisons = p.getNbMaisons();
                 if (nbmaisons == 0 && nbhotels == 0) {
@@ -120,7 +118,6 @@ public class Interface implements java.io.Serializable {
         String nom = sc.next();
         return nom;
     }
-
 
     public boolean affecterTypeJoueur() {
         boolean boucle = true;
@@ -177,12 +174,14 @@ public class Interface implements java.io.Serializable {
         String rep;
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) j;
-            boolean decision = rb.decisionAchatPropriete(prop,prix);
-           System.out.println(prop.getClass().getSimpleName());
-             if (decision){
-                 System.out.println(j.getNomJoueur()+" a acheté la propriété "+prop.getNomCarreau());
-            }else{System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+prop.getNomCarreau());}
-             return decision;
+            boolean decision = rb.decisionAchatPropriete(prop, prix);
+            System.out.println(prop.getClass().getSimpleName());
+            if (decision) {
+                System.out.println(j.getNomJoueur() + " a acheté la propriété " + prop.getNomCarreau());
+            } else {
+                System.out.println(j.getNomJoueur() + " n'a pas acheté la propriété " + prop.getNomCarreau());
+            }
+            return decision;
         } else {
 
             do {
@@ -199,7 +198,7 @@ public class Interface implements java.io.Serializable {
                 System.out.println("confirmation de l'achat de " + prop.getNomCarreau() + " par " + j.getNomJoueur());
                 return true;
             } else {
-                System.out.println(j.getNomJoueur()+" n'a pas acheté la propriété "+prop.getNomCarreau());
+                System.out.println(j.getNomJoueur() + " n'a pas acheté la propriété " + prop.getNomCarreau());
                 return false;
             }
         }
@@ -221,17 +220,22 @@ public class Interface implements java.io.Serializable {
 
         int nbterrain = 0;
 
-        nbterrain = 0;
-
         for (ProprieteAConstruire pc : lesTerrains) {
-            nbterrain = nbterrain + 1;
+            nbterrain++;
             System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
         }
 
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) monopoly.getJoueurCourant();
-            System.out.println("Je construit sur le terrain"+rb.decisionConstruction(lesTerrains, nbterrain).getNomCarreau());
-            return rb.decisionConstruction(lesTerrains, nbterrain);
+            int reponseRobot = rb.decisionConstruction(lesTerrains, nbterrain);
+
+            if (reponseRobot == 0) {
+                System.out.println("Je choisir de ne pas construire");
+                return null;
+            } else {
+                System.out.println("Je construit sur le terrain " + lesTerrains.get(reponseRobot - 1).getNomCarreau());
+                return lesTerrains.get(reponseRobot - 1);
+            }
         } else {
 
             int choix = 0;
