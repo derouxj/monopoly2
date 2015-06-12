@@ -249,7 +249,7 @@ public class jeu {
                                  System.out.println((char)27 +"[1m Nous déplaçons le joueur1 sur un carreau chance");
                                  //on met le solde de joueur2 a 10
                                  joueur2.setCash(20);
-                                 System.out.println((char)27 +"[1m Nous réduisons le solde du joueur2 à 20");
+                                 System.out.println((char)27 +"[1m Nous réduisons le solde du joueur2 à 20€");
                                  //on déplace joueur2 sur le groupe de joueur1
                                  System.out.println((char)27 +"[1m Nous déplçons le joueur2 sur l'une des propriétés de joueur1");
                                  joueur2.envoyerCase(12);
