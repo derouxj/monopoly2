@@ -36,6 +36,11 @@ public class Robot extends Joueur {
 
             }
         }
+        for (Gare gare : getGares()) {
+            carreauMemeGroupe++;
+
+        }
+
         return ((getCash() - prix > seuil) && (rand.nextInt((100 - 0 + 1) + 0) + 20 * carreauMemeGroupe < 60) || (getCash() - prix > seuil2 && (rand.nextInt((100 - 0 + 1) + 0) < 70)));
 
     }
