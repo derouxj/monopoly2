@@ -91,6 +91,15 @@ public class jeu {
                             while (!mon.estFini() && !quitter) {
                                 System.out.println("\n1. Jouer!\n2. Quitter(partie sauvegardée)");
                                 choix = sc.nextInt();
+                                
+                                  if (!mon.getJoueurCourant().estReel()) {
+                                      choix=1;
+                                  }
+                                
+                                
+                                
+                                
+                                
                                 switch (choix) {
                                     case 1: {
                                         int compteDouble = 0;

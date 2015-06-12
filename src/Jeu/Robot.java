@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Jeu;
 
 import java.util.LinkedList;
@@ -59,7 +54,7 @@ public class Robot extends Joueur {
     /**
      *
      * @param lesTerrains
-     * @return la décision quant à la construction de maisons sur les terrains
+     * @return la décision quant à la construction d'une maison sur un terrain
      */
     public ProprieteAConstruire decisionConstruction(LinkedList<ProprieteAConstruire> lesTerrains,int nbterrain) {
                Random rand = new Random(); 

@@ -220,16 +220,15 @@ public class Interface implements java.io.Serializable {
 
         int nbterrain = 0;
 
-        nbterrain = 0;
-
         for (ProprieteAConstruire pc : lesTerrains) {
-            nbterrain = nbterrain + 1;
+            nbterrain++;
             System.out.println("\t" + nbterrain + " - " + pc.getNomCarreau());
         }
 
         if (!monopoly.getJoueurCourant().estReel()) {
             Robot rb = (Robot) monopoly.getJoueurCourant();
-            System.out.println("Je construit sur le terrain"+rb.decisionConstruction(lesTerrains, nbterrain).getNomCarreau());
+            System.out.println("test test test"); 
+            System.out.println("Je construit sur le terrain");//+rb.decisionConstruction(lesTerrains, nbterrain).getNomCarreau());
             return rb.decisionConstruction(lesTerrains, nbterrain);
         } else {
 
